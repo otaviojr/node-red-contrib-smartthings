@@ -56,12 +56,12 @@
   "name": "node-red-contrib-smartthings",
   "node-red": {
     "nodes": {
-      "smartthings-config": "sonos/sonos-config.js",
+      "smartthings-config": "smartthings/smartthings-config.js",
     }
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/otaviojr/node-red-contrib-smartthings.git"
   },
-  "version": "0.0.7"
+  "version": "0.0.1"
 }
