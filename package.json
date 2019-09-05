@@ -1,34 +1,37 @@
 {
-  "_from": "node-red-contrib-smartthings@0.0.1",
-  "_id": "node-red-contrib-smartthings@0.0.1",
-  "_inBundle": false,
-  "_integrity": "sha1-7Qcu/UfjhpIWTX3CKGeSpeVzpg0=",
-  "_location": "/node-red-contrib-smartthings",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "version",
-    "registry": true,
-    "raw": "node-red-contrib-smartthings@0.0.1",
-    "name": "node-red-contrib-smartthings",
-    "escapedName": "node-red-contrib-smartthings",
-    "rawSpec": "0.0.1",
-    "saveSpec": null,
-    "fetchSpec": "0.0.1"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
+  "name": "node-red-contrib-smartthings",
+  "version": "0.0.1",
+  "description": "Querying/Controlling Smartthings Devices",
+  "main": "index.js",
+  "keywords": [
+    "node-red",
+    "smartthings",
+    "smarthome",
+    "smart",
+    "home"
   ],
-  "_resolved": "",
-  "_shasum": "",
-  "_spec": "node-red-contrib-smartthings@0.0.1",
-  "_where": "/home/pi/.node-red",
+  "node-red": {
+    "nodes": {
+      "smartthings-config": "smartthings/smartthings-config.js",
+      "smartthings-config": "smartthings/smartthings-onoff.js"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/otaviojr/node-red-contrib-smartthings.git"
+  },
+  "bugs": {
+    "url": "https://github.com/otaviojr/node-red-contrib-smartthings/issues"
+  },
+  "homepage": "https://github.com/otaviojr/node-red-contrib-smartthings",
   "author": {
     "name": "Otávio Ribeiro",
     "email": "otavio.ribeiro@gmail.com"
   },
-  "bugs": {
-    "url": "https://github.com/otaviojr/node-red-contrib-smartthings/issues"
+  "license": "MIT",
+  "dependencies": {
+    "jsbn": "^1.1.0",
+    "promise": "^8.0.3"
   },
   "bundleDependencies": [],
   "contributors": [
@@ -37,31 +40,5 @@
       "email": "otavio.ribeiro@gmail.com"
     }
   ],
-  "dependencies": {
-    "jsbn": "^1.1.0",
-    "promise": "^8.0.3"
-  },
-  "deprecated": false,
-  "description": "Querying/Controlling Smartthings Devices",
-  "homepage": "https://github.com/otaviojr/node-red-contrib-smartthings",
-  "keywords": [
-    "node-red",
-    "smartthings",
-    "smarthome",
-    "smart",
-    "home"
-  ],
-  "license": "MIT",
-  "main": "index.js",
-  "name": "node-red-contrib-smartthings",
-  "node-red": {
-    "nodes": {
-      "smartthings-config": "smartthings/smartthings-config.js"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/otaviojr/node-red-contrib-smartthings.git"
-  },
-  "version": "0.0.1"
+  "deprecated": false
 }
