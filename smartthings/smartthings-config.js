@@ -11,13 +11,12 @@ module.exports = function(RED) {
 
         RED.nodes.createNode(this, config);
 
-        this.token = config.token;
-        this.callbackurl = config.url;
+        this.conf = RED.nodes.getNode(config.conf);
 
         var node = this;
 
-        if(node.token && node.callbackurl){
-          node.st = new SmartThings.SmartThings(token);
+        if(node.conf.token !== undefined && node.conf.callbackurl !== undefined){
+          node.st = new SmartThings.SmartThings(node.conf.token);
 
           node.getSmartthingsApp = function() {
             node.st.apps.getAppDetails("RedNode").then(app => {
@@ -27,18 +26,17 @@ module.exports = function(RED) {
           };
 
           node.createSmartthingsApp = function(){
-
           };
 
           node.getDevices = function(type){
-            console.log("getDevices:token:"+ node.token);
+            console.log("getDevices:token:"+ node.conf.token);
 
             node.st.devices.listDevicesByCapability(type).then(deviceList => {
               console.log(deviceList);
             });
           }
 
-          nodes[node.token] = node;
+          nodes[node.conf.token] = node;
 
           node.getSmartthingsApp();
         }
