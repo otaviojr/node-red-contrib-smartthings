@@ -11,7 +11,7 @@ module.exports = function(RED) {
 
         RED.nodes.createNode(this, config);
 
-        console.log("SmartthingsConfigNode")
+        console.log("SmartthingsConfigNode");
         console.log(config);
 
         this.token = config.token;
@@ -23,7 +23,7 @@ module.exports = function(RED) {
           node.st = new SmartThings.SmartThings(node.token);
 
           node.getSmartthingsApp = function() {
-            node.st.apps.getAppDetails("RedNode").then(app => {
+            node.st.apps.getAppDetails("red-node").then(app => {
               console.log("Searching for Smartthings App");
               console.log(app);
             });
@@ -51,6 +51,9 @@ module.exports = function(RED) {
     RED.nodes.registerType("smartthings-config", SmartthingsConfigNode);
 
     RED.httpAdmin.get('/smartthings/:token/devices/:type', function(req,res){
+
+      console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
+
       if(nodes[req.params.token]){
         let node = nodes[req.params.token];
 
@@ -59,13 +62,13 @@ module.exports = function(RED) {
         node.getDevices(req.params.type);
       } else {
         //TODO: 404 goes here
+        console.log("NODE NOT FOUND");
       }
 
       res.status(404).send();
-
     });
 
-    RED.httpAdmin.get('/smartthings/onoff/webhook', function(req,res){
+    RED.httpAdmin.get('/smartthings/webhook', function(req,res){
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
