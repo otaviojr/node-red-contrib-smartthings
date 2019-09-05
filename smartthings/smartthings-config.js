@@ -11,12 +11,16 @@ module.exports = function(RED) {
 
         RED.nodes.createNode(this, config);
 
-        this.conf = RED.nodes.getNode(config.conf);
+        console.log("SmartthingsConfigNode")
+        console.log(config);
+
+        this.token = config.token;
+        this.callback_url = config.callbackurl;
 
         var node = this;
 
-        if(node.conf.token !== undefined && node.conf.callbackurl !== undefined){
-          node.st = new SmartThings.SmartThings(node.conf.token);
+        if(node.token !== undefined && node.callback_url !== undefined){
+          node.st = new SmartThings.SmartThings(node.token);
 
           node.getSmartthingsApp = function() {
             node.st.apps.getAppDetails("RedNode").then(app => {
@@ -29,16 +33,16 @@ module.exports = function(RED) {
           };
 
           node.getDevices = function(type){
-            console.log("getDevices:token:"+ node.conf.token);
+            console.log("getDevices:token:"+ node.token);
 
             node.st.devices.listDevicesByCapability(type).then(deviceList => {
               console.log(deviceList);
             });
           }
 
-          nodes[node.conf.token] = node;
-
           node.getSmartthingsApp();
+
+          nodes[node.token] = node;
         }
 
         console.log("SmartthingsConfigNode called");

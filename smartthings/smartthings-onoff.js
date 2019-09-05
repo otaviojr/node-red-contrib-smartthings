@@ -8,7 +8,7 @@ module.exports = function(RED) {
         console.log("SmartthingsOnOffNode")
         console.log(config);
 
-        this.conf = config.conf;
+        this.conf = RED.nodes.getNode(config.conf);
         this.name = config.name;
         this.device = config.device;
     }
