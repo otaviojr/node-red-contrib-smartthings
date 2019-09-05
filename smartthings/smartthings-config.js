@@ -1,3 +1,6 @@
+var Promise = require('promise');
+var SmartThings = require("smartthings-node");
+
 module.exports = function(RED) {
 
     var token = "";
@@ -18,11 +21,20 @@ module.exports = function(RED) {
 
     RED.nodes.registerType("smartthings-config", SmartthingsConfigNode);
 
+    function getDevices(token, type){
+      console.log("getDevices:token:"+token);
+      let st = new SmartThings.SmartThings(token);
+      st.devices.listDevicesByCapability(type).then(deviceList => {
+        console.log(deviceList);
+      })
+    }
+
     RED.httpAdmin.get('/smartthings/devices/:type', function(req,res){
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
-        getDevices(token);
+        console.log("List Devices By Type: " + req.params.type)
+        getDevices(token, req.params.type);
         res.status(404).send();
       //}
     });
