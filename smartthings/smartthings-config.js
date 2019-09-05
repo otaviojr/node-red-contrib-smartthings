@@ -14,7 +14,7 @@ module.exports = function(RED) {
         this.callbackurl = config.url;
 
         token = this.token;
-        this.callback_url = callbackurl;
+        this.callback_url = this.callbackurl;
 
         console.log("SmartthingsConfigNode called");
     }
