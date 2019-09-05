@@ -1,9 +1,8 @@
 module.exports = function(RED) {
-    function SonosPlayerNode(config) {
+    function SmartthingsPlayerNode(config) {
         RED.nodes.createNode(this, config);
-        this.ipaddress = config.ipaddress;
-        this.port      = config.port;
+        this.token = config.token;
     }
 
-    RED.nodes.registerType("sonos-config", SonosPlayerNode);
+    RED.nodes.registerType("smartthings-config", SmartthingsPlayerNode);
 };
