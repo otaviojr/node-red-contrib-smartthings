@@ -17,7 +17,7 @@
           var node = this;
 
           var getDevs = function(){
-            $.getJSON('smartthings/'+node.conf.token+'/onoff/devices/switch', function(data){
+            $.getJSON('smartthings/'+node.conf+'/devices/switch', function(data){
               console.log("getDevs");
               console.log(data);
             })

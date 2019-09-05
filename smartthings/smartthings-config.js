@@ -66,12 +66,14 @@ module.exports = function(RED) {
 
     RED.nodes.registerType("smartthings-config", SmartthingsConfigNode);
 
-    RED.httpAdmin.get('/smartthings/:token/devices/:type', function(req,res){
+    RED.httpAdmin.get('/smartthings/:conf/devices/:type', function(req,res){
 
-      console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
+      console.log("HTTP REQUEST: devices: " + req.params.conf + " : " + req.params.type);
 
-      if(nodes[req.params.token]){
-        let node = nodes[req.params.token];
+      let conf = RED.nodes.getNode(req.params.conf);
+
+      if(nodes[conf.token]){
+        let node = nodes[conf.token];
 
         console.log("List Devices By Type: " + req.params.type);
 
