@@ -3,7 +3,8 @@
         category: 'config',
         defaults: {
             name: {value: ""},
-            token: {value: "", required:true}
+            token: {value: "", required:true},
+            callbackurl: {value: "", required:true}
         },
         label: function() {
             return this.name;
@@ -19,6 +20,10 @@
     <div class="form-row">
         <label for="node-config-input-token"><i class="fa fa-globe" aria-hidden="true"></i>Token</label>
         <input type="text" id="node-config-input-token" style="width: 40%;" placeholder="Smartthings Token">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-callbackurl"><i class="fa fa-globe" aria-hidden="true"></i>Callback URL</label>
+        <input type="text" id="node-config-input-callbackurl" style="width: 40%;" placeholder="Smartthings webhook base address">
     </div>
 
 </script>
