@@ -3,9 +3,6 @@ var SmartThings = require("smartthings-node");
 
 module.exports = function(RED) {
 
-    var token = "";
-    var callback_url = "";
-
     function getDevices(token){
       console.log("getDevices:token:"+token);
       let st = new SmartThings.SmartThings(token);
@@ -23,27 +20,8 @@ module.exports = function(RED) {
         this.conf = config.conf;
         this.name = config.name;
         this.device = config.device;
-
-        token = this.conf.token;
-        callback_url = this.conf.callbackurl;
     }
 
     RED.nodes.registerType("smartthings-node-onoff", SmartthingsOnOffNode);
 
-    RED.httpAdmin.get('/smartthings/onoff/webhook', function(req,res){
-      //if (devices[req.params.id]) {
-      //  res.send(devices[req.params.id]);
-      //} else {
-        res.status(404).send();
-      //}
-    });
-
-    RED.httpAdmin.get('/smartthings/onoff/devices', function(req,res){
-      //if (devices[req.params.id]) {
-      //  res.send(devices[req.params.id]);
-      //} else {
-        getDevices(token);
-        res.status(404).send();
-      //}
-    });
 };
