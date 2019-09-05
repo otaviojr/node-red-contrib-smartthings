@@ -13,7 +13,7 @@
   "node-red": {
     "nodes": {
       "smartthings-config": "smartthings/smartthings-config.js",
-      "smartthings-config": "smartthings/smartthings-onoff.js"
+      "smartthings-onoff": "smartthings/smartthings-onoff.js"
     }
   },
   "repository": {
