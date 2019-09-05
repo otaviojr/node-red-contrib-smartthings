@@ -7,14 +7,6 @@ module.exports = function(RED) {
 
     var nodes = {};
 
-    function getSmartthingsApp(token) {
-
-    }
-
-    function createSmartthingsApp(token){
-
-    }
-
     function SmartthingsConfigNode(config) {
 
         RED.nodes.createNode(this, config);
@@ -25,9 +17,6 @@ module.exports = function(RED) {
         var node = this;
 
         if(node.token && node.callbackurl){
-          token = node.token;
-          callback_url = node.callbackurl;
-
           node.st = new SmartThings.SmartThings(token);
 
           node.getSmartthingsApp = function() {
