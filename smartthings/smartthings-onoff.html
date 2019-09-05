@@ -2,11 +2,15 @@
     RED.nodes.registerType('smartthings-node-onoff',{
         category: 'Smartthings',
         defaults: {
+            conf: {value:"", type:"smartthings-config"},
             name: {value: ""},
             device: {value: "", required:true}
         },
+        icon: 'onoff.png',
+        outputs: 1,
+        inputs: 1,
         label: function() {
-            return this.name;
+            return this.name || "OnOffDevice";
         }
     });
 </script>
