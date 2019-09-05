@@ -88,7 +88,7 @@ module.exports = function(RED) {
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
-        res.status(404).send();
+        res.status(200).send("OK");
       //}
     });
 
