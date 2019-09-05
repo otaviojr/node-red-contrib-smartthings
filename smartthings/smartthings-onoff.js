@@ -17,8 +17,12 @@ module.exports = function(RED) {
     function SmartthingsOnOffNode(config) {
         RED.nodes.createNode(this, config);
 
-        token = config.conf.token;
-        callback_url = config.conf.callbackurl;
+        this.conf = config.conf;
+        this.name = config.name;
+        this.device = config.device;
+
+        token = this.conf.token;
+        callback_url = this.conf.callbackurl;
 
         getDevices(token);
     }
