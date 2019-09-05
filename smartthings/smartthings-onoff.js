@@ -23,8 +23,6 @@ module.exports = function(RED) {
 
         token = this.conf.token;
         callback_url = this.conf.callbackurl;
-
-        getDevices(token);
     }
 
     RED.nodes.registerType("smartthings-node-onoff", SmartthingsOnOffNode);
@@ -41,6 +39,7 @@ module.exports = function(RED) {
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
+        getDevices(token);
         res.status(404).send();
       //}
     });
