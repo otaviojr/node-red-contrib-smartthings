@@ -31,7 +31,8 @@
   "license": "MIT",
   "dependencies": {
     "jsbn": "^1.1.0",
-    "promise": "^8.0.3"
+    "promise": "^8.0.3",
+    "smartthings-node": "*"
   },
   "bundleDependencies": [],
   "contributors": [
