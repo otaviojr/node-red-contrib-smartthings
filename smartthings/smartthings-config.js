@@ -22,7 +22,7 @@ module.exports = function(RED) {
 
         if(node.token !== undefined && node.callback_url !== undefined){
 
-          let app_name = "smartthings-red-node-"+node.token;
+          let app_name = "red-node-"+node.token;
           let webhook_url = node.callback_url + "/smartthings/webhook";
 
           node.st = new SmartThings.SmartThings(node.token);
@@ -39,7 +39,8 @@ module.exports = function(RED) {
                           "RedNode",
                           "RedNode Smartthings Integration",
                           webhook_url,
-                          ["AUTOMATION"]).then(app => {
+                          ["AUTOMATION"],
+                          true).then(app => {
                 console.log("App Created");
                 console.log(app);
               });
