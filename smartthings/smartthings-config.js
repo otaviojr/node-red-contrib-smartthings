@@ -22,25 +22,25 @@ module.exports = function(RED) {
 
         if(node.token !== undefined && node.callback_url !== undefined){
 
+          let app_name = "smartthings-red-node-"+node.token;
           let webhook_url = node.callback_url + "/smartthings/webhook";
 
           node.st = new SmartThings.SmartThings(node.token);
 
           node.getSmartthingsApp = function() {
             console.log("Searching for Smartthings App");
-            node.st.apps.getAppDetails("smartthings-red-node").then(app => {
+            node.st.apps.getAppDetails(app_name).then(app => {
               console.log("App Found");
               console.log(app);
               //TODO: update App
             }).catch(err => {
               console.log("App Not Found. Creating app.");
-              node.st.apps.createWebHookApp("smartthings-red-node",
+              node.st.apps.createWebHookApp(app_name,
                           "RedNode",
                           "RedNode Smartthings Integration",
                           webhook_url,
                           ["CONNECTED_SERVICE"],
                           true).then(app => {
-
                 console.log("App Created");
                 console.log(app);
               });
