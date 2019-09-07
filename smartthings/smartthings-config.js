@@ -93,6 +93,12 @@ module.exports = function(RED) {
       //} else {
         console.log("Smartthings Webhook");
         console.log(req.body);
+
+        if(req.body && req.body.lifecycle === "PING"){
+          res.status(200).send("");
+          return;
+        }
+
         res.status(200).send("OK");
       //}
     });
