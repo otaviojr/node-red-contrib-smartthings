@@ -22,7 +22,7 @@ module.exports = function(RED) {
 
         if(node.token !== undefined && node.callback_url !== undefined){
 
-          let app_name = "otaviojr/smartthings-red-node-"+node.token;
+          let app_name = "smartthings-red-node-"+node.token;
           let webhook_url = node.callback_url + "/smartthings/webhook";
 
           node.st = new SmartThings.SmartThings(node.token);
