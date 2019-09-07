@@ -86,7 +86,7 @@ module.exports = function(RED) {
       res.status(404).send();
     });
 
-    RED.httpAdmin.get('/smartthings/webhook', function(req,res){
+    RED.httpAdmin.post('/smartthings/webhook', function(req,res){
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
