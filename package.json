@@ -32,7 +32,8 @@
   "dependencies": {
     "jsbn": "^1.1.0",
     "promise": "^8.0.3",
-    "smartthings-node": "*"
+    "smartthings-node": "*",
+    "http-signature": "*"
   },
   "bundleDependencies": [],
   "contributors": [

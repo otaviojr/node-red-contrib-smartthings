@@ -1,5 +1,6 @@
 var Promise = require('promise');
 var SmartThings = require("smartthings-node");
+var HttpSignature = require('http-signature');
 
 module.exports = function(RED) {
 
@@ -90,6 +91,8 @@ module.exports = function(RED) {
       //if (devices[req.params.id]) {
       //  res.send(devices[req.params.id]);
       //} else {
+        console.log("Smartthings Webhook");
+        console.log(req.body);
         res.status(200).send("OK");
       //}
     });
