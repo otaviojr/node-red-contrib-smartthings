@@ -38,7 +38,7 @@ module.exports = function(RED) {
                           "RedNode",
                           "RedNode Smartthings Integration",
                           webhook_url,
-                          "AUTOMATION",
+                          ["CONNECTED_SERVICE"],
                           true).then(app => {
 
                 console.log("App Created");
