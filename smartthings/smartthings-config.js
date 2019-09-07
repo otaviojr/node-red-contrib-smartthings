@@ -95,7 +95,14 @@ module.exports = function(RED) {
         console.log(req.body);
 
         if(req.body && req.body.lifecycle === "PING"){
-          res.status(200).send("");
+
+          const obj = {
+            pingData: {
+              challenge: req.body.pingData.challenge
+            }
+          };
+
+          res.status(200).send(JSON.stringify(obj));
           return;
         }
 
