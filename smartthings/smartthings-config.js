@@ -89,9 +89,6 @@ module.exports = function(RED) {
     });
 
     RED.httpAdmin.post('/smartthings/webhook', function(req,res){
-      //if (devices[req.params.id]) {
-      //  res.send(devices[req.params.id]);
-      //} else {
         console.log("Smartthings Webhook");
         console.log(req.body);
 
@@ -129,7 +126,7 @@ module.exports = function(RED) {
                   pageId: 1,
                   name: "NodeRed Integration",
                   nextPageId: null,
-                  previousPageId": null,
+                  previousPageId: null,
                   complete: true,
                   sections: [
                     name: "Device Selection",
@@ -158,9 +155,7 @@ module.exports = function(RED) {
             return;
           }
         }
-
         res.status(200).send("OK");
-      //}
     });
 
 };
