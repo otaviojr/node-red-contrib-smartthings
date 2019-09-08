@@ -161,9 +161,7 @@ module.exports = function(RED) {
                         "contactSensor"
                       ],
                       permissions: [
-                        "r",
-                        "x",
-                        "w"
+                        "r"
                       ]
                     },
                     {
@@ -177,9 +175,7 @@ module.exports = function(RED) {
                         "motionSensor"
                       ],
                       permissions: [
-                        "r",
-                        "x",
-                        "w"
+                        "r"
                       ]
                     },
                     {
@@ -193,9 +189,7 @@ module.exports = function(RED) {
                         "temperatureMeasurement"
                       ],
                       permissions: [
-                        "r",
-                        "x",
-                        "w"
+                        "r"
                       ]
                     }]
                   }]
