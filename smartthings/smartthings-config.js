@@ -115,7 +115,7 @@ module.exports = function(RED) {
                   name: "NodeRed",
                   description: "Smartthings NodeRed Integration",
                   id: "node-red-app",
-                  permissions: ["r:devices:*"],
+                  permissions: [],
                   firstPageId: "1"
                 }
               }
@@ -145,9 +145,7 @@ module.exports = function(RED) {
                         "switch"
                       ],
                       permissions: [
-                        "r",
-                        "x",
-                        "w"
+                        "r"
                       ]
                     },
                     {
