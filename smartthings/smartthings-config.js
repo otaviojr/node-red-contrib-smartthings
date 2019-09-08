@@ -128,9 +128,9 @@ module.exports = function(RED) {
                   nextPageId: null,
                   previousPageId: null,
                   complete: true,
-                  sections: [
+                  sections: {
                     name: "Device Selection",
-                    settings: [
+                    settings: {
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
@@ -146,8 +146,8 @@ module.exports = function(RED) {
                         "x",
                         "w"
                       ]
-                    ]
-                  ]
+                    }
+                  }
                 }
               }
             };
