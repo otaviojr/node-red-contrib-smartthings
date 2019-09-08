@@ -102,7 +102,7 @@ module.exports = function(RED) {
 
           res.status(200).send(JSON.stringify(obj));
           return;
-        } else if(req.body && req.body.lifecycle == "CONFIGURATiON"){
+        } else if(req.body && req.body.lifecycle == "CONFIGURATION"){
           console.log("Handling Configuration");
 
           const confData = req.body.configurationData;
