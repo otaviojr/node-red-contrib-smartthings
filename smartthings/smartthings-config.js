@@ -127,24 +127,28 @@ module.exports = function(RED) {
               configurationData: {
                 page: {
                   pageId: 1,
-                  name: "Device Selection",
+                  name: "NodeRed Integration",
                   nextPageId: null,
                   previousPageId": null,
                   complete: true,
                   sections: [
-                    description: "Tap to set",
-                    type: "DEVICE",
-                    required: false,
-                    multiple: true,
-                    capabilities: [
-                      "switch",
-                      "ContactSensor",
-                      "MotionSensor",
-                      "Light"
-                    ],
-                    permissions: [
-                      "r",
-                      "x"
+                    name: "Device Selection",
+                    settings: [
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "switch",
+                        "ContactSensor",
+                        "MotionSensor",
+                        "Light"
+                      ],
+                      permissions: [
+                        "r",
+                        "x",
+                        "w"
+                      ]
                     ]
                   ]
                 }
