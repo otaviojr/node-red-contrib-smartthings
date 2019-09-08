@@ -116,7 +116,7 @@ module.exports = function(RED) {
                   description: "Smartthings NodeRed Integration",
                   id: "node-red-app",
                   permissions: [],
-                  firstPageId: 1
+                  firstPageId: "1"
                 }
               }
             };
