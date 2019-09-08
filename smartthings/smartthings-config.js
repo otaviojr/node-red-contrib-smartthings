@@ -135,8 +135,8 @@ module.exports = function(RED) {
                   sections: [{
                     name: "Device Selection",
                     settings: [{
-                      id: "switchs",
-                      name: "Switchs to sync",
+                      id: "lightSwitch",
+                      name: "Which Switchs?",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
@@ -152,7 +152,7 @@ module.exports = function(RED) {
                     },
                     {
                       id: "contactSensors",
-                      name: "Contact sensors to sync",
+                      name: "Which Contact Sensors?",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
@@ -168,7 +168,7 @@ module.exports = function(RED) {
                     },
                     {
                       id: "motionSensors",
-                      name: "Motion sensors to sync",
+                      name: "Which Motion Sensors?",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
@@ -184,7 +184,7 @@ module.exports = function(RED) {
                     },
                     {
                       id: "temperatureSensors",
-                      name: "Temperature sensors to sync",
+                      name: "Which Temperature Sensors?",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
@@ -202,7 +202,7 @@ module.exports = function(RED) {
                 }
               }
             };
-            res.status(200).send(JSON.stringify(obj));
+            res.status(200).send(obj);
             return;
           }
         } else if(req.body && req.body.lifecycle === "INSTALL"){
