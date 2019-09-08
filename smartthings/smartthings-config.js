@@ -93,7 +93,7 @@ module.exports = function(RED) {
         console.log(req.body);
 
         if(req.body && req.body.lifecycle === "PING"){
-
+          console.log("Handling Ping");
           const obj = {
             pingData: {
               challenge: req.body.pingData.challenge
@@ -103,9 +103,12 @@ module.exports = function(RED) {
           res.status(200).send(JSON.stringify(obj));
           return;
         } else if(req.body && req.body.lifecycle === "CONFIGURATiON"){
+          console.log("Handling Configuration");
+
           const confData = req.body.configurationData;
 
           if(confData.phase === "INITIALIZE"){
+            console.log("Handling Configuration Initialize");
             const obj = {
               configurationData: {
                 initialize: {
@@ -120,6 +123,7 @@ module.exports = function(RED) {
             res.status(200).send(JSON.stringify(obj));
             return;
           } else if(confData.phase === "PAGE") {
+            console.log("Handling Configuration Page");
             const obj = {
               configurationData: {
                 page: {
