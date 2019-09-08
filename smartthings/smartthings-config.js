@@ -105,6 +105,54 @@ module.exports = function(RED) {
 
           res.status(200).send(JSON.stringify(obj));
           return;
+        } else if(req.body && req.body.lifecycle === "CONFIGURATiON"){
+          const confData = req.body.configurationData;
+
+          if(confData.phase === "INITIALIZE"){
+            const obj = {
+              configurationData: {
+                initialize: {
+                  name: "NodeRed",
+                  description: "Smartthings NodeRed Integration",
+                  id: "node-red-app",
+                  permissions: [],
+                  firstPageId: 1
+                }
+              }
+            };
+            res.status(200).send(JSON.stringify(obj));
+            return;
+          } else if(confData.phase === "PAGE") {
+            const obj = {
+              configurationData: {
+                page: {
+                  pageId: 1,
+                  name: "Device Selection",
+                  nextPageId: null,
+                  previousPageId": null,
+                  complete: true,
+                  sections: [
+                    description: "Tap to set",
+                    type: "DEVICE",
+                    required: false,
+                    multiple: true,
+                    capabilities: [
+                      "switch",
+                      "ContactSensor",
+                      "MotionSensor",
+                      "Light"
+                    ],
+                    permissions: [
+                      "r",
+                      "x"
+                    ]
+                  ]
+                }
+              }
+            };
+            res.status(200).send(JSON.stringify(obj));
+            return;
+          }
         }
 
         res.status(200).send("OK");
