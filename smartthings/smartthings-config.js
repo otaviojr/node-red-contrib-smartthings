@@ -100,7 +100,7 @@ module.exports = function(RED) {
             }
           };
 
-          res.status(200).send(JSON.stringify(obj));
+          res.status(200).send(obj);
           return;
         } else if(req.body && req.body.lifecycle === "CONFIGURATION"){
           console.log("Handling Configuration");
@@ -120,7 +120,7 @@ module.exports = function(RED) {
                 }
               }
             };
-            res.status(200).send(JSON.stringify(obj));
+            res.status(200).send(obj);
             return;
           } else if(confData.phase === "PAGE") {
             console.log("Handling Configuration Page");
@@ -210,21 +210,21 @@ module.exports = function(RED) {
             installData: {
             }
           };
-          res.status(200).send(JSON.stringify(obj));
+          res.status(200).send(obj);
           return;
         } else if(req.body && req.body.lifecycle === "UPDATE"){
           const obj = {
             updateData: {
             }
           };
-          res.status(200).send(JSON.stringify(obj));
+          res.status(200).send(obj);
           return;
         } else if(req.body && req.body.lifecycle === "UNINSTALL"){
           const obj = {
             uninstallData: {
             }
           };
-          res.status(200).send(JSON.stringify(obj));
+          res.status(200).send(obj);
           return;
         }
         res.status(200).send();
