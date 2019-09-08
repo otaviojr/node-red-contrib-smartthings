@@ -115,7 +115,7 @@ module.exports = function(RED) {
                   name: "NodeRed",
                   description: "Smartthings NodeRed Integration",
                   id: "node-red-app",
-                  permissions: [],
+                  permissions: ["r:devices:*", "w:devices:*", "x:devices:*"],
                   firstPageId: 1
                 }
               }
@@ -205,8 +205,29 @@ module.exports = function(RED) {
             res.status(200).send(JSON.stringify(obj));
             return;
           }
+        } else if(req.body && req.body.lifecycle === "INSTALL"){
+          const obj = {
+            installData: {
+            }
+          };
+          res.status(200).send(JSON.stringify(obj));
+          return;
+        } else if(req.body && req.body.lifecycle === "UPDATE"){
+          const obj = {
+            updateData: {
+            }
+          };
+          res.status(200).send(JSON.stringify(obj));
+          return;
+        } else if(req.body && req.body.lifecycle === "UNINSTALL"){
+          const obj = {
+            uninstallData: {
+            }
+          };
+          res.status(200).send(JSON.stringify(obj));
+          return;
         }
-        res.status(200).send("OK");
+        res.status(200).send();
     });
 
 };
