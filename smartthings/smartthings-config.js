@@ -134,25 +134,70 @@ module.exports = function(RED) {
                   complete: true,
                   sections: {
                     name: "Device Selection",
-                    settings: {
-                      id: "devices",
-                      name: "Which devices to sync",
+                    settings: [{
+                      id: "switchs",
+                      name: "Switchs to sync",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
                       multiple: true,
                       capabilities: [
-                        "switch",
-                        "ContactSensor",
-                        "MotionSensor",
-                        "Light"
+                        "switch"
                       ],
                       permissions: [
                         "r",
                         "x",
                         "w"
                       ]
-                    }
+                    },
+                    {
+                      id: "contactSensors",
+                      name: "Contact sensors to sync",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "contactSensor"
+                      ],
+                      permissions: [
+                        "r",
+                        "x",
+                        "w"
+                      ]
+                    },
+                    {
+                      id: "motionSensors",
+                      name: "Motion sensors to sync",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "motionSensor"
+                      ],
+                      permissions: [
+                        "r",
+                        "x",
+                        "w"
+                      ]
+                    },
+                    {
+                      id: "temperatureSensors",
+                      name: "Temperature sensors to sync",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "temperatureMeasurement"
+                      ],
+                      permissions: [
+                        "r",
+                        "x",
+                        "w"
+                      ]
+                    }]
                   }
                 }
               }
