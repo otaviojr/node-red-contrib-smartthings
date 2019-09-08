@@ -129,9 +129,9 @@ module.exports = function(RED) {
                 page: {
                   pageId: "1",
                   name: "NodeRed Integration",
-                  nextPageId: null,
-                  previousPageId: null,
-                  complete: 'true',
+                  nextPageId: '',
+                  previousPageId: '',
+                  complete: true,
                   sections: [{
                     name: "Device Selection",
                     settings: [{
