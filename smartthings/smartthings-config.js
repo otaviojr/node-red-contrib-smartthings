@@ -132,7 +132,7 @@ module.exports = function(RED) {
                   nextPageId: null,
                   previousPageId: null,
                   complete: true,
-                  sections: {
+                  sections: [{
                     name: "Device Selection",
                     settings: [{
                       id: "switchs",
@@ -198,7 +198,7 @@ module.exports = function(RED) {
                         "w"
                       ]
                     }]
-                  }
+                  }]
                 }
               }
             };
