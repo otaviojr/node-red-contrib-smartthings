@@ -16,39 +16,14 @@ module.exports = function(RED) {
         console.log(config);
 
         this.token = config.token;
-        this.callback_url = config.callbackurl;
+        this.appid = config.appid;
+        this.pubkey = config.pubkey;
 
         var node = this;
 
-        if(node.token !== undefined && node.callback_url !== undefined){
-
-          let app_name = "red-node-"+node.token;
-          let webhook_url = node.callback_url + "/smartthings/webhook";
+        if(node.token !== undefined){
 
           node.st = new SmartThings.SmartThings(node.token);
-
-          node.getSmartthingsApp = function() {
-            console.log("Searching for Smartthings App");
-            node.st.apps.getAppDetails(app_name).then(app => {
-              console.log("App Found");
-              console.log(app);
-              //TODO: update App
-            }).catch(err => {
-              console.log("App Not Found. Creating app.");
-              node.st.apps.createWebHookApp(app_name,
-                          "RedNode",
-                          "RedNode Smartthings Integration",
-                          webhook_url,
-                          ["AUTOMATION"],
-                          true).then(app => {
-                console.log("App Created");
-                console.log(app);
-              });
-            });
-          };
-
-          node.createSmartthingsApp = function(){
-          };
 
           node.getDevices = function(type){
             console.log("getDevices:token:"+ node.token);
@@ -57,8 +32,6 @@ module.exports = function(RED) {
               console.log(deviceList);
             });
           }
-
-          node.getSmartthingsApp();
 
           nodes[node.token] = node;
         }

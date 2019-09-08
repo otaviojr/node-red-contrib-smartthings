@@ -4,7 +4,8 @@
         defaults: {
             name: {value: ""},
             token: {value: "", required:true},
-            callbackurl: {value: "", required:true}
+            appid: {value: "", required:true},
+            pubkey: {value: "", required:true}
         },
         label: function() {
             return this.name;
@@ -22,8 +23,12 @@
         <input type="text" id="node-config-input-token" style="width: 40%;" placeholder="Smartthings Token">
     </div>
     <div class="form-row">
-        <label for="node-config-input-callbackurl"><i class="fa fa-globe" aria-hidden="true"></i>Callback URL</label>
-        <input type="text" id="node-config-input-callbackurl" style="width: 40%;" placeholder="Smartthings webhook base address">
+        <label for="node-config-input-appid"><i class="fa fa-globe" aria-hidden="true"></i>App ID</label>
+        <input type="text" id="node-config-input-appid" style="width: 40%;" placeholder="Smartthings App ID">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-pubkey"><i class="fa fa-globe" aria-hidden="true"></i>Pub Key</label>
+        <input type="text" id="node-config-input-pubkey" style="width: 40%;" placeholder="Paste the Public Key">
     </div>
 
 </script>
