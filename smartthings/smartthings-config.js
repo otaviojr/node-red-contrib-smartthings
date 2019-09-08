@@ -131,7 +131,7 @@ module.exports = function(RED) {
                   name: "NodeRed Integration",
                   nextPageId: null,
                   previousPageId: null,
-                  complete: true,
+                  complete: 'true',
                   sections: [{
                     name: "Device Selection",
                     settings: [{
