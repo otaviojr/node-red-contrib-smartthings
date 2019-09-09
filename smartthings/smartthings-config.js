@@ -109,13 +109,14 @@ module.exports = function(RED) {
                     name: "Device Selection",
                     settings: [{
                       id: "lightSwitch",
-                      name: "Which Switchs?",
+                      name: "Which Lights?",
                       description: "Tap to set",
                       type: "DEVICE",
                       required: false,
                       multiple: true,
                       capabilities: [
-                        "switch"
+                        "switch",
+                        "light"
                       ],
                       permissions: [
                         "r"
@@ -129,6 +130,19 @@ module.exports = function(RED) {
                       multiple: true,
                       capabilities: [
                         "contactSensor"
+                      ],
+                      permissions: [
+                        "r"
+                      ]
+                    },{
+                      id: "lightSwitchLevel",
+                      name: "Which Levels?",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "switchLevel"
                       ],
                       permissions: [
                         "r"
