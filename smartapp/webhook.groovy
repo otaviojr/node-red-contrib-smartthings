@@ -130,18 +130,18 @@ def subscribeToEvents() {
 def eventHandler(evt) {
     def state_changed = evt.isStateChange()
     def json_body = [
-            id: evt.deviceId,
-            date: evt.isoDate,
-            value: evt.value,
-            name: evt.name,
-            display_name: evt.displayName,
-            description: evt.descriptionText,
-            source: evt.source,
-            state_changed: evt.isStateChange(),
-            physical: evt.isPhysical(),
-            location_id: evt.locationId,
-            hub_id: evt.hubId,
-            smartapp_id: evt.installedSmartAppId
+      id: evt.deviceId,
+      date: evt.isoDate,
+      value: evt.value,
+      name: evt.name,
+      display_name: evt.displayName,
+      description: evt.descriptionText,
+      source: evt.source,
+      state_changed: evt.isStateChange(),
+      physical: evt.isPhysical(),
+      location_id: evt.locationId,
+      hub_id: evt.hubId,
+      smartapp_id: evt.installedSmartAppId
     ]
 
     def json_params = [
