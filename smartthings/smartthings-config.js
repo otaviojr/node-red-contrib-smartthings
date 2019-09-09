@@ -120,6 +120,45 @@ module.exports = function(RED) {
                       permissions: [
                         "r"
                       ]
+                    },{
+                      id: "contactSensors",
+                      name: "Which Contact Sensors?",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "contactSensor"
+                      ],
+                      permissions: [
+                        "r"
+                      ]
+                    },{
+                      id: "motionSensors",
+                      name: "Which Motion Sensors?",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "motionSensor"
+                      ],
+                      permissions: [
+                        "r"
+                      ]
+                    },{
+                      id: "temperatureSensors",
+                      name: "Which Temperature Sensors?",
+                      description: "Tap to set",
+                      type: "DEVICE",
+                      required: false,
+                      multiple: true,
+                      capabilities: [
+                        "temperatureMeasurement"
+                      ],
+                      permissions: [
+                        "r"
+                      ]
                     }]
                   }]
                 }
