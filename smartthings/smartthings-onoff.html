@@ -16,8 +16,8 @@
         oneditprepare: function(){
             var node = this;
 
-            var getDevs = function(){
-                $.getJSON('smartthings/'+node.conf+'/devices/switch', function(data){
+            var getDevs = function(conf){
+                $.getJSON('smartthings/'+conf+'/devices/switch', function(data){
                     console.log("getDevs");
                     console.log(data);
 
@@ -43,7 +43,7 @@
             };
 
             if(node.conf){
-                getDevs();
+                getDevs(node.conf);
             }
 
             $('#node-input-device').change(function(){
@@ -56,7 +56,7 @@
                 console.log("conf changed: ", conf);
                 if (conf != '_ADD_') {
                     setTimeout(function(){
-                        getDevs();
+                        getDevs(conf);
                     },2000);
                 } else {
                     $('#node-input-device').find('option').remove().end();
