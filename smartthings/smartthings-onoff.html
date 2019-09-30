@@ -46,6 +46,11 @@
                 getDevs();
             }
 
+            $('#node-input-device').change(function(){
+                var device = $('#node-input-device').text();
+                $('#node-input-name').val(device);
+            });
+
             $('#node-input-conf').change(function(){
                 var conf = $('#node-input-conf').val();
                 console.log("conf changed: ", conf);
