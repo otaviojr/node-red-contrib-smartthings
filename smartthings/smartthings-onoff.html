@@ -14,16 +14,20 @@
             return this.name || "OnOffDevice";
         },
         oneditprepare: function(){
-          var node = this;
+            var node = this;
 
-          var getDevs = function(){
             $.getJSON('smartthings/'+node.conf+'/devices/switch', function(data){
-              console.log("getDevs");
-              console.log(data);
-            })
-          };
+                console.log("getDevs");
+                console.log(data);
 
-          getDevs();
+                $('#node-input-device').find('option').remove().end();
+                for (d in data) {
+                  $('<option/>',{
+                    value: data[d].deviceId,
+                    text: data[d].lavel
+                  }).appendTo('#node-input-device');
+                }
+            });
         }
     });
 </script>
