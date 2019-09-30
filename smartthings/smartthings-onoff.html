@@ -16,28 +16,47 @@
         oneditprepare: function(){
             var node = this;
 
-            $.getJSON('smartthings/'+node.conf+'/devices/switch', function(data){
-                console.log("getDevs");
-                console.log(data);
+            var getDevs = function(){
+                $.getJSON('smartthings/'+node.conf+'/devices/switch', function(data){
+                    console.log("getDevs");
+                    console.log(data);
 
-                $('#node-input-device').find('option').remove().end();
+                    $('#node-input-device').find('option').remove().end();
 
-                $('<option/>',{
-                  value: "",
-                  text: ""
-                }).appendTo('#node-input-device');
+                    $('<option/>',{
+                      value: "",
+                      text: ""
+                    }).appendTo('#node-input-device');
 
-                for (d in data) {
-                  $('<option/>',{
-                    value: data[d].deviceId,
-                    text: data[d].label
-                  }).appendTo('#node-input-device');
+                    for (d in data) {
+                      $('<option/>',{
+                        value: data[d].deviceId,
+                        text: data[d].label
+                      }).appendTo('#node-input-device');
+                    }
+
+                    if (node.device) {
+                      $('#node-input-device').val(node.device);
+                    }
+
+                });
+            };
+
+            if(node.conf){
+                getDevs();
+            }
+
+            $('#node-input-conf').change(function(){
+                var conf = $('#node-input-conf').val();
+                console.log("conf changed: ", conf);
+                if (conf != '_ADD_') {
+                    setTimeout(function(){
+                        getDevs();
+                    },2000);
+                } else {
+                    $('#node-input-device').find('option').remove().end();
+                    $('#node-input-device').val("");
                 }
-
-                if (node.device) {
-                  $('#node-input-device').val(node.device);
-                }
-
             });
         }
     });
