@@ -57,7 +57,7 @@ module.exports = function(RED) {
 
         node.getDevices(req.params.type).then( deviceList => {
             let ret = [];
-            deviceList.forEach( (device,idx) => {
+            deviceList["items"].forEach( (device, idx) => {
                 ret.push({
                     deviceId: device["deviceId"],
                     label: device["label"],
