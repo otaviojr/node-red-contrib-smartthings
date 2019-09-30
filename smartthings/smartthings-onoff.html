@@ -54,10 +54,9 @@
             }
 
             $('#node-input-device').change(function(){
-                var deviceId = $('#node-input-device option:selected').val();
-                var device = $('#node-input-device option:selected').text();
-                if(deviceId){
-                    $('#node-input-name').val(device);
+                var device = $('#node-input-device option:selected');
+                if(device.get(0) && device.val()){
+                    $('#node-input-name').val(device.text());
                 }
             });
 
