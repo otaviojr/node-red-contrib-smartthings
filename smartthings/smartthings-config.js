@@ -25,9 +25,13 @@ module.exports = function(RED) {
 
           node.getDevices = function(type){
             console.log("getDevices:token:"+ node.token);
-
-            node.st.devices.listDevicesByCapability(type).then(deviceList => {
-              console.log(deviceList);
+            return new Promise( (resolve, reject) => {
+                node.st.devices.listDevicesByCapability(type).then(deviceList => {
+                  console.log(deviceList);
+                  resolve(deviceList);
+              }).catch( err => {
+                  reject(err);
+              });
             });
           }
 
@@ -50,13 +54,14 @@ module.exports = function(RED) {
 
         console.log("List Devices By Type: " + req.params.type);
 
-        node.getDevices(req.params.type);
+        node.getDevices(req.params.type).then( deviceList => {
+            res.status(200).send(deviceList);
+        });
       } else {
         //TODO: 404 goes here
         console.log("NODE NOT FOUND");
+        res.status(404).send();
       }
-
-      res.status(404).send();
     });
 
     RED.httpAdmin.post('/smartthings/webhook', function(req,res){
