@@ -55,7 +55,7 @@
 
             $('#node-input-device').change(function(){
                 var device = $('#node-input-device option:selected');
-                if(device.get(0) && device.val()){
+                if(device.get(0) && device.val() && device.val() !== ""){
                     $('#node-input-name').val(device.text());
                 }
             });
