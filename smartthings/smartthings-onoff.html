@@ -47,7 +47,7 @@
             }
 
             $('#node-input-device').change(function(){
-                var device = $('#node-input-device').text();
+                var device = $('#node-input-device option:selected').text();
                 $('#node-input-name').val(device);
             });
 
