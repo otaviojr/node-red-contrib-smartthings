@@ -21,12 +21,23 @@
                 console.log(data);
 
                 $('#node-input-device').find('option').remove().end();
+
+                $('<option/>',{
+                  value: "",
+                  text: ""
+                }).appendTo('#node-input-device');
+
                 for (d in data) {
                   $('<option/>',{
                     value: data[d].deviceId,
                     text: data[d].label
                   }).appendTo('#node-input-device');
                 }
+
+                if (node.device) {
+                  $('#node-input-device').val(node.device);
+                }
+
             });
         }
     });
