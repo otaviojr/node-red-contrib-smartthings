@@ -21,21 +21,22 @@ module.exports = function(RED) {
 
         if(node.token !== undefined){
 
-          node.st = new SmartThings.SmartThings(node.token);
+            node.st = new SmartThings.SmartThings(node.token);
 
-          node.getDevices = function(type){
-            console.log("getDevices:token:"+ node.token);
-            return new Promise( (resolve, reject) => {
-                node.st.devices.listDevicesByCapability(type).then(deviceList => {
-                  console.log(deviceList);
-                  resolve(deviceList);
-              }).catch( err => {
-                  reject(err);
-              });
-            });
-          }
+            node.getDevices = function(type) {
+                console.log("getDevices:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                    node.st.devices.listDevicesByCapability(type).then(deviceList => {
+                        console.log("Device List:");
+                        console.log(deviceList);
+                        resolve(deviceList);
+                    }).catch( err => {
+                        reject(err);
+                    });
+                });
+            };
 
-          nodes[node.token] = node;
+            nodes[node.token] = node;
         }
 
         console.log("SmartthingsConfigNode called");
@@ -55,7 +56,18 @@ module.exports = function(RED) {
         console.log("List Devices By Type: " + req.params.type);
 
         node.getDevices(req.params.type).then( deviceList => {
-            res.status(200).send(deviceList);
+            let ret = [];
+            deviceList.forEach( (device,idx) => {
+                ret.push({
+                    deviceId: device["deviceId"],
+                    label: device["label"],
+                });
+            });
+            res.status(200).send(ret);
+        }).catch(err => {
+            console.log("NODE ERROR");
+            console.log(err);
+            res.status(500).send("ERROR");
         });
       } else {
         //TODO: 404 goes here
