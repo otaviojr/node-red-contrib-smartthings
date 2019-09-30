@@ -17,6 +17,13 @@
             var node = this;
 
             var getDevs = function(conf){
+
+                $('#node-input-device').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Carregando..."
+                }).appendTo('#node-input-device');
+
                 $.getJSON('smartthings/'+conf+'/devices/switch', function(data){
                     console.log("getDevs");
                     console.log(data);
@@ -55,9 +62,7 @@
                 var conf = $('#node-input-conf').val();
                 console.log("conf changed: ", conf);
                 if (conf != '_ADD_') {
-                    setTimeout(function(){
-                        getDevs(conf);
-                    },2000);
+                    getDevs(conf);
                 } else {
                     $('#node-input-device').find('option').remove().end();
                     $('#node-input-device').val("");
