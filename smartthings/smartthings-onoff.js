@@ -18,7 +18,7 @@ module.exports = function(RED) {
                 console.log(evt);
             });
 
-            this.conf.getDeviceStatus(this.device,"switch").then( (status) => {
+            this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
                 console.log("OnOffDevice("+this.name+") Status Refreshed");
                 console.log(status);
             }).catch( err => {
