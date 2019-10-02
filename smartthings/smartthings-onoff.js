@@ -12,6 +12,12 @@ module.exports = function(RED) {
         this.name = config.name;
         this.device = config.device;
 
+        this.currentStatus = 0;
+
+        this.updateStatus = function(currentStatus){
+            this.currentStatus = currentStatus;
+        }
+
         if(this.conf && this.device){
             this.conf.registerCallback(this, this.device, (evt) => {
                 console.log("OnOffDevice("+this.name+") Callback called");
@@ -20,9 +26,15 @@ module.exports = function(RED) {
 
             this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
                 console.log("OnOffDevice("+this.name+") Status Refreshed");
-                console.log(status);
-            }).catch( err => {
 
+                current = status["switch"]["value"];
+                if(current){
+                    this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
+                }
+
+                console.log(this.currentStatus);
+            }).catch( err => {
+                console.log("Ops... error getting device state");
             });
         }
     }
