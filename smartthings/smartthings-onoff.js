@@ -5,8 +5,8 @@ module.exports = function(RED) {
     function SmartthingsOnOffNode(config) {
         RED.nodes.createNode(this, config);
 
-        console.log("SmartthingsOnOffNode")
-        console.log(config);
+        console.debug("SmartthingsOnOffNode")
+        console.debug(config);
 
         this.conf = RED.nodes.getNode(config.conf);
         this.name = config.name;
@@ -29,15 +29,15 @@ module.exports = function(RED) {
 
         if(this.conf && this.device){
             this.conf.registerCallback(this, this.device, (evt) => {
-                console.log("OnOffDevice("+this.name+") Callback called");
-                console.log(evt);
+                console.debug("OnOffDevice("+this.name+") Callback called");
+                console.debug(evt);
                 if(evt["name"] == "switch"){
                     this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
                 }
             });
 
             this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
-                console.log("OnOffDevice("+this.name+") Status Refreshed");
+                console.debug("OnOffDevice("+this.name+") Status Refreshed");
 
                 current = status["switch"]["value"];
                 if(current){
@@ -49,7 +49,7 @@ module.exports = function(RED) {
 
             this.on('input', msg => {
                 console.debug("Input Message Received");
-                if(msg && msg.payload && !isNAN(msg.payload.value)){
+                if(msg && msg.payload && !isNaN(msg.payload.value)){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",
