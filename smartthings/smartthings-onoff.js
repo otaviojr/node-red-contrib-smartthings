@@ -16,12 +16,17 @@ module.exports = function(RED) {
 
         this.updateStatus = function(currentStatus){
             this.currentStatus = currentStatus;
+            let msg = { payload: this.currentStatus };
+            this.send(msg);
         }
 
         if(this.conf && this.device){
             this.conf.registerCallback(this, this.device, (evt) => {
                 console.log("OnOffDevice("+this.name+") Callback called");
                 console.log(evt);
+                if(evt["name"] == "switch"){
+                    this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
+                }
             });
 
             this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
@@ -31,10 +36,17 @@ module.exports = function(RED) {
                 if(current){
                     this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
                 }
-
-                console.log(this.currentStatus);
             }).catch( err => {
-                console.log("Ops... error getting device state");
+                console.error("Ops... error getting device state");
+            });
+
+            this.on('input', msg => {
+                console.log("Input Message Received:");
+                console.log(msg);
+            });
+
+            this.on('close', () => {
+                console.log("Closed");
             });
         }
     }
