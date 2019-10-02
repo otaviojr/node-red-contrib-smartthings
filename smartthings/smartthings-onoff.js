@@ -48,8 +48,8 @@ module.exports = function(RED) {
             });
 
             this.on('input', msg => {
-                console.log("Input Message Received:");
-                if(msg && msg.payload && msg.payload.value !== undefined){
+                console.debug("Input Message Received");
+                if(msg && msg.payload && !isNAN(msg.payload.value)){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",
