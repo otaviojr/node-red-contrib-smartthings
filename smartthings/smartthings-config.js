@@ -7,6 +7,7 @@ module.exports = function(RED) {
     console.log("SmartthingsConfigNode");
 
     var nodes = {};
+    var callbacks = [];
 
     function SmartthingsConfigNode(config) {
 
@@ -33,6 +34,17 @@ module.exports = function(RED) {
                     }).catch( err => {
                         reject(err);
                     });
+                });
+            };
+
+            node.registerCallback = function(parent, deviceId, callback) {
+                if(!callbacks[deviceId]){
+                    callbacks[deviceId] = [];
+                }
+
+                callbacks[deviceId].push({
+                    parent: parent,
+                    callback: callback
                 });
             };
 
@@ -79,6 +91,14 @@ module.exports = function(RED) {
     RED.httpAdmin.post('/smartthings/webhook', function(req,res){
         console.log("Smartthings Webhook");
         console.log(req.body);
+
+        const callback = callbacks[req.body["id"]];
+
+        if(callback){
+            callback.forEach( (c) => {
+                c.callback.call(c.parent, req.body);
+            });
+        }
 
         res.status(200).send("OK");
     });
