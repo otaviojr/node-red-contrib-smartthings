@@ -37,6 +37,12 @@ module.exports = function(RED) {
                 });
             };
 
+            node.unregisterCallback = function(parent, deviceId, callback) {
+                if(callbacks[deviceId]){
+                    callbacks[deviceId].filter( (c) => c !== callback);
+                }
+            };
+
             node.registerCallback = function(parent, deviceId, callback) {
                 if(!callbacks[deviceId]){
                     callbacks[deviceId] = [];

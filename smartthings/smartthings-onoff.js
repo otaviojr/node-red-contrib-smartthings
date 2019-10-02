@@ -28,13 +28,15 @@ module.exports = function(RED) {
         }
 
         if(this.conf && this.device){
-            this.conf.registerCallback(this, this.device, (evt) => {
+            const callback  = (evt) => {
                 console.debug("OnOffDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["name"] == "switch"){
                     this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
                 }
-            });
+            }
+
+            this.conf.registerCallback(this, this.device, callback);
 
             this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
                 console.debug("OnOffDevice("+this.name+") Status Refreshed");
@@ -63,7 +65,8 @@ module.exports = function(RED) {
             });
 
             this.on('close', () => {
-                console.log("Closed");
+                console.debug("Closed");
+                this.conf.unregisterCallback(this, this.device, callback);
             });
         }
     }
