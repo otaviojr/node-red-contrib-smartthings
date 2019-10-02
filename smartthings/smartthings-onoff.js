@@ -16,7 +16,14 @@ module.exports = function(RED) {
 
         this.updateStatus = function(currentStatus){
             this.currentStatus = currentStatus;
-            let msg = { payload: this.currentStatus };
+            let msg = {
+                topic: "status",
+                payload: {
+                    deviceId: this.device,
+                    name: this.name,
+                    value: this.currentStatus
+                }
+            };
             this.send(msg);
         }
 
