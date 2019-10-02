@@ -50,6 +50,17 @@ module.exports = function(RED) {
             this.on('input', msg => {
                 console.log("Input Message Received:");
                 console.log(msg);
+                if(msg && msg.payload && msg.payload.value){
+                    this.conf.executeDeviceCommand(this.device,[{
+                        component: "main",
+                        capability: "switch",
+                        command: (msg.payload.value == 1 ? "on" : "off")
+                    }]).then( (ret) => {
+                        this.updateStatus(msg.payload.value);
+                    }).catch( (ret) => {
+                        console.error("Error updating device");
+                    });
+                }
             });
 
             this.on('close', () => {

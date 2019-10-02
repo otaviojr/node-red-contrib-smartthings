@@ -61,6 +61,19 @@ module.exports = function(RED) {
                 });
             };
 
+            node.executeDeviceCommand = function(deviceId, commands){
+                console.log("executeDeviceCommand:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                    node.st.devices.executeDeviceCommand(deviceId, commands).then(ret => {
+                        console.log("Execute Command ("+deviceId+"):");
+                        console.log(ret);
+                        resolve(ret);
+                    }).catch( err => {
+                        reject(err);
+                    });
+                });
+            }
+
             nodes[node.token] = node;
         }
 
