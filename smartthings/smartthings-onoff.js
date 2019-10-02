@@ -14,8 +14,15 @@ module.exports = function(RED) {
 
         if(this.conf && this.device){
             this.conf.registerCallback(this, this.device, (evt) => {
-                console.log("OnOffDevice Callback called");
+                console.log("OnOffDevice("+this.name+") Callback called");
                 console.log(evt);
+            });
+
+            this.conf.getDeviceStatus(this.device,"switch").then( (status) => {
+                console.log("OnOffDevice("+this.name+") Status Refreshed");
+                console.log(status);
+            }).catch( err => {
+
             });
         }
     }

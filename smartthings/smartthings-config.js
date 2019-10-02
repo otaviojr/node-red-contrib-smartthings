@@ -27,10 +27,10 @@ module.exports = function(RED) {
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.st.devices.listDevicesByCapability(type).then(deviceList => {
-                        console.log("Device List:");
-                        console.log(deviceList);
-                        resolve(deviceList);
+                    node.st.devices.getDeviceComponentStatus(deviceId, type).then(deviceStatus => {
+                        console.log("Device Status ("+deviceId+"):");
+                        console.log(deviceStatus);
+                        resolve(deviceStatus);
                     }).catch( err => {
                         reject(err);
                     });
@@ -45,6 +45,18 @@ module.exports = function(RED) {
                 callbacks[deviceId].push({
                     parent: parent,
                     callback: callback
+                });
+            };
+
+            node.getDeviceStatus = function(deviceId, type){
+                return new Promise( (resolve, reject) => {
+                    node.st.devices.listDevicesByCapability(type).then(deviceList => {
+                        console.log("Device List:");
+                        console.log(deviceList);
+                        resolve(deviceList);
+                    }).catch( err => {
+                        reject(err);
+                    });
                 });
             };
 
