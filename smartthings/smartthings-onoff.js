@@ -49,8 +49,7 @@ module.exports = function(RED) {
 
             this.on('input', msg => {
                 console.log("Input Message Received:");
-                console.log(msg.payload.value);
-                if(msg && msg.payload && msg.payload.value){
+                if(msg && msg.payload && msg.payload.value !== undefined){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",
