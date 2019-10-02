@@ -49,7 +49,7 @@ module.exports = function(RED) {
 
             this.on('input', msg => {
                 console.log("Input Message Received:");
-                console.log(msg);
+                console.log(msg.payload.value);
                 if(msg && msg.payload && msg.payload.value){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
