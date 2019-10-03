@@ -63,7 +63,10 @@ module.exports = function(RED) {
             levelUnit: "",
             color: [0,0,0],
             hue: 0,
-            saturation: 0
+            saturation: 0,
+            temperature: 0,
+            temperatureUnit: "",
+            unsingColor: true
         }
 
         this.setState = function(value){
@@ -91,6 +94,14 @@ module.exports = function(RED) {
                     name: this.name,
                     value: this.state.color,
                 }
+            },{
+                topic: "temperature",
+                payload: {
+                    deviceId: this.device,
+                    name: this.name,
+                    value: this.state.color,
+                    unit: this.state.temperatureUnit
+                }
             }];
 
             this.send(msg);
@@ -110,10 +121,24 @@ module.exports = function(RED) {
 
                     case "level":
                         state.level = evt["value"];
+                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
                         break;
 
-                    case "color":
-                        state.color = evt["value"];
+                    case "saturation":
+                        state.saturation = evt["value"];
+                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
+                        state.unsingColor = true;
+                        break;
+
+                    case "hue":
+                        state.saturation = evt["value"];
+                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
+                        state.unsingColor = true;
+                        break;
+
+                    case "temperature":
+                        state.temperature = evt["value"];
+                        state.unsingColor = false;
                         break;
                 }
 
@@ -138,9 +163,14 @@ module.exports = function(RED) {
                 }
 
                 if(status["colorControl"] !== undefined){
-                    state.hue = status["colorControl"]["color"]["hue"];
-                    state.saturation = status["colorControl"]["color"]["saturation"];
+                    state.hue = status["colorControl"]["hue"];
+                    state.saturation = status["colorControl"]["saturation"];
                     state.color = hslToRgb(state.hue, state.saturation, this.state.level);
+                }
+
+                if(status["colorTemperature"] !== undefined){
+                    state.temperature = status["colorTemperature"]["colorTemperature"]["value"];
+                    state.saturation = status["colorTemperature"]["colorTemperature"]["unit"];
                 }
                 this.setState(state);
             }).catch( err => {
@@ -186,6 +216,47 @@ module.exports = function(RED) {
                           console.error("Error updating device");
                       });
                       break;
+
+                      case "color":
+                        if(Array.isArray(msg.payload.value)){
+
+                            const hsl = rgbToHsl(msg.payload.value[0], msg.payload.value[1], msg.payload.value[2])
+
+                            this.conf.executeDeviceCommand(this.device,[{
+                                component: "main",
+                                capability: "colorControl",
+                                command: "setHue",
+                                arguments: [
+                                  hsl[0]
+                                ]
+                            },{
+                                component: "main",
+                                capability: "colorControl",
+                                command: "setSaturation",
+                                arguments: [
+                                  hsl[1]
+                                ]
+                            },{
+                                component: "main",
+                                capability: "switchLevel",
+                                command: "setLevel",
+                                arguments: [
+                                  hsl[2]
+                                ]
+                            }]).then( (ret) => {
+                                const state = {
+                                  hue: hsl[0],
+                                  saturation: hsl[1],
+                                  level: hsl[2],
+                                  color: msg.payload.value
+                                }
+
+                                this.setState(state);
+                            }).catch( (ret) => {
+                                console.error("Error updating device");
+                            });
+                        }
+                        break;
                   }
 
                 }

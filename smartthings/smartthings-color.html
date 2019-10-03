@@ -1,17 +1,17 @@
 <script type="text/javascript">
-    RED.nodes.registerType('smartthings-node-level',{
+    RED.nodes.registerType('smartthings-node-color',{
         category: 'Smartthings',
         defaults: {
             conf: {value:"", type:"smartthings-config"},
             name: {value: ""},
             device: {value: "", required:true}
         },
-        paletteLabel: "LevelNode",
-        icon: 'level.png',
-        outputs: 2,
+        paletteLabel: "ColorNode",
+        icon: 'color.png',
+        outputs: 4,
         inputs: 1,
         label: function() {
-            return this.name || "LevelDevice";
+            return this.name || "ColorDevice";
         },
         oneditprepare: function(){
             var node = this;
@@ -24,7 +24,7 @@
                   text: "Carregando..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+conf+'/devices/switchLevel', function(data){
+                $.getJSON('smartthings/'+conf+'/devices/colorControl', function(data){
                     console.log("getDevs");
                     console.log(data);
 
@@ -74,7 +74,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="smartthings-node-level">
+<script type="text/x-red" data-template-name="smartthings-node-color">
     <div class="form-row">
         <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
         <input type="text" id="node-input-conf">
