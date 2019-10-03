@@ -22,8 +22,6 @@ module.exports = function(RED) {
         }
 
         this.setState = function(value){
-            let msg = [];
-
             Object.assign(this.state, value);
 
             let msg = [{
