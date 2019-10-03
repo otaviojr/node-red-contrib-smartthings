@@ -32,7 +32,7 @@ module.exports = function(RED) {
                 console.debug("OnOffDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["name"] == "switch"){
-                    this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
+                    this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
                 }
             }
 
@@ -47,7 +47,7 @@ module.exports = function(RED) {
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state (OnOffDevice)");
-                console.error(err);                
+                console.error(err);
             });
 
             this.on('input', msg => {
