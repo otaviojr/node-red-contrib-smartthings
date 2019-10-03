@@ -47,6 +47,7 @@ module.exports = function(RED) {
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state (OnOffDevice)");
+                console.error(err);                
             });
 
             this.on('input', msg => {
