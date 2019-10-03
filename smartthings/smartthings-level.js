@@ -71,12 +71,12 @@ module.exports = function(RED) {
                 let state = {};
 
                 if(status["switch"] !== undefined && status["switch"]["switch"] !== undefined){
-                    state.value = (status["switch"]["switch"].toLowerCase() === "on" ? 1 : 0);
+                    state.value = (status["switch"]["switch"]["value"].toLowerCase() === "on" ? 1 : 0);
                 }
 
                 if(status["switchLevel"] !== undefined && status["switchLevel"]["level"] !== undefined){
-                    state.level = status["switchLevel"]["level"];
-                    state.levelUnit = status["switchLevel"]["unit"];
+                    state.level = status["switchLevel"]["level"]["value"];
+                    state.levelUnit = status["switchLevel"]["level"]["unit"];
                 }
 
                 this.setState(state);
