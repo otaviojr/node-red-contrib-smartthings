@@ -110,7 +110,7 @@ module.exports = function(RED) {
                     case "level":
                       this.conf.executeDeviceCommand(this.device,[{
                           component: "main",
-                          capability: "level",
+                          capability: "switchLevel",
                           command: "setLevel",
                           arguments: [
                             msg.payload.value
