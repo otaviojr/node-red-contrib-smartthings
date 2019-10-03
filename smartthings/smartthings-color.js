@@ -100,7 +100,7 @@ module.exports = function(RED) {
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    value: this.state.color,
+                    value: this.state.temperature,
                     unit: this.state.temperatureUnit
                 }
             }];
@@ -130,7 +130,7 @@ module.exports = function(RED) {
                         break;
 
                     case "hue":
-                        state.saturation = evt["value"];
+                        state.hue = evt["value"];
                         state.unsingColor = true;
                         break;
 
