@@ -94,9 +94,7 @@ module.exports = function(RED) {
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    red: this.state.color[0],
-                    green: this.state.color[1],
-                    blue: this.state.color[2],
+                    value: this.state.color
                 }
             },{
                 topic: "temperature",
@@ -163,8 +161,8 @@ module.exports = function(RED) {
                 }
 
                 if(status["colorControl"] !== undefined){
-                    state.hue = status["colorControl"]["hue"];
-                    state.saturation = status["colorControl"]["saturation"];
+                    state.hue = status["colorControl"]["hue"]["value"];
+                    state.saturation = status["colorControl"]["saturation"]["value"];
                 }
 
                 if(status["colorTemperature"] !== undefined){
