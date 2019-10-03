@@ -89,6 +89,44 @@ module.exports = function(RED) {
             this.on('input', msg => {
                 console.debug("Input Message Received");
                 console.log(msg);
+
+                if(msg && msg.topic !== undefined){
+                  switch(msg.topic){
+                    case "switch":
+                      this.conf.executeDeviceCommand(this.device,[{
+                          component: "main",
+                          capability: "switch",
+                          command: (msg.payload.value == 1 ? "on" : "off")
+                      }]).then( (ret) => {
+                          const state = {
+                            value: msg.payload.value
+                          }
+                          this.setState(state);
+                      }).catch( (ret) => {
+                          console.error("Error updating device");
+                      });
+                      break;
+
+                    case "level":
+                      this.conf.executeDeviceCommand(this.device,[{
+                          component: "main",
+                          capability: "level",
+                          command: "setLevel",
+                          arguments: [
+                            msg.payload.value
+                          ]
+                      }]).then( (ret) => {
+                          const state = {
+                            level: msg.payload.value
+                          }
+                          this.setState(state);
+                      }).catch( (ret) => {
+                          console.error("Error updating device");
+                      });
+                      break;
+                  }
+
+                }
             });
 
             this.on('close', () => {
