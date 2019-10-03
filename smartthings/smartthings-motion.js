@@ -47,7 +47,7 @@ module.exports = function(RED) {
                     this.updateStatus((current.toLowerCase() == "active" ? 1 : 0));
                 }
             }).catch( err => {
-                console.error("Ops... error getting device state");
+                console.error("Ops... error getting device state (MotionDevice)");
             });
 
             this.on('close', () => {

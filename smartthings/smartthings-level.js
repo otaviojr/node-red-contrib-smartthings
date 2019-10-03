@@ -81,7 +81,7 @@ module.exports = function(RED) {
 
                 this.setState(state);
             }).catch( err => {
-                console.error("Ops... error getting device state");
+                console.error("Ops... error getting device state (LevelDevice)");
             });
 
             this.on('input', msg => {

@@ -51,7 +51,7 @@ module.exports = function(RED) {
                     this.updateStatus(current, unit);
                 }
             }).catch( err => {
-                console.error("Ops... error getting device state");
+                console.error("Ops... error getting device state (IlluminanceDevice)");
             });
 
             this.on('close', () => {

@@ -46,7 +46,7 @@ module.exports = function(RED) {
                     this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
                 }
             }).catch( err => {
-                console.error("Ops... error getting device state");
+                console.error("Ops... error getting device state (OnOffDevice)");
             });
 
             this.on('input', msg => {
