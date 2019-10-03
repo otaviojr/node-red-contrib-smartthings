@@ -31,18 +31,18 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("MotionDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "motion"){
+                if(evt["name"] == "motionSensor"){
                     this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
                 }
             }
 
             this.conf.registerCallback(this, this.device, callback);
 
-            this.conf.getDeviceStatus(this.device,"main/capabilities/motion").then( (status) => {
+            this.conf.getDeviceStatus(this.device,"main/capabilities/motionSensor").then( (status) => {
                 console.debug("MotionDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
-                current = status["motion"]["value"];
+                current = status["motionSensor"]["value"];
                 if(current){
                     this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
                 }
