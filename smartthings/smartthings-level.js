@@ -36,7 +36,8 @@ module.exports = function(RED) {
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    value: this.state.level
+                    value: this.state.level,
+                    unit: this.state.levelUnit
                 }
             }];
 
