@@ -44,7 +44,7 @@ module.exports = function(RED) {
             };
 
             node.registerCallback = function(parent, deviceId, callback) {
-                if(!callbacks[deviceId]){
+                if(callbacks[deviceId] === undefined){
                     callbacks[deviceId] = [];
                 }
 
