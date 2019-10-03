@@ -61,16 +61,17 @@ module.exports = function(RED) {
             value: 0,
             level: 0,
             levelUnit: "",
-            color: [0,0,0],
+            color: [0, 0, 0],
             hue: 0,
             saturation: 0,
             temperature: 0,
             temperatureUnit: "",
             unsingColor: true
-        }
+        };
 
         this.setState = function(value){
             Object.assign(this.state, value);
+
             this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
 
             let msg = [{
@@ -93,7 +94,9 @@ module.exports = function(RED) {
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    value: this.state.color,
+                    red: this.state.color[0],
+                    green: this.state.color[1],
+                    blue: this.state.color[2],
                 }
             },{
                 topic: "temperature",
@@ -106,7 +109,7 @@ module.exports = function(RED) {
             }];
 
             this.send(msg);
-        }
+        };
 
         if(this.conf && this.device){
             const callback  = (evt) => {
