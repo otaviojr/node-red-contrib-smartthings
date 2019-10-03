@@ -17,7 +17,7 @@ module.exports = function(RED) {
         this.updateStatus = function(currentStatus){
             this.currentStatus = currentStatus;
             let msg = {
-                topic: "status",
+                topic: "switch",
                 payload: {
                     deviceId: this.device,
                     name: this.name,
@@ -51,7 +51,7 @@ module.exports = function(RED) {
 
             this.on('input', msg => {
                 console.debug("Input Message Received");
-                if(msg && msg.payload && !isNaN(msg.payload.value)){
+                if(msg && msg.payload && !isNaN(msg.payload.value) && msg.topic === "switch"){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",

@@ -2,10 +2,10 @@ var Promise = require('promise');
 
 module.exports = function(RED) {
 
-    function SmartthingsMotionNode(config) {
+    function SmartthingsIlluminanceNode(config) {
         RED.nodes.createNode(this, config);
 
-        console.debug("SmartthingsMotionNode")
+        console.debug("SmartthingsIlluminanceNode")
         console.debug(config);
 
         this.conf = RED.nodes.getNode(config.conf);
@@ -13,15 +13,18 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.currentStatus = 0;
+        this.currentUnit = "";
 
-        this.updateStatus = function(currentStatus){
+        this.updateStatus = function(currentStatus, currentUnit){
             this.currentStatus = currentStatus;
+            this.currentUnit = currentUnit;
             let msg = {
-                topic: "motion",
+                topic: "illuminance",
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    value: this.currentStatus
+                    value: this.currentStatus,
+                    unit: this.currentUnit
                 }
             };
             this.send(msg);
@@ -29,22 +32,23 @@ module.exports = function(RED) {
 
         if(this.conf && this.device){
             const callback  = (evt) => {
-                console.debug("MotionDevice("+this.name+") Callback called");
+                console.debug("IlluminanceDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "motion"){
-                    this.updateStatus((evt["value"].toLowerCase() == "active" ? 1 : 0));
+                if(evt["name"] == "illuminance"){
+                    this.updateStatus(evt["value"],evt["unit"]);
                 }
             }
 
             this.conf.registerCallback(this, this.device, callback);
 
-            this.conf.getDeviceStatus(this.device,"main/capabilities/motionSensor").then( (status) => {
-                console.debug("MotionDevice("+this.name+") Status Refreshed");
+            this.conf.getDeviceStatus(this.device,"main/capabilities/illuminanceMeasurement").then( (status) => {
+                console.debug("IlluminanceDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
-                current = status["motion"]["value"];
+                current = status["illuminance"]["value"];
+                unit = status["illuminance"]["unit"];
                 if(current){
-                    this.updateStatus((current.toLowerCase() == "active" ? 1 : 0));
+                    this.updateStatus(current, unit);
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state");
@@ -57,6 +61,6 @@ module.exports = function(RED) {
         }
     }
 
-    RED.nodes.registerType("smartthings-node-motion", SmartthingsMotionNode);
+    RED.nodes.registerType("smartthings-node-illuminance", SmartthingsIlluminanceNode);
 
 };
