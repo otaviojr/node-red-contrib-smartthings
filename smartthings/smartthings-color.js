@@ -159,7 +159,7 @@ module.exports = function(RED) {
                 if(status["switchLevel"] !== undefined && status["switchLevel"]["level"] !== undefined){
                     state.level = status["switchLevel"]["level"]["value"];
                     state.levelUnit = status["switchLevel"]["level"]["unit"];
-                    state.color = hslToRgb(state.hue, state.saturation, this.state.level);
+                    state.color = hslToRgb(this.state.hue, this.state.saturation, state.level);
                 }
 
                 if(status["colorControl"] !== undefined){
@@ -170,7 +170,7 @@ module.exports = function(RED) {
 
                 if(status["colorTemperature"] !== undefined){
                     state.temperature = status["colorTemperature"]["colorTemperature"]["value"];
-                    state.saturation = status["colorTemperature"]["colorTemperature"]["unit"];
+                    state.temperatureUnit = status["colorTemperature"]["colorTemperature"]["unit"];
                 }
                 this.setState(state);
             }).catch( err => {
