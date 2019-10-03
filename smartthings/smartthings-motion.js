@@ -31,8 +31,8 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("MotionDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "motionSensor"){
-                    this.updateStatus((evt["value"].toLowerCase() == "on" ? 1 : 0));
+                if(evt["name"] == "motion"){
+                    this.updateStatus((evt["value"].toLowerCase() == "active" ? 1 : 0));
                 }
             }
 
@@ -42,9 +42,9 @@ module.exports = function(RED) {
                 console.debug("MotionDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
-                current = status["motionSensor"]["value"];
+                current = status["motion"]["value"];
                 if(current){
-                    this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
+                    this.updateStatus((current.toLowerCase() == "active" ? 1 : 0));
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state");
