@@ -218,7 +218,7 @@ module.exports = function(RED) {
                       case "color":
                         if(Array.isArray(msg.payload.value)){
 
-                            const hsl = rgbToHsl(msg.payload.value[0], msg.payload.value[1], msg.payload.value[2])
+                            const hsl = rgbToHsl(msg.payload.value[0], msg.payload.value[1], msg.payload.value[2]);
 
                             this.conf.executeDeviceCommand(this.device,[{
                                 component: "main",
