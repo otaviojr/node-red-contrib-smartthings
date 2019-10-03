@@ -71,6 +71,7 @@ module.exports = function(RED) {
 
         this.setState = function(value){
             Object.assign(this.state, value);
+            this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
 
             let msg = [{
                 topic: "switch",
@@ -121,18 +122,15 @@ module.exports = function(RED) {
 
                     case "level":
                         state.level = evt["value"];
-                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
                         break;
 
                     case "saturation":
                         state.saturation = evt["value"];
-                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
                         state.unsingColor = true;
                         break;
 
                     case "hue":
                         state.saturation = evt["value"];
-                        state.color = hslToRgb(state.hue, state.saturation, this.state.level);
                         state.unsingColor = true;
                         break;
 
@@ -159,13 +157,11 @@ module.exports = function(RED) {
                 if(status["switchLevel"] !== undefined && status["switchLevel"]["level"] !== undefined){
                     state.level = status["switchLevel"]["level"]["value"];
                     state.levelUnit = status["switchLevel"]["level"]["unit"];
-                    state.color = hslToRgb(this.state.hue, this.state.saturation, state.level);
                 }
 
                 if(status["colorControl"] !== undefined){
                     state.hue = status["colorControl"]["hue"];
                     state.saturation = status["colorControl"]["saturation"];
-                    state.color = hslToRgb(state.hue, state.saturation, this.state.level);
                 }
 
                 if(status["colorTemperature"] !== undefined){
