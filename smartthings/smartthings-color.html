@@ -6,12 +6,12 @@
             name: {value: ""},
             device: {value: "", required:true}
         },
-        paletteLabel: "ColorNode",
+        paletteLabel: "Color Node",
         icon: 'color.png',
         outputs: 4,
         inputs: 1,
         label: function() {
-            return this.name || "ColorDevice";
+            return this.name || "Color Device";
         },
         oneditprepare: function(){
             var node = this;

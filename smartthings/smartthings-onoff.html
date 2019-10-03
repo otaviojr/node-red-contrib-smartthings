@@ -6,12 +6,12 @@
             name: {value: ""},
             device: {value: "", required:true}
         },
-        paletteLabel: "OnOffNode",
+        paletteLabel: "OnOff Node",
         icon: 'onoff.png',
         outputs: 1,
         inputs: 1,
         label: function() {
-            return this.name || "OnOffDevice";
+            return this.name || "OnOff Device";
         },
         oneditprepare: function(){
             var node = this;
