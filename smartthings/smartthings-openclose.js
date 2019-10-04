@@ -59,5 +59,4 @@ module.exports = function(RED) {
     }
 
     RED.nodes.registerType("smartthings-node-openclose", SmartthingsOpenCloseNode);
-
 };

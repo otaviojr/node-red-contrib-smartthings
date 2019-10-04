@@ -21,7 +21,7 @@
                 $('#node-input-device').find('option').remove().end();
                 $('<option/>',{
                   value: "",
-                  text: "Carregando..."
+                  text: "Loading..."
                 }).appendTo('#node-input-device');
 
                 $.getJSON('smartthings/'+conf+'/devices/colorTemperature', function(data){
