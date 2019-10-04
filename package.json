@@ -17,7 +17,8 @@
       "smartthings-motion": "smartthings/smartthings-motion.js",
       "smartthings-illuminance": "smartthings/smartthings-illuminance.js",
       "smartthings-level": "smartthings/smartthings-level.js",
-      "smartthings-color": "smartthings/smartthings-color.js"
+      "smartthings-color": "smartthings/smartthings-color.js",
+      "smartthings-color-temperature": "smartthings/smartthings-color-temperature.js"
     }
   },
   "repository": {
