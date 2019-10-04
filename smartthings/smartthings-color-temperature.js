@@ -23,8 +23,6 @@ module.exports = function(RED) {
         this.setState = function(value){
             Object.assign(this.state, value);
 
-            this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
-
             let msg = [{
                 topic: "switch",
                 payload: {
