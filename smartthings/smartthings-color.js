@@ -264,6 +264,11 @@ module.exports = function(RED) {
                             arguments: [
                               msg.payload.value
                             ]
+                        }]).then( (ret) => {
+                            const state = {
+                              temperature: msg.payload.value
+                            }
+                            this.setState(state);
                         }).catch( (ret) => {
                             console.error("Error updating device");
                         });
