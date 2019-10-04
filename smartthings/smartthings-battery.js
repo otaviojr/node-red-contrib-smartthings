@@ -2,10 +2,10 @@ var Promise = require('promise');
 
 module.exports = function(RED) {
 
-    function SmartthingsTemperatureNode(config) {
+    function SmartthingsBatteryNode(config) {
         RED.nodes.createNode(this, config);
 
-        console.debug("SmartthingsTemperatureNode")
+        console.debug("SmartthingsBatteryNode")
         console.debug(config);
 
         this.conf = RED.nodes.getNode(config.conf);
@@ -21,7 +21,7 @@ module.exports = function(RED) {
             Object.assign(this.state, value);
 
             let msg = {
-                topic: "temperature",
+                topic: "battery",
                 payload: {
                     deviceId: this.device,
                     name: this.name,
@@ -35,9 +35,9 @@ module.exports = function(RED) {
 
         if(this.conf && this.device){
             const callback  = (evt) => {
-                console.debug("TemperatureDevice("+this.name+") Callback called");
+                console.debug("BatteryDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "temperature"){
+                if(evt["name"] == "battery"){
                     this.setState({
                         value: evt["value"]
                     });
@@ -46,17 +46,17 @@ module.exports = function(RED) {
 
             this.conf.registerCallback(this, this.device, callback);
 
-            this.conf.getDeviceStatus(this.device,"main/capabilities/temperatureMeasurement").then( (status) => {
-                console.debug("TemperatureDevice("+this.name+") Status Refreshed");
+            this.conf.getDeviceStatus(this.device,"main/capabilities/battery").then( (status) => {
+                console.debug("BatteryDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
                 this.setState({
-                    value: status["temperature"]["value"],
-                    unit: status["temperature"]["unit"]
+                    value: status["battery"]["value"],
+                    unit: status["battery"]["unit"]
                 });
 
             }).catch( err => {
-                console.error("Ops... error getting device state (TemperatureDevice)");
+                console.error("Ops... error getting device state (BatteryDevice)");
                 console.error(err);
             });
 
@@ -67,5 +67,5 @@ module.exports = function(RED) {
         }
     }
 
-    RED.nodes.registerType("smartthings-node-temperature", SmartthingsTemperatureNode);
+    RED.nodes.registerType("smartthings-node-battery", SmartthingsBatteryNode);
 };

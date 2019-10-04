@@ -1,17 +1,17 @@
 <script type="text/javascript">
-    RED.nodes.registerType('smartthings-node-temperature',{
+    RED.nodes.registerType('smartthings-node-battery',{
         category: 'Smartthings',
         defaults: {
             conf: {value:"", type:"smartthings-config"},
             name: {value: ""},
             device: {value: "", required:true}
         },
-        paletteLabel: "Temperature Node",
-        icon: 'temperature.png',
+        paletteLabel: "Battery Node",
+        icon: 'battery.png',
         outputs: 1,
         inputs: 0,
         label: function() {
-            return this.name || "Temperature Device";
+            return this.name || "Battery Device";
         },
         oneditprepare: function(){
             var node = this;
@@ -24,7 +24,7 @@
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+conf+'/devices/temperatureMeasurement', function(data){
+                $.getJSON('smartthings/'+conf+'/devices/battery', function(data){
                     console.log("getDevs");
                     console.log(data);
 
@@ -74,7 +74,7 @@
     });
 </script>
 
-<script type="text/x-red" data-template-name="smartthings-node-temperature">
+<script type="text/x-red" data-template-name="smartthings-node-battery">
     <div class="form-row">
         <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
         <input type="text" id="node-input-conf">
