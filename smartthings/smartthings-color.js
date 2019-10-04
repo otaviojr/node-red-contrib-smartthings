@@ -2,6 +2,22 @@ var Promise = require('promise');
 
 module.exports = function(RED) {
 
+    /**
+        hsl/rgb functions reference:
+        https://stackoverflow.com/questions/2353211/hsl-to-rgb-color-conversion
+     */
+
+    /**
+     * Converts an HSL color value to RGB. Conversion formula
+     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+     * Assumes h, s, and l are contained in the set [0, 100] and
+     * returns r, g, and b in the set [0, 255].
+     *
+     * @param   {number}  h       The hue
+     * @param   {number}  s       The saturation
+     * @param   {number}  l       The lightness
+     * @return  {Array}           The RGB representation
+     */
     function hslToRgb(h, s, l) {
         h/=100;s/=100;l/=100;
         let r, g, b;
@@ -27,7 +43,18 @@ module.exports = function(RED) {
 
         return [Math.round(r*255), Math.round(g*255), Math.round(b*255)];
     }
-
+    
+    /**
+     * Converts an RGB color value to HSL. Conversion formula
+     * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
+     * Assumes r, g, and b are contained in the set [0, 255] and
+     * returns h, s, and l in the set [0, 100].
+     *
+     * @param   {number}  r       The red color value
+     * @param   {number}  g       The green color value
+     * @param   {number}  b       The blue color value
+     * @return  {Array}           The HSL representation
+     */
     function rgbToHsl(r, g, b){
         r /= 255, g /= 255, b /= 255;
         const max = Math.max(r, g, b), min = Math.min(r, g, b);
