@@ -22,7 +22,8 @@
       "smartthings-openclose": "smartthings/smartthings-openclose.js",
       "smartthings-temperature": "smartthings/smartthings-temperature.js",
       "smartthings-battery": "smartthings/smartthings-battery.js",
-      "smartthings-humidity": "smartthings/smartthings-humidity.js"      
+      "smartthings-humidity": "smartthings/smartthings-humidity.js",
+      "smartthings-lock": "smartthings/smartthings-lock.js"
     }
   },
   "repository": {

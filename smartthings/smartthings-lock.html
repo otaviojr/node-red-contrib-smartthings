@@ -1,0 +1,92 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smartthings-node-onoff',{
+        category: 'Smartthings',
+        defaults: {
+            conf: {value:"", type:"smartthings-config"},
+            name: {value: ""},
+            device: {value: "", required:true}
+        },
+        paletteLabel: "Lock Node",
+        icon: 'lock.png',
+        outputs: 1,
+        inputs: 1,
+        label: function() {
+            return this.name || "Lock Device";
+        },
+        oneditprepare: function(){
+            var node = this;
+
+            var getDevs = function(conf){
+
+                $('#node-input-device').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Loading..."
+                }).appendTo('#node-input-device');
+
+                $.getJSON('smartthings/'+conf+'/devices/lock', function(data){
+                    console.log("getDevs");
+                    console.log(data);
+
+                    $('#node-input-device').find('option').remove().end();
+
+                    $('<option/>',{
+                      value: "",
+                      text: ""
+                    }).appendTo('#node-input-device');
+
+                    for (d in data) {
+                      $('<option/>',{
+                        value: data[d].deviceId,
+                        text: data[d].label
+                      }).appendTo('#node-input-device');
+                    }
+
+                    if (node.device) {
+                      $('#node-input-device').val(node.device);
+                    }
+
+                });
+            };
+
+            if(node.conf){
+                getDevs(node.conf);
+            }
+
+            $('#node-input-device').change(function(){
+                var device = $('#node-input-device option:selected');
+                if(device.get(0) && device.val() && device.val() !== ""){
+                    $('#node-input-name').val(device.text());
+                }
+            });
+
+            $('#node-input-conf').change(function(){
+                var conf = $('#node-input-conf').val();
+                console.log("conf changed: ", conf);
+                if (conf != '_ADD_') {
+                    getDevs(conf);
+                } else {
+                    $('#node-input-device').find('option').remove().end();
+                    $('#node-input-device').val("");
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="smartthings-node-lock">
+    <div class="form-row">
+        <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
+        <input type="text" id="node-input-conf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-device"><i class="fa fa-tag"></i> Device</label>
+        <select type="text" id="node-input-device" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+        </select>
+    </div>
+</script>
