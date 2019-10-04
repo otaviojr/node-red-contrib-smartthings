@@ -23,11 +23,10 @@ module.exports = function(RED) {
             g = hue2rgb(p, q, h);
             b = hue2rgb(p, q, h - 1/3);
         }
-        return [Math.round(r * 255), Math.round(g * 255), Math.round(b * 255)];
+        return [Math.round(r), Math.round(g), Math.round(b)];
     }
 
     function rgbToHsl(r, g, b){
-        r /= 255, g /= 255, b /= 255;
         const max = Math.max(r, g, b), min = Math.min(r, g, b);
         let h, s, l = (max + min) / 2;
 
