@@ -107,7 +107,7 @@ module.exports = function(RED) {
                     label: device["label"],
                 });
             });
-            res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } )));
+            res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
         }).catch(err => {
             console.log("NODE ERROR");
             console.log(err);
