@@ -21,7 +21,8 @@
       "smartthings-color-temperature": "smartthings/smartthings-color-temperature.js",
       "smartthings-openclose": "smartthings/smartthings-openclose.js",
       "smartthings-temperature": "smartthings/smartthings-temperature.js",
-      "smartthings-battery": "smartthings/smartthings-battery.js"      
+      "smartthings-battery": "smartthings/smartthings-battery.js",
+      "smartthings-humidity": "smartthings/smartthings-humidity.js"      
     }
   },
   "repository": {
