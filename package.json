@@ -19,7 +19,8 @@
       "smartthings-level": "smartthings/smartthings-level.js",
       "smartthings-color": "smartthings/smartthings-color.js",
       "smartthings-color-temperature": "smartthings/smartthings-color-temperature.js",
-      "smartthings-openclose": "smartthings/smartthings-openclose.js"
+      "smartthings-openclose": "smartthings/smartthings-openclose.js",
+      "smartthings-temperature": "smartthings/smartthings-temperature.js"
     }
   },
   "repository": {
