@@ -30,7 +30,7 @@ module.exports = function(RED) {
                     node.st.devices.listDevicesByCapability(type).then(deviceList => {
                         console.log("Device List:");
                         console.log(deviceList);
-                        resolve(deviceList);
+                        resolve(deviceList.sort( (a,b) => a.label > b.label));
                     }).catch( err => {
                         reject(err);
                     });
