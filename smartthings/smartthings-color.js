@@ -255,8 +255,20 @@ module.exports = function(RED) {
                             });
                         }
                         break;
-                  }
 
+                    case "temperature":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
+                            capability: "colorTemperature",
+                            command: "setColorTemperature",
+                            arguments: [
+                              msg.payload.value
+                            ]
+                        }).catch( (ret) => {
+                            console.error("Error updating device");
+                        });
+                        break;
+                  }
                 }
             });
 
