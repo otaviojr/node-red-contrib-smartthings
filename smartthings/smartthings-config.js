@@ -30,7 +30,7 @@ module.exports = function(RED) {
                     node.st.devices.listDevicesByCapability(type).then(deviceList => {
                         console.log("Device List:");
                         console.log(deviceList);
-                        resolve(deviceList.items.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
+                        resolve(deviceList);
                     }).catch( err => {
                         reject(err);
                     });
@@ -107,7 +107,7 @@ module.exports = function(RED) {
                     label: device["label"],
                 });
             });
-            res.status(200).send(ret);
+            res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } )));
         }).catch(err => {
             console.log("NODE ERROR");
             console.log(err);
