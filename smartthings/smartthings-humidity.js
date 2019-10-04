@@ -51,8 +51,8 @@ module.exports = function(RED) {
                 console.debug(status);
 
                 this.setState({
-                    value: status["battery"]["value"],
-                    unit: status["battery"]["unit"]
+                    value: status["humidity"]["value"],
+                    unit: status["humidity"]["unit"]
                 });
 
             }).catch( err => {
