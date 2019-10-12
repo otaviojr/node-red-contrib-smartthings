@@ -98,11 +98,7 @@ module.exports = function(RED) {
             unsingColor: true
         };
 
-        this.setState = function(value){
-            Object.assign(this.state, value);
-
-            this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
-
+        this.reportState = function() {
             let msg = [{
                 topic: "switch",
                 payload: {
@@ -136,6 +132,14 @@ module.exports = function(RED) {
             }];
 
             this.send(msg);
+        };
+
+        this.setState = function(value){
+            Object.assign(this.state, value);
+
+            this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
+
+            this.reportState();
         };
 
         if(this.conf && this.device){
@@ -211,6 +215,10 @@ module.exports = function(RED) {
 
                 if(msg && msg.topic !== undefined){
                   switch(msg.topic){
+                    case "update":
+                        this.reportState();
+                        break;
+
                     case "switch":
                       this.conf.executeDeviceCommand(this.device,[{
                           component: "main",

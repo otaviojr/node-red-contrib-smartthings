@@ -20,9 +20,7 @@ module.exports = function(RED) {
             temperatureUnit: "",
         };
 
-        this.setState = function(value){
-            Object.assign(this.state, value);
-
+        this.reportState = function() {
             let msg = [{
                 topic: "switch",
                 payload: {
@@ -49,6 +47,11 @@ module.exports = function(RED) {
             }];
 
             this.send(msg);
+        }
+
+        this.setState = function(value){
+            Object.assign(this.state, value);
+            this.reportState();
         };
 
         if(this.conf && this.device){
@@ -108,58 +111,62 @@ module.exports = function(RED) {
                 console.log(msg);
 
                 if(msg && msg.topic !== undefined){
-                  switch(msg.topic){
-                    case "switch":
-                      this.conf.executeDeviceCommand(this.device,[{
-                          component: "main",
-                          capability: "switch",
-                          command: (msg.payload.value == 1 ? "on" : "off")
-                      }]).then( (ret) => {
-                          const state = {
-                            value: msg.payload.value
-                          }
-                          this.setState(state);
-                      }).catch( (ret) => {
-                          console.error("Error updating device");
-                      });
-                      break;
+                    switch(msg.topic){
+                        case "update":
+                            this.reportState();
+                            break;
 
-                    case "level":
-                      this.conf.executeDeviceCommand(this.device,[{
-                          component: "main",
-                          capability: "switchLevel",
-                          command: "setLevel",
-                          arguments: [
-                            msg.payload.value
-                          ]
-                      }]).then( (ret) => {
-                          const state = {
-                            level: msg.payload.value
-                          }
-                          this.setState(state);
-                      }).catch( (ret) => {
-                          console.error("Error updating device");
-                      });
-                      break;
+                        case "switch":
+                            this.conf.executeDeviceCommand(this.device,[{
+                                component: "main",
+                                capability: "switch",
+                                command: (msg.payload.value == 1 ? "on" : "off")
+                            }]).then( (ret) => {
+                                const state = {
+                                    value: msg.payload.value
+                                }
+                                this.setState(state);
+                            }).catch( (ret) => {
+                                console.error("Error updating device");
+                            });
+                            break;
 
-                    case "temperature":
-                        this.conf.executeDeviceCommand(this.device,[{
-                            component: "main",
-                            capability: "colorTemperature",
-                            command: "setColorTemperature",
-                            arguments: [
-                              msg.payload.value
-                            ]
-                        }]).then( (ret) => {
-                            const state = {
-                              temperature: msg.payload.value
-                            }
-                            this.setState(state);
-                        }).catch( (ret) => {
-                            console.error("Error updating device");
-                        });
-                        break;
-                  }
+                            case "level":
+                            this.conf.executeDeviceCommand(this.device,[{
+                                component: "main",
+                                capability: "switchLevel",
+                                command: "setLevel",
+                                arguments: [
+                                    msg.payload.value
+                                ]
+                            }]).then( (ret) => {
+                                const state = {
+                                    level: msg.payload.value
+                                }
+                                this.setState(state);
+                            }).catch( (ret) => {
+                                console.error("Error updating device");
+                            });
+                            break;
+
+                            case "temperature":
+                                this.conf.executeDeviceCommand(this.device,[{
+                                    component: "main",
+                                    capability: "colorTemperature",
+                                    command: "setColorTemperature",
+                                    arguments: [
+                                        msg.payload.value
+                                    ]
+                                }]).then( (ret) => {
+                                    const state = {
+                                        temperature: msg.payload.value
+                                    }
+                                    this.setState(state);
+                                }).catch( (ret) => {
+                                    console.error("Error updating device");
+                                });
+                                break;
+                    }
                 }
             });
 

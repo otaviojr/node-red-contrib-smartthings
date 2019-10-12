@@ -17,9 +17,7 @@ module.exports = function(RED) {
             unit: "",
         };
 
-        this.setState = function(value){
-            Object.assign(this.state, value);
-
+        this.reportState = function() {
             let msg = {
                 topic: "humidity",
                 payload: {
@@ -31,6 +29,11 @@ module.exports = function(RED) {
             };
 
             this.send(msg);
+        }
+
+        this.setState = function(value){
+            Object.assign(this.state, value);
+            this.reportState();
         };
 
         if(this.conf && this.device){
@@ -60,6 +63,19 @@ module.exports = function(RED) {
                 console.error(err);
             });
 
+            this.on('input', msg => {
+                console.debug("Input Message Received");
+                console.log(msg);
+
+                if(msg && msg.topic !== undefined){
+                    switch(msg.topic){
+                        case "update":
+                            this.reportState();
+                            break;
+                    }
+                }
+            });
+            
             this.on('close', () => {
                 console.debug("Closed");
                 this.conf.unregisterCallback(this, this.device, callback);

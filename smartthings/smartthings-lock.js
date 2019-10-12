@@ -14,8 +14,7 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.updateStatus = function(currentStatus){
-            this.currentStatus = currentStatus;
+        this.reportStatus = function() {
             let msg = {
                 topic: "lock",
                 payload: {
@@ -25,6 +24,11 @@ module.exports = function(RED) {
                 }
             };
             this.send(msg);
+        }
+
+        this.updateStatus = function(currentStatus){
+            this.currentStatus = currentStatus;
+            this.reportStatus();
         }
 
         if(this.conf && this.device){
@@ -62,6 +66,8 @@ module.exports = function(RED) {
                     }).catch( (ret) => {
                         console.error("Error updating device");
                     });
+                } else if(msg.topic === "update"){
+                    this.reportStatus();
                 }
             });
 

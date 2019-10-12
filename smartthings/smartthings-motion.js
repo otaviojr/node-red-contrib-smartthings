@@ -14,8 +14,7 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.updateStatus = function(currentStatus){
-            this.currentStatus = currentStatus;
+        this.reportStatus = function(){
             let msg = {
                 topic: "motion",
                 payload: {
@@ -25,6 +24,11 @@ module.exports = function(RED) {
                 }
             };
             this.send(msg);
+        }
+
+        this.updateStatus = function(currentStatus){
+            this.currentStatus = currentStatus;
+            this.reportStatus();
         }
 
         if(this.conf && this.device){
@@ -49,6 +53,19 @@ module.exports = function(RED) {
             }).catch( err => {
                 console.error("Ops... error getting device state (MotionDevice)");
                 console.error(err);
+            });
+
+            this.on('input', msg => {
+                console.debug("Input Message Received");
+                console.log(msg);
+
+                if(msg && msg.topic !== undefined){
+                    switch(msg.topic){
+                        case "update":
+                            this.reportStatus();
+                            break;
+                    }
+                }
             });
 
             this.on('close', () => {

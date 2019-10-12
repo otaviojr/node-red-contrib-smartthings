@@ -14,8 +14,7 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.updateStatus = function(currentStatus){
-            this.currentStatus = currentStatus;
+        this.reportStatus = function(){
             let msg = {
                 topic: "contact",
                 payload: {
@@ -25,6 +24,11 @@ module.exports = function(RED) {
                 }
             };
             this.send(msg);
+        }
+
+        this.updateStatus = function(currentStatus){
+            this.currentStatus = currentStatus;
+            this.reportStatus();
         }
 
         if(this.conf && this.device){
@@ -51,6 +55,19 @@ module.exports = function(RED) {
                 console.error(err);
             });
 
+            this.on('input', msg => {
+                console.debug("Input Message Received");
+                console.log(msg);
+
+                if(msg && msg.topic !== undefined){
+                    switch(msg.topic){
+                        case "update":
+                            this.reportStatus();
+                            break;
+                    }
+                }
+            });
+            
             this.on('close', () => {
                 console.debug("Closed");
                 this.conf.unregisterCallback(this, this.device, callback);
