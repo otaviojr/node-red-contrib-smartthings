@@ -17,16 +17,21 @@ module.exports = function(RED) {
             unit: "",
         };
 
-        this.reportState = function(){
+        this.reportState = function(original){
             let msg = {
-                topic: "temperature",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "temperature",
                     name: this.name,
                     value: this.state.value,
                     unit: this.state.unit
                 }
             };
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
 
             this.send(msg);
         }
@@ -70,7 +75,7 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportState();
+                            this.reportState(msg);
                             break;
                     }
                 }

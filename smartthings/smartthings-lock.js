@@ -14,15 +14,21 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.reportStatus = function() {
+        this.reportStatus = function(original) {
             let msg = {
-                topic: "lock",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "lock",
                     name: this.name,
                     value: this.currentStatus
                 }
             };
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
+
             this.send(msg);
         }
 
@@ -67,7 +73,7 @@ module.exports = function(RED) {
                         console.error("Error updating device");
                     });
                 } else if(msg.topic === "update"){
-                    this.reportStatus();
+                    this.reportStatus(msg);
                 }
             });
 

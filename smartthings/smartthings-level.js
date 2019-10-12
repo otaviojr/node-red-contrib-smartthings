@@ -21,23 +21,29 @@ module.exports = function(RED) {
             levelUnit: ""
         }
 
-        this.reportState = function() {
+        this.reportState = function(original) {
             let msg = [{
-                topic: "switch",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "switch",
                     name: this.name,
                     value: this.state.value
                 }
             },{
-                topic: "level",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "level",
                     name: this.name,
                     value: this.state.level,
                     unit: this.state.levelUnit
                 }
             }];
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
 
             this.send(msg);
         }
@@ -97,7 +103,7 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportState();
+                            this.reportState(msg);
                             break;
 
                         case "switch":

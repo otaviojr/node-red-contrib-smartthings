@@ -14,15 +14,21 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.reportStatus = function(){
+        this.reportStatus = function(original){
             let msg = {
-                topic: "motion",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "motion",
                     name: this.name,
                     value: this.currentStatus
                 }
             };
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
+
             this.send(msg);
         }
 
@@ -62,7 +68,7 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportStatus();
+                            this.reportStatus(msg);
                             break;
                     }
                 }

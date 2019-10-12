@@ -98,38 +98,46 @@ module.exports = function(RED) {
             unsingColor: true
         };
 
-        this.reportState = function() {
+        this.reportState = function(original) {
             let msg = [{
-                topic: "switch",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "switch",
                     name: this.name,
                     value: this.state.value
                 }
             },{
-                topic: "level",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "level",
                     name: this.name,
                     value: this.state.level,
                     unit: this.state.levelUnit
                 }
             },{
-                topic: "color",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "color",
                     name: this.name,
                     value: this.state.color
                 }
             },{
-                topic: "temperature",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "temperature",
                     name: this.name,
                     value: this.state.temperature,
                     unit: this.state.temperatureUnit
                 }
             }];
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
 
             this.send(msg);
         };
@@ -216,7 +224,7 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                   switch(msg.topic){
                     case "update":
-                        this.reportState();
+                        this.reportState(msg);
                         break;
 
                     case "switch":

@@ -14,15 +14,21 @@ module.exports = function(RED) {
 
         this.currentStatus = 0;
 
-        this.reportStatus = function(){
+        this.reportStatus = function(original){
             let msg = {
-                topic: "contact",
+                topic: "device",
                 payload: {
                     deviceId: this.device,
+                    deviceType: "contact",
                     name: this.name,
                     value: this.currentStatus
                 }
             };
+
+            if(original !== undefined){
+                Object.assign(msg,original);
+            }
+
             this.send(msg);
         }
 
@@ -62,12 +68,12 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportStatus();
+                            this.reportStatus(msg);
                             break;
                     }
                 }
             });
-            
+
             this.on('close', () => {
                 console.debug("Closed");
                 this.conf.unregisterCallback(this, this.device, callback);
