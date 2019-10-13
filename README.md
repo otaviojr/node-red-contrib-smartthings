@@ -21,6 +21,7 @@ Every device node will have an <b>Account</b> property which must be configured.
 You only have to create this configuration once and use it to all devices.
 
 Configuration Node Edit Window:
+
 ![Configuration Node](/docs/config.png?raw=true "Configuration Node")
 ![Configuration Node](/docs/config1.png?raw=true "Configuration Node")
 
