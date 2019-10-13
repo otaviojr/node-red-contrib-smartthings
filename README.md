@@ -71,7 +71,7 @@ have theirs status updated.
 
 # Device Nodes
 
-Once in NodeRed at Smartthings group you will see many device nodes. Switch, Level, Color, humidity, motion, contact, etc..
+Once in NodeRed at Smartthings group you will see many device nodes. Switch, Level, Color, Humidity, Motion, Contact, etc..
 
 Every node will keep device state. Every time a device state changes a message will
 be send to the output node with the ```msg.topic``` of **device** with all relevant
