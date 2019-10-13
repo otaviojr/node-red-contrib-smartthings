@@ -22,6 +22,7 @@ You only have to create this configuration once and use it to all devices.
 
 Configuration Node Edit Window:
 ![Configuration Node](/docs/config.png?raw=true "Configuration Node")
+![Configuration Node](/docs/config1.png?raw=true "Configuration Node")
 
 As you can see, the only relevant information here is a <b>token</b>
 
