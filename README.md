@@ -18,7 +18,7 @@ or add to your package.json
 
 this is how it will looks like:
 
-![Menu](/docs/menu.png?raw=true "Menu")
+![Menu](/docs/nodered_menu.png?raw=true "Menu")
 
 ***Icon made by [Freepik](https://www.freepik.com/home) from [www.flaticon.com](www.flaticon.com)***
 
