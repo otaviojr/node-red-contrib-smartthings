@@ -20,6 +20,8 @@ this is how it will looks like:
 
 ![Menu](/docs/menu.png?raw=true "Menu")
 
+***Icon made by [Freepik](https://www.freepik.com/home) from [www.flaticon.com](www.flaticon.com)***
+
 # Configuring
 
 Every device node will have an **Account** property which must be configured.
