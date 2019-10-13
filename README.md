@@ -42,12 +42,12 @@ In order to receive events from SmartThings we need to Install a custom SmartApp
 You can find the SmartApp code here:
 [SmartApp](/smartapp/webhook.groovy?raw=true "SmartApp")
 
-To install the SmartApp you can follow this steps:
+To install the SmartApp you can follow these steps:
 
 NOTE: You need to use the SmartThings Classic mobile app for installation AFTER which you can access the installed SmartApps using the new SmartThings mobile app
 
 1. Copy the SmartApp code to clipboard ( Ctrl + C )
-2. Login to the IDE at ![https://graph.api.smartthings.com](https://graph.api.smartthings.com "SmartThings Classic Developer Portal") (create a Samsung Account one if you don't have one)
+2. Login to the IDE at [https://graph.api.smartthings.com](https://graph.api.smartthings.com "SmartThings Classic Developer Portal") (create a Samsung Account one if you don't have one)
 3. Click on "My Locations" and then click on the name of the location where you want to install the SmartApp
 4. Click on "My SmartApps"
 5. Click on "+New SmartApp" on the top right
