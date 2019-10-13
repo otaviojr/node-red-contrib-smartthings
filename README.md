@@ -92,3 +92,5 @@ For example, to turn on a switch you can send a message to the device node:
 ```
 
 This will turn on the device using Smartthings API and send the current status to the output.
+
+This will be documented inside the NodeRed help window for each node.
