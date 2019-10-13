@@ -1,5 +1,7 @@
 # node-red-contrib-smartthings
 
+[![Donate](/docs/donation.png?raw=true)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=65XBWNBZ69ZP4&currency_code=USD&source=url)
+
 This is a smartthings plugin to NodeRed. It allows you to control your devices from NodeRed.
 
 # Installing
@@ -94,3 +96,9 @@ For example, to turn on a switch you can send a message to the device node:
 This will turn on the device using Smartthings API and send the current status to the output.
 
 This will be documented inside the NodeRed help window for each node.
+
+# Donation
+
+And... if this helps you to save time and money. Pay me a coffee. :-)
+
+[![Donate](/docs/donation.png?raw=true)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=65XBWNBZ69ZP4&currency_code=USD&source=url)
