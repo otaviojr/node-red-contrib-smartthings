@@ -66,7 +66,7 @@ NOTE: You need to use the SmartThings Classic mobile app for installation AFTER 
 So, if your NodeRed public address is **nodered.example.com** it will be something like this https://nodered.example.com/smartthings/webhook.
 **You must use HTTPS. Otherwise Smartthings hub will not call our webhook**
 
-2. Select all your devices. Only the selected devices will send events to NodeRed. Those not selected will not
+2. Select all your devices. Only the selected devices will send events back to NodeRed. Those not selected will not
 have theirs status updated.
 
 # Device Nodes
