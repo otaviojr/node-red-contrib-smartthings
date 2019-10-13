@@ -90,3 +90,21 @@
         </select>
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="smartthings-node-battery">
+   <p>This Node represents a battery device.</p>
+   <h3>Input</h3>
+      <p>It must be connected to a http node (POST) with the same path/url you informed at DialogFlow fulfillment.</p>
+   <h3>Outputs</h3>
+      <ol class="node-ports">
+         <li>Intent Nodes
+           <p>It must be directly connected to one or more Intent Nodes. As configured at DialogFlow.</p>
+         </li>
+         <li>http response node
+            <p>It must be connected to a http response node</p>
+         </li>
+      </ol>
+   <h3>Details</h3>
+   <p>This is the first node to be created on the flow. It will control Google Home API, initialize intents and Answers.</p>
+   <p>Intents will be connected to it's first output directly.</p>
+</script>
