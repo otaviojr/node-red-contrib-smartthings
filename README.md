@@ -65,3 +65,30 @@ So, if your NodeRed public address is **nodered.example.com** it will be somethi
 
 2. Select all your devices. Only the selected devices will send events to NodeRed. Those not selected will not
 have theirs status updated.
+
+# Device Nodes
+
+Once in NodeRed at Smartthings group you will see many device nodes. Switch, Level, Color, humidity, motion, contact, etc..
+
+Every node will keep device state. Every time a device state changes a message will
+be send to the output node with the ```msg.topic``` of **device** with all relevant
+informations at the ```msg.payload``` property
+
+All device nodes can receive at its input a message with the ```msg.topic``` of **update** to
+force the output of the current device state. This is useful if handling a request, for example.
+
+Some devices can have their state changed. You can turn on a light, change level and color, or, open
+your door.
+
+For example, to turn on a switch you can send a message to the device node:
+
+```
+{
+    topic: "switch",
+    payload: {
+        value: 1
+    }
+}
+```
+
+This will turn on the device using Smartthings API and send the current status to the output.
