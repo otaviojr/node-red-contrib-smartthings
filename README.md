@@ -2,7 +2,7 @@
 
 [![Donate](/docs/donation.png?raw=true)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=65XBWNBZ69ZP4&currency_code=USD&source=url)
 
-This is a smartthings plugin to NodeRed. It allows you to control your devices from NodeRed.
+This is a smartthings plugin to NodeRed. It allows you to control your devices and get their status using NodeRed.
 
 # Installing
 
