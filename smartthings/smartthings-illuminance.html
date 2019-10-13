@@ -90,3 +90,33 @@
         </select>
     </div>
 </script>
+
+<script type="text/x-red" data-help-name="smartthings-node-illuminance">
+   <p>This Node represents an illuminance device.</p>
+   <h3>Input</h3>
+        <dl class="message-properties">
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd><code>update</code> force the node to output the current state</dd>
+        </dl>
+   <h3>Outputs</h3>
+      <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>value of <code>device</code></dd>
+                <dt>payload <span class="property-type">object</span></dt>
+                <dd>Object with device status</dd>
+             </dl>
+         </li>
+      </ol>
+   <h3>Details</h3>
+   <p>
+       This node represents an illuminance device. It will keep device state. Every time
+       the device state changes at Smartthings, the webhook will send us the current
+       status.
+
+       Besides, if you need it to output the status, like when responding a http request,
+       you can use the <code>topic</code> with the <code>update</code> value to force
+       it to report.
+   </p>
+</script>
