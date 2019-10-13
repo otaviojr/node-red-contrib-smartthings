@@ -16,7 +16,7 @@ or add to your package.json
 
 # Configuring
 
-Every device node will have an <b>Account</b> property which must be configured.
+Every device node will have an **Account** property which must be configured.
 
 You only have to create this configuration once and use it to all devices.
 
@@ -25,12 +25,12 @@ Configuration Node Edit Window:
 ![Configuration Node](/docs/config.png?raw=true "Configuration Node")
 ![Configuration Node](/docs/config1.png?raw=true "Configuration Node")
 
-As you can see, the only relevant information here is a <b>token</b>
+As you can see, the only relevant information here is a **token**
 
 # Token
 
 In order to allow the plugin access your devices using Smartthings API you have
-to provide a <b>token</b>
+to provide a **token**
 
 You can get a Smartthings Token here:
 [https://account.smartthings.com/tokens](https://account.smartthings.com/tokens)
@@ -61,7 +61,7 @@ NOTE: You need to use the SmartThings Classic mobile app for installation AFTER 
 # Configuring the SmartApp
 
 1. The first field is the webhook address. This must be your NodeRed public address followed by /smartthings/Webhook.
-So, if your NodeRed public address is <b>nodered.example.com</b> it will be something like this https://nodered.example.com/smartthings/Webhook.
+So, if your NodeRed public address is **nodered.example.com** it will be something like this https://nodered.example.com/smartthings/Webhook.
 
 2. Select all your devices. Only the selected devices will send events to NodeRed. Those not selected will not
 have theirs status updated.
