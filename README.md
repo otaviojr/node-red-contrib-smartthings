@@ -40,7 +40,7 @@ You can get a Smartthings Token here:
 In order to receive events from SmartThings we need to Install a custom SmartApp.
 
 You can find the SmartApp code here:
-![SmartApp](/smartapp/webhook.groovy?raw=true "SmartApp")
+[SmartApp](/smartapp/webhook.groovy?raw=true "SmartApp")
 
 To install the SmartApp you can follow this steps:
 
