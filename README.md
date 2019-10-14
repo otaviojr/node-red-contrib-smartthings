@@ -26,7 +26,7 @@ this is how it will looks like:
 
 Every device node will have an **Account** property which must be configured.
 
-You only have to create this configuration once and use it to all devices.
+You only have to create this configuration once and use it in all device nodes.
 
 Configuration Node Edit Window:
 
@@ -89,21 +89,24 @@ NodeRed. Those not selected will not have theirs status updated.
 
 # Device Nodes
 
-Once in NodeRed at Smartthings group you will see many device nodes. Switch, Level,
+Once in NodeRed at SmartThings group you will see many devices nodes. Switch, Level,
 Color, Humidity, Motion, Contact, etc..
 
-Every node will keep device state. Every time a device state changes a message will
+Every node will keep its state. Every time a device state changes a message will
 be send to the output node with the ```msg.topic``` of **device** with all relevant
-informations at the ```msg.payload``` property
+informations at the ```msg.payload``` property.
+
+Device changes are received through the webhook you set up at SmartThings Developers
+Portal.
 
 All device nodes can receive at its input a message with the ```msg.topic``` of
-**update** to force the output of the current device state. This is useful if
+**update** to force the output of the current device state. This is useful when
 handling a request, for example.
 
 Some devices can have their state changed. You can turn on a light, change
 level and color, or, open your door.
 
-For example, to turn on a switch you can send a message to the device node:
+For example, to turn on a switch you can send a message to its device node:
 
 ```
 {
