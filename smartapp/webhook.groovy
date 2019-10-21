@@ -128,6 +128,16 @@ def subscribeToEvents() {
 	subscribe(waterSensor, "water", eventHandler)
 }
 
+def doRemotePost(body) {
+	def json_params = [
+  		uri: settings.url,
+  		success: successClosure,
+	  	body: body
+	]
+
+	httpPostJson(json_params);
+}
+
 def doLocalPost(body) {
 	log.debug("Local POST fallback");
 	URI dbUri = new URI(settings.url);
@@ -168,15 +178,9 @@ def eventHandler(evt) {
             smartapp_id: evt.installedSmartAppId
         ]
 
-	def json_params = [
-  		uri: settings.url,
-  		success: successClosure,
-	  	body: json_body
-	]
-
     try {
     	if(settings.local == false){
-			httpPostJson(json_params)
+			doRemotePost(json_body)
         } else {
         	doLocalPost(json_body);
         }
