@@ -85,7 +85,8 @@ address followed by /smartthings/webhook. So, if your NodeRed public address is
 **You must use HTTPS. Otherwise Smartthings hub will not call your webhook**
 
 2. Has been added an option **Local Network**. You can turn this on if NodeRed is running
-inside your local network. Like: http://192.168.0.xx/smartthings/webhook
+inside your local network. Like: http://192.168.0.xx/smartthings/webhook. This option will
+only work with a local ip address.
 
 3. Select all your devices. Only the selected devices will send events back to
 NodeRed. Those not selected will not have theirs status updated.
