@@ -17,6 +17,7 @@ definition(
 preferences {
     section("Webhook URL"){
 		input "url", "text", title: "Webhook URL", description: "Your webhook URL", required: true
+		input "local", "bool", title: "Local Network", description: "Local Network Call", required: true
 	}
 
 	section("Choose what events you want to trigger"){
@@ -82,7 +83,7 @@ def subscribeToEvents() {
 	subscribe(button, "button", eventHandler)
 	subscribe(carbonMonoxideDetector, "carbonMonoxide", eventHandler)
 	subscribe(colorControl, "hue", eventHandler)
-  subscribe(colorControl, "saturation", eventHandler)
+    subscribe(colorControl, "saturation", eventHandler)
 	subscribe(contactSensor, "contact", eventHandler)
 	subscribe(doorControl, "door", eventHandler)
 	subscribe(energyMeter, "energy", eventHandler)
@@ -91,7 +92,7 @@ def subscribeToEvents() {
 	subscribe(indicator, "indicatorStatus", eventHandler)
 	subscribe(lock, "lock", eventHandler)
 	subscribe(mediaController, "activities", eventHandler)
-  subscribe(mediaController, "currentActivity", eventHandler)
+   	subscribe(mediaController, "currentActivity", eventHandler)
 	subscribe(motionSensor, "motion", eventHandler)
 	subscribe(musicPlayer, "status", eventHandler)
 	subscribe(musicPlayer, "level", eventHandler)
@@ -127,36 +128,76 @@ def subscribeToEvents() {
 	subscribe(waterSensor, "water", eventHandler)
 }
 
+def doLocalPost(body) {
+	log.debug("Local POST fallback");
+	URI dbUri = new URI(settings.url);
+
+	def host = convertIPtoHex(dbUri?.getHost());
+	def port = convertPortToHex( (dbUri?.getPort() < 0 ? 80 : dbUri?.getPort()));
+	def path = dbUri?.getPath();
+
+    log.debug(host);
+    log.debug(port);
+    log.debug(path)
+
+	def result = new physicalgraph.device.HubAction(
+    	method: "POST",
+    	path: path,
+    	headers: [
+        	HOST: "$host:$port"
+    	],
+    	body: body
+	);
+    sendHubCommand(result);
+}
+
 def eventHandler(evt) {
     def state_changed = evt.isStateChange()
-    def json_body = [
-      id: evt.deviceId,
-      date: evt.isoDate,
-      value: evt.value,
-      name: evt.name,
-      display_name: evt.displayName,
-      description: evt.descriptionText,
-      source: evt.source,
-      state_changed: evt.isStateChange(),
-      physical: evt.isPhysical(),
-      location_id: evt.locationId,
-      hub_id: evt.hubId,
-      smartapp_id: evt.installedSmartAppId
-    ]
+	def json_body = [
+            id: evt.deviceId,
+			date: evt.isoDate,
+        	value: evt.value,
+            name: evt.name,
+            display_name: evt.displayName,
+            description: evt.descriptionText,
+            source: evt.source,
+            state_changed: evt.isStateChange(),
+            physical: evt.isPhysical(),
+            location_id: evt.locationId,
+            hub_id: evt.hubId,
+            smartapp_id: evt.installedSmartAppId
+        ]
 
-    def json_params = [
-      uri: settings.url,
+	def json_params = [
+  		uri: settings.url,
   		success: successClosure,
 	  	body: json_body
-	  ]
+	]
 
     try {
-		  httpPostJson(json_params)
-    } catch (e) {
+    	if(settings.local == false){
+			httpPostJson(json_params)
+        } else {
+        	doLocalPost(json_body);
+        }
+	} catch (e) {
     	log.error "http post failed: $e"
-    }
+      	log.debug("Trying local:");
+	}
 }
 
 def successClosure = { response ->
   log.debug "Request was successful, $response"
+}
+
+private String convertIPtoHex(ipAddress) {
+	try {
+		ipAddress.tokenize( '.' ).collect {  String.format( '%02X', it.toInteger() ) }.join()
+    } catch(e){
+    	return ipAddress;
+    }
+}
+
+private String convertPortToHex(port) {
+	port.toString().format( '%04X', port.toInteger() )
 }
