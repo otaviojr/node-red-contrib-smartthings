@@ -36,8 +36,8 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("ThermostatDevice("+this.name+") Callback called");
                 console.debug(evt);
-                node.log("ThermostatDevice("+this.name+") Callback called");
-                node.log(evt);
+                node.error("ThermostatDevice("+this.name+") Callback called");
+                node.error(evt);
 
                 let state = {};
 
@@ -66,8 +66,8 @@ module.exports = function(RED) {
             this.conf.getDeviceStatus(this.device,"main").then( (status) => {
                 console.debug("ThermostatDevice("+this.name+") Status Refreshed");
 
-                node.log("ThermostatDevice("+this.name+") Status Refreshed");
-                node.log(status);
+                node.error("ThermostatDevice("+this.name+") Status Refreshed");
+                node.error(status);
 
                 let state = {};
 

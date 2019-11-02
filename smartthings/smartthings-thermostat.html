@@ -4,7 +4,7 @@
         defaults: {
             conf: {value:"", type:"smartthings-config"},
             name: {value: ""},
-            function: {value: "", required:true},
+            capability: {value: "", required:true},
             device: {value: "", required:true}
         },
         paletteLabel: "Thermostat",
@@ -17,7 +17,7 @@
         oneditprepare: function(){
             var node = this;
 
-            var getDevs = function(conf, func){
+            var getDevs = function(conf, capability){
 
                 $('#node-input-device').find('option').remove().end();
                 $('<option/>',{
@@ -25,7 +25,7 @@
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+conf+'/devices/' + func, function(data){
+                $.getJSON('smartthings/'+conf+'/devices/' + capability, function(data){
                     console.log("getDevs");
                     console.log(data);
 
@@ -55,23 +55,23 @@
             }
 
             $('#node-input-device').change(function(){
-                var func = $('#node-input-function').val();
+                var capability = $('#node-input-capability').val();
                 var device = $('#node-input-device option:selected');
 
                 if(device.get(0) && device.val() && device.val() !== ""){
-                    $('#node-input-name').val(device.text() + "("+func+")");
+                    $('#node-input-name').val(device.text() + "("+capability+")");
                 }
             });
 
-            $('#node-input-function').change(function(){
+            $('#node-input-capability').change(function(){
 
                 var conf = $('#node-input-conf').val();
-                var func = $('#node-input-function').val();
+                var capability = $('#node-input-capability').val();
                 console.log("conf: ", conf);
-                console.log("function: ", func);
+                console.log("function: ", capability);
 
                 if (conf != '_ADD_') {
-                    getDevs(conf, func);
+                    getDevs(conf, capability);
                 } else {
                     $('#node-input-device').find('option').remove().end();
                     $('#node-input-device').val("");
@@ -91,13 +91,13 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-function"><i class="fa fa-tag"></i> Function</label>
-        <select type="text" id="node-input-function" style="display: inline-block; width: 70%;">
+        <label for="node-input-capability"><i class="fa fa-tag"></i> Capability</label>
+        <select type="text" id="node-input-capability" style="display: inline-block; width: 70%;">
     		  <option value="empty"></option>
               <option value="thermostat">thermostat</option>
-              <option value="coolingSetpoint">coolingSetpoint</option>
+              <option value="thermostatCoolingSetpoint">thermostatCoolingSetpoint</option>
               <option value="thermostatFanMode">thermostatFanMode</option>
-              <option value="heatingSetpoint">heatingSetpoint</option>
+              <option value="thermostatHeatingSetpoint">thermostatHeatingSetpoint</option>
               <option value="thermostatMode">thermostatMode</option>
               <option value="thermostatOperatingState">thermostatOperatingState</option>
         </select>
