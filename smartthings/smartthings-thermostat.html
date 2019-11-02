@@ -1,0 +1,206 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smartthings-node-thermostat',{
+        category: 'Smartthings',
+        defaults: {
+            conf: {value:"", type:"smartthings-config"},
+            name: {value: ""},
+            function: {value: "", required:true},
+            device: {value: "", required:true}
+        },
+        paletteLabel: "Thermostat",
+        icon: 'thermostat.png',
+        outputs: 4,
+        inputs: 1,
+        label: function() {
+            return this.name || "Thermostat Device";
+        },
+        oneditprepare: function(){
+            var node = this;
+
+            var getDevs = function(conf, func){
+
+                $('#node-input-device').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Loading..."
+                }).appendTo('#node-input-device');
+
+                $.getJSON('smartthings/'+conf+'/devices/' + func, function(data){
+                    console.log("getDevs");
+                    console.log(data);
+
+                    $('#node-input-device').find('option').remove().end();
+
+                    $('<option/>',{
+                      value: "",
+                      text: ""
+                    }).appendTo('#node-input-device');
+
+                    for (d in data) {
+                      $('<option/>',{
+                        value: data[d].deviceId,
+                        text: data[d].label
+                      }).appendTo('#node-input-device');
+                    }
+
+                    if (node.device) {
+                      $('#node-input-device').val(node.device);
+                    }
+
+                });
+            };
+
+            if(node.conf){
+                getDevs(node.conf);
+            }
+
+            $('#node-input-device').change(function(){
+                var func = $('#node-input-function').val();
+                var device = $('#node-input-device option:selected');
+
+                if(device.get(0) && device.val() && device.val() !== ""){
+                    $('#node-input-name').val(device.text() + "("+func+")");
+                }
+            });
+
+            $('#node-input-function').change(function(){
+
+                var conf = $('#node-input-conf').val();
+                var func = $('#node-input-function').val();
+                console.log("conf: ", conf);
+                console.log("function: ", func);
+
+                if (conf != '_ADD_') {
+                    getDevs(conf, func);
+                } else {
+                    $('#node-input-device').find('option').remove().end();
+                    $('#node-input-device').val("");
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="smartthings-node-thermostat">
+    <div class="form-row">
+        <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
+        <input type="text" id="node-input-conf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-function"><i class="fa fa-tag"></i> Function</label>
+        <select type="text" id="node-input-function" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+              <option value="coolingSetpoint">coolingSetpoint</option>
+              <option value="thermostatFanMode">thermostatFanMode</option>
+              <option value="heatingSetpoint">heatingSetpoint</option>
+              <option value="thermostatMode">thermostatMode</option>
+              <option value="thermostatOperatingState">thermostatOperatingState</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-device"><i class="fa fa-tag"></i> Device</label>
+        <select type="text" id="node-input-device" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="smartthings-node-thermostat">
+   <p>This Node represents a thermostat device.</p>
+   <h3>Input</h3>
+        <dl class="message-properties">
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd><code>update</code> force the node to output the current state</dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd>
+                <code>switch</code> can be used to change device state. The message
+                will be something like this:
+                <code>
+                    {
+                        topic: "switch",
+                        payload: {
+                            value: (1|0)
+                        }
+                    }
+                </code>
+            </dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd>
+                <code>level</code> can be used to change device state. The message
+                will be something like this:
+                <code>
+                    {
+                        topic: "level",
+                        payload: {
+                            value: [0 - 100]
+                        }
+                    }
+                </code>
+            </dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd>
+                <code>hue</code> can be used to change device state. The message
+                will be something like this:
+                <code>
+                    {
+                        topic: "hue",
+                        payload: {
+                            value: [0 - 255]
+                        }
+                    }
+                </code>
+            </dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd>
+                <code>saturation</code> can be used to change device state. The message
+                will be something like this:
+                <code>
+                    {
+                        topic: "saturation",
+                        payload: {
+                            value: [0 - 255]
+                        }
+                    }
+                </code>
+            </dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd>
+                <code>temperature</code> can be used to change device state. The message
+                will be something like this:
+                <code>
+                    {
+                        topic: "temperature",
+                        payload: {
+                            value: [2700 - 5600]
+                        }
+                    }
+                </code>
+            </dd>
+        </dl>
+   <h3>Outputs</h3>
+      <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>value of <code>device</code></dd>
+                <dt>payload <span class="property-type">object</span></dt>
+                <dd>Object with device status</dd>
+             </dl>
+         </li>
+      </ol>
+   <h3>Details</h3>
+   <p>
+       This node represents a thermostat device. It will keep device state. Every time
+       the device state changes at Smartthings, the webhook will send us the current
+       state.
+   </p>
+   <p>
+       Besides, if you need it to output the status, like when responding a http request,
+       you can use the <code>topic</code> with the <code>update</code> value to force
+       it to report.
+   </p>
+</script>
