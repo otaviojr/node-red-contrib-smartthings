@@ -2,7 +2,7 @@ There is this common issue about the node not updating its status after the depl
 because of a misconfiguration of the SmartApp.
 
 If you are facing something like this, you can execute the steps below to make sure that SmartApp and 
-Smartthings Webhook is working all right:
+Smartthings Webhook are communicating all right:
 
 ![smartthings_1](https://user-images.githubusercontent.com/2933837/67167032-9518ee00-f36b-11e9-95b2-a7992ff01378.png)
 
