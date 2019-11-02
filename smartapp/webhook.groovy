@@ -51,8 +51,14 @@ preferences {
 		input "switchv", "capability.switch", title: "Switch", required: false, multiple: true
 		input "switchLevel", "capability.switchLevel", title: "Switch Level", required: false, multiple: true
 		input "temperatureMeasurement", "capability.temperatureMeasurement", title: "Temperature Measurement", required: false, multiple: true
+
 		input "thermostat", "capability.thermostat", title: "Thermostat", required: false, multiple: true
 		input "thermostatCoolingSetpoint", "capability.thermostatCoolingSetpoint", title: "Thermostat Cooling Setpoint", required: false, multiple: true
+        input "thermostatFanMode", "capability.thermostatFanMode", title: "Thermostat Fan Mode", required: false, multiple: true
+        input "thermostatHeatingSetpoint", "capability.thermostatHeatingSetpoint", title: "Thermostat Heating Setpoint", required: false, multiple: true
+        input "thermostatMode", "capability.thermostatMode", title: "Thermostat Mode", required: false, multiple: true
+        input "thermostatOperatingState", "capability.thermostatOperatingState", title: "Thermostat Operating State", required: false, multiple: true
+
 		input "threeAxis", "capability.threeAxis", title: "Three Axis", required: false, multiple: true
 		input "touchSensor", "capability.touchSensor", title: "TouchSensor", required: false, multiple: true
 		input "valve", "capability.valve", title: "Valve", required: false, multiple: true
@@ -121,7 +127,13 @@ def subscribeToEvents() {
 	subscribe(thermostat, "thermostatMode", eventHandler)
 	subscribe(thermostat, "thermostatFanMode", eventHandler)
 	subscribe(thermostat, "thermostatOperatingState", eventHandler)
+
+    subscribe(thermostatHeatingSetpoint, "heatingSetpoint", eventHandler)
 	subscribe(thermostatCoolingSetpoint, "coolingSetpoint", eventHandler)
+	subscribe(thermostatMode, "thermostatMode", eventHandler)
+	subscribe(thermostatFanMode, "thermostatFanMode", eventHandler)
+	subscribe(thermostatOperatingState, "thermostatOperatingState", eventHandler)
+
 	subscribe(threeAxis, "threeAxis", eventHandler)
 	subscribe(touchSensor, "touch", eventHandler)
 	subscribe(valve, "contact", eventHandler)
