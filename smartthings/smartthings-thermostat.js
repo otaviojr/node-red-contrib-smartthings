@@ -17,17 +17,96 @@ module.exports = function(RED) {
             onOff: null,
             temperature: null,
             coolingSetpoint: null,
-            thermostatFanMode: null,
             heatingSetpoint: null,
+            thermostatFanMode: null,
             thermostatMode: null,
             thermostatOperatingState: null
         };
 
         this.reportState = function(original) {
-            let msg = [];
+            let msg = [null,null,null,null,null,null,null];
 
             if(original !== undefined){
                 Object.assign(msg,original);
+            }
+
+            if(this.state.onOff != null){
+                msg[0] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "switch",
+                        name: this.name,
+                        value: this.state.onOff
+                    }
+                };
+            }
+            if(this.state.temperature != null){
+                msg[1] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "temperature",
+                        name: this.name,
+                        value: this.state.temperature.value,
+                        unit: this.state.temperature.unit
+                    }
+                };
+            }
+            if(this.state.coolingSetpoint != null){
+                msg[2] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "coolingSetpoint",
+                        name: this.name,
+                        value: this.state.coolingSetpoint
+                    }
+                };
+            }
+            if(this.state.heatingSetpoint != null){
+                msg[3] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "heatingSetpoint",
+                        name: this.name,
+                        value: this.state.heatingSetpoint
+                    }
+                };
+            }
+            if(this.state.thermostatFanMode != null){
+                msg[4] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "thermostatFanMode",
+                        name: this.name,
+                        value: this.state.thermostatFanMode
+                    }
+                };
+            }
+            if(this.state.thermostatMode != null){
+                msg[5] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "thermostatMode",
+                        name: this.name,
+                        value: this.state.thermostatMode
+                    }
+                };
+            }
+            if(this.state.thermostatOperatingState != null){
+                msg[6] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "thermostatOperatingState",
+                        name: this.name,
+                        value: this.state.thermostatOperatingState
+                    }
+                };
             }
 
             this.send(msg);
@@ -43,8 +122,8 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("ThermostatDevice("+this.name+") Callback called");
                 console.debug(evt);
-                node.error("ThermostatDevice("+this.name+") Callback called");
-                node.error(evt);
+                this.error("ThermostatDevice("+this.name+") Callback called");
+                this.error(evt);
 
                 let state = {};
 
@@ -98,7 +177,7 @@ module.exports = function(RED) {
                 console.error("Ops... error getting device state (ThermostatDevice)");
                 console.error(err);
                 this.error("Ops... error getting device state (ThermostatDevice)");
-                this.error(err);                
+                this.error(err);
             });
 
             this.on('input', msg => {
