@@ -96,8 +96,8 @@ NodeRed. Those not selected will not have theirs status updated.
 If you are having any issue with the nodes not updating after the deploy, usually,
 it is a misconfiguration of the SmartApp.
 
-To debug the communication between the SmartApp and the NodeRed WebHook you can get
-a look here:
+To debug the communication between the SmartApp and the NodeRed WebHook you can follow
+these steps:
 
 https://github.com/otaviojr/node-red-contrib-smartthings/blob/master/DEBUG_SMARTAPP.md
 
