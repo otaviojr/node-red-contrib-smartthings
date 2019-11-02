@@ -1,5 +1,5 @@
 There is this common issue about the node not updating its status after the deploy. Usually this happens
-because of a missconfiguration of the SmartApp.
+because of a misconfiguration of the SmartApp.
 
 If you are facing something like this, you can execute the steps below to make sure that SmartApp and 
 Smartthings Webhook is working all right:
