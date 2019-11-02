@@ -91,6 +91,16 @@ only work with a local ip address.
 3. Select all your devices. Only the selected devices will send events back to
 NodeRed. Those not selected will not have theirs status updated.
 
+# Debuging the SmartApp
+
+If you are having any issue with the nodes not updating after the deploy, usually,
+it is a misconfiguration of the SmartApp.
+
+To debug the communication between the SmartApp and the NodeRed WebHook you can get
+a look here:
+
+https://github.com/otaviojr/node-red-contrib-smartthings/blob/master/DEBUG_SMARTAPP.md
+
 # Device Nodes
 
 Once in NodeRed at SmartThings group you will see many devices nodes. Switch, Level,
