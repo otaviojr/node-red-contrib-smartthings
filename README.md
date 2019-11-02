@@ -91,7 +91,7 @@ only work with a local ip address.
 3. Select all your devices. Only the selected devices will send events back to
 NodeRed. Those not selected will not have theirs status updated.
 
-# Debuging the SmartApp
+# Debugging the SmartApp
 
 If you are having any issue with the nodes not updating after the deploy, usually,
 it is a misconfiguration of the SmartApp.
