@@ -14,6 +14,13 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.state = {
+            onOff: null,
+            temperature: null,
+            coolingSetpoint: null,
+            thermostatFanMode: null,
+            heatingSetpoint: null,
+            thermostatMode: null,
+            thermostatOperatingState: null
         };
 
         this.reportState = function(original) {
@@ -66,8 +73,8 @@ module.exports = function(RED) {
             this.conf.getDeviceStatus(this.device,"main").then( (status) => {
                 console.debug("ThermostatDevice("+this.name+") Status Refreshed");
 
-                node.error("ThermostatDevice("+this.name+") Status Refreshed");
-                node.error(status);
+                this.error("ThermostatDevice("+this.name+") Status Refreshed");
+                this.error(status);
 
                 let state = {};
 
@@ -90,6 +97,8 @@ module.exports = function(RED) {
             }).catch( err => {
                 console.error("Ops... error getting device state (ThermostatDevice)");
                 console.error(err);
+                this.error("Ops... error getting device state (ThermostatDevice)");
+                this.error(err);                
             });
 
             this.on('input', msg => {
