@@ -23,7 +23,8 @@
       "smartthings-temperature": "smartthings/smartthings-temperature.js",
       "smartthings-battery": "smartthings/smartthings-battery.js",
       "smartthings-humidity": "smartthings/smartthings-humidity.js",
-      "smartthings-lock": "smartthings/smartthings-lock.js"
+      "smartthings-lock": "smartthings/smartthings-lock.js",
+      "smartthings-presence": "smartthings/smartthings-presence.js"
     }
   },
   "repository": {
