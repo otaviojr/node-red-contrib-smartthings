@@ -230,8 +230,6 @@ module.exports = function(RED) {
 
                 this.setState(state);
             }).catch( err => {
-                console.error("Ops... error getting device state (ThermostatDevice)");
-                console.error(err);
                 this.error("Ops... error getting device state (ThermostatDevice)");
                 this.error(err);
             });
@@ -262,7 +260,8 @@ module.exports = function(RED) {
                             };
                             this.setState(state);
                         }).catch( (ret) => {
-                            console.error("Error updating device");
+                            this.error("Error updating device");
+                            this.error(ret);
                         });
                         break;
 
@@ -280,7 +279,8 @@ module.exports = function(RED) {
                             };
                             this.setState(state);
                         }).catch( (ret) => {
-                            console.error("Error updating device");
+                            this.error("Error updating device");
+                            this.error(ret);
                         });
                         break;
 
@@ -300,7 +300,8 @@ module.exports = function(RED) {
                             };
                             this.setState(state);
                         }).catch( (ret) => {
-                            console.error("Error updating device");
+                            this.error("Error updating device");
+                            this.error(ret);
                         });
                         break;
 
@@ -318,7 +319,8 @@ module.exports = function(RED) {
                             };
                             this.setState(state);
                         }).catch( (ret) => {
-                            console.error("Error updating device");
+                            this.error("Error updating device");
+                            this.error(ret);
                         });
                         break;
                   }
