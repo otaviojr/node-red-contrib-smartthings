@@ -14,10 +14,10 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.state = {
-            onOff: null,
             temperature: null,
             coolingSetpoint: null,
             heatingSetpoint: null,
+            thermostatSetpoint: null,
             thermostatFanMode: null,
             thermostatMode: null,
             thermostatOperatingState: null
@@ -30,19 +30,8 @@ module.exports = function(RED) {
                 Object.assign(msg,original);
             }
 
-            if(this.state.onOff != null){
-                msg[0] = {
-                    topic: "device",
-                    payload: {
-                        deviceId: this.device,
-                        deviceType: "switch",
-                        name: this.name,
-                        value: this.state.onOff
-                    }
-                };
-            }
             if(this.state.temperature != null){
-                msg[1] = {
+                msg[0] = {
                     topic: "device",
                     payload: {
                         deviceId: this.device,
@@ -54,7 +43,7 @@ module.exports = function(RED) {
                 };
             }
             if(this.state.coolingSetpoint != null){
-                msg[2] = {
+                msg[1] = {
                     topic: "device",
                     payload: {
                         deviceId: this.device,
@@ -65,13 +54,24 @@ module.exports = function(RED) {
                 };
             }
             if(this.state.heatingSetpoint != null){
-                msg[3] = {
+                msg[2] = {
                     topic: "device",
                     payload: {
                         deviceId: this.device,
                         deviceType: "heatingSetpoint",
                         name: this.name,
                         value: this.state.heatingSetpoint
+                    }
+                };
+            }
+            if(this.state.thermostatSetpoint != null){
+                msg[3] = {
+                    topic: "device",
+                    payload: {
+                        deviceId: this.device,
+                        deviceType: "thermostatSetpoint",
+                        name: this.name,
+                        value: this.state.thermostatSetpoint
                     }
                 };
             }
@@ -122,25 +122,58 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("ThermostatDevice("+this.name+") Callback called");
                 console.debug(evt);
-                this.error("ThermostatDevice("+this.name+") Callback called");
-                this.error(evt);
 
                 let state = {};
 
                 switch(evt["name"].toLowerCase()){
+                    case "temperature":
+                        this.setState({
+                            temperature: {
+                                value: evt["value"]
+                            }
+                        });
+                        break;
+
                     case "coolingSetpoint":
+                        this.setState({
+                            coolingSetpoint: {
+                                value: evt["value"]
+                            }
+                        });
                         break;
 
                     case "thermostatFanMode":
+                        this.setState({
+                            thermostatFanMode: evt["value"]
+                        });
                         break;
 
                     case "heatingSetpoint":
+                        this.setState({
+                            heatingSetpoint: {
+                                value: evt["value"]
+                            }
+                        });
+                        break;
+
+                    case "thermostatSetpoint":
+                        this.setState({
+                            thermostatSetpoint: {
+                                value: evt["value"]
+                            }
+                        });
                         break;
 
                     case "thermostatMode":
+                        this.setState({
+                            thermostatMode: evt["value"]
+                        });
                         break;
 
                     case "thermostatOperatingState":
+                        this.setState({
+                            thermostatOperatingState: evt["value"]
+                        });
                         break;
                 }
 
@@ -152,24 +185,45 @@ module.exports = function(RED) {
             this.conf.getDeviceStatus(this.device,"main").then( (status) => {
                 console.debug("ThermostatDevice("+this.name+") Status Refreshed");
 
-                this.error("ThermostatDevice("+this.name+") Status Refreshed");
-                this.error(status);
-
                 let state = {};
 
-                if(status["coolingSetpoint"] !== undefined && status["coolingSetpoint"]["temperature"] !== undefined){
+                if(status["thermostat"] !== undefined && status["thermostat"]["temperature"] !== undefined){
+                    state.temperature = {
+                        value: status["thermostat"]["temperature"]["value"],
+                        unit: status["thermostat"]["temperature"]["unit"]
+                    };
                 }
 
-                if(status["thermostatFanMode"] !== undefined && status["thermostatFanMode"]["value"] !== undefined){
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatFanMode"] !== undefined){
+                    state.thermostatFanMode =  status["thermostat"]["thermostatFanMode"]["value"];
                 }
 
-                if(status["heatingSetpoint"] !== undefined && status["heatingSetpoint"]["temperature"] !== undefined){
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatMode"] !== undefined){
+                    state.thermostatMode = status["thermostat"]["thermostatMode"]["value"];
                 }
 
-                if(status["thermostatMode"] !== undefined && status["thermostatMode"]["value"] !== undefined){
+                if(status["thermostat"] !== undefined && status["thermostat"]["coolingSetpoint"] !== undefined){
+                    state.coolingSetpoint = {
+                        value: status["thermostat"]["coolingSetpoint"]["value"],
+                        unit: status["thermostat"]["coolingSetpoint"]["unit"]
+                    };
                 }
 
-                if(status["thermostatOperatingState"] !== undefined && status["thermostatOperatingState"]["value"] !== undefined){
+                if(status["thermostat"] !== undefined && status["thermostat"]["heatingSetpoint"] !== undefined){
+                    state.heatingSetpoint = {
+                        value: status["thermostat"]["heatingSetpoint"]["value"],
+                        unit: status["thermostat"]["heatingSetpoint"]["unit"]
+                    }
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatSetpoint"] !== undefined){
+                    state.heatingSetpoint = {
+                        value: status["thermostat"]["thermostatSetpoint"]["value"]
+                    }
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatOperatingState"] !== undefined){
+                    state.thermostatOperatingState = status["thermostat"]["thermostatOperatingState"]["value"];
                 }
 
                 this.setState(state);
@@ -191,18 +245,79 @@ module.exports = function(RED) {
                         break;
 
                     case "coolingSetpoint":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
+                            capability: "thermostatCoolingSetpoint",
+                            command: "setCoolingSetpoint",
+                            arguments: [
+                                msg.payload.value
+                            ]
+                        }]).then( (ret) => {
+                            const state = {
+                                coolingSetpoint: {
+                                    value: msg.payload.value
+                                }
+                            };
+                            this.setState(state);
+                        }).catch( (ret) => {
+                            console.error("Error updating device");
+                        });
                         break;
 
                     case "thermostatFanMode":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
+                            capability: "thermostatFanMode",
+                            command: "setThermostatFanMode",
+                            arguments: [
+                                msg.payload.value
+                            ]
+                        }]).then( (ret) => {
+                            const state = {
+                                thermostatFanMode: msg.payload.value
+                            };
+                            this.setState(state);
+                        }).catch( (ret) => {
+                            console.error("Error updating device");
+                        });
                         break;
 
                     case "heatingSetpoint":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
+                            capability: "thermostatHeatingSetpoint",
+                            command: "setHeatingSetpoint",
+                            arguments: [
+                                msg.payload.value
+                            ]
+                        }]).then( (ret) => {
+                            const state = {
+                                heatingSetpoint: {
+                                    value: msg.payload.value
+                                }
+                            };
+                            this.setState(state);
+                        }).catch( (ret) => {
+                            console.error("Error updating device");
+                        });
                         break;
 
                     case "thermostatMode":
-                        break;
-
-                    case "thermostatOperatingState":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
+                            capability: "thermostatMode",
+                            command: "setThermostatMode",
+                            arguments: [
+                                msg.payload.value
+                            ]
+                        }]).then( (ret) => {
+                            const state = {
+                                thermostatMode: msg.payload.value
+                            };
+                            this.setState(state);
+                        }).catch( (ret) => {
+                            console.error("Error updating device");
+                        });
                         break;
                   }
                 }
