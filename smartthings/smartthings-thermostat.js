@@ -247,7 +247,7 @@ module.exports = function(RED) {
                     case "coolingSetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostatCoolingSetpoint",
+                            capability: "thermostat",
                             command: "setCoolingSetpoint",
                             arguments: [
                                 msg.payload.value
@@ -268,7 +268,7 @@ module.exports = function(RED) {
                     case "thermostatFanMode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostatFanMode",
+                            capability: "thermostat",
                             command: "setThermostatFanMode",
                             arguments: [
                                 msg.payload.value
@@ -287,7 +287,7 @@ module.exports = function(RED) {
                     case "heatingSetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostatHeatingSetpoint",
+                            capability: "thermostat",
                             command: "setHeatingSetpoint",
                             arguments: [
                                 msg.payload.value
@@ -308,7 +308,7 @@ module.exports = function(RED) {
                     case "thermostatMode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostatMode",
+                            capability: "thermostat",
                             command: "setThermostatMode",
                             arguments: [
                                 msg.payload.value
