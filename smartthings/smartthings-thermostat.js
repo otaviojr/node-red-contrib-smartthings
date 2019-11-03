@@ -49,7 +49,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "coolingSetpoint",
                         name: this.name,
-                        value: this.state.coolingSetpoint
+                        value: this.state.coolingSetpoint.value,
+                        unit: this.state.coolingSetpoint.unit
                     }
                 };
             }
@@ -60,7 +61,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "heatingSetpoint",
                         name: this.name,
-                        value: this.state.heatingSetpoint
+                        value: this.state.heatingSetpoint.value,
+                        unit: this.state.heatingSetpoint.unit
                     }
                 };
             }
@@ -71,7 +73,7 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "thermostatSetpoint",
                         name: this.name,
-                        value: this.state.thermostatSetpoint
+                        value: this.state.thermostatSetpoint.value
                     }
                 };
             }
@@ -217,7 +219,7 @@ module.exports = function(RED) {
                 }
 
                 if(status["thermostat"] !== undefined && status["thermostat"]["thermostatSetpoint"] !== undefined){
-                    state.heatingSetpoint = {
+                    state.thermostatSetpoint = {
                         value: status["thermostat"]["thermostatSetpoint"]["value"]
                     }
                 }
