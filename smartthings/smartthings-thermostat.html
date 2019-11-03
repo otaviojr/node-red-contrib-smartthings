@@ -118,65 +118,52 @@
             <dd><code>update</code> force the node to output the current state</dd>
             <dt class="optional">topic <span class="property-type">string</span></dt>
             <dd>
-                <code>switch</code> can be used to change device state. The message
+                <code>coolingSetpoint</code> can be used to change device state. The message
                 will be something like this:
                 <code>
                     {
-                        topic: "switch",
+                        topic: "coolingSetpoint",
                         payload: {
-                            value: (1|0)
+                            value: number
                         }
                     }
                 </code>
             </dd>
             <dt class="optional">topic <span class="property-type">string</span></dt>
             <dd>
-                <code>level</code> can be used to change device state. The message
+                <code>heatingSetpoint</code> can be used to change device state. The message
                 will be something like this:
                 <code>
                     {
-                        topic: "level",
+                        topic: "heatingSetpoint",
                         payload: {
-                            value: [0 - 100]
+                            value: number
                         }
                     }
                 </code>
             </dd>
             <dt class="optional">topic <span class="property-type">string</span></dt>
             <dd>
-                <code>hue</code> can be used to change device state. The message
+                <code>thermostatFanMode</code> can be used to change device state. The message
                 will be something like this:
                 <code>
                     {
-                        topic: "hue",
+                        topic: "thermostatFanMode",
                         payload: {
-                            value: [0 - 255]
+                            value: ["auto"|"circular"|"followschedule"|"on"]
                         }
                     }
                 </code>
             </dd>
             <dt class="optional">topic <span class="property-type">string</span></dt>
             <dd>
-                <code>saturation</code> can be used to change device state. The message
+                <code>thermostatMode</code> can be used to change device state. The message
                 will be something like this:
                 <code>
                     {
-                        topic: "saturation",
+                        topic: "thermostatMode",
                         payload: {
-                            value: [0 - 255]
-                        }
-                    }
-                </code>
-            </dd>
-            <dt class="optional">topic <span class="property-type">string</span></dt>
-            <dd>
-                <code>temperature</code> can be used to change device state. The message
-                will be something like this:
-                <code>
-                    {
-                        topic: "temperature",
-                        payload: {
-                            value: [2700 - 5600]
+                            value: ["auto"|"eco"|"rush hour"|"cool"|"emergency heat"|"heat"|"off"]
                         }
                     }
                 </code>
@@ -184,14 +171,62 @@
         </dl>
    <h3>Outputs</h3>
       <ol class="node-ports">
-         <li>Standard Output
-             <dl class="message-properties">
-                <dt>topic <span class="property-type">string</span></dt>
-                <dd>value of <code>device</code></dd>
-                <dt>payload <span class="property-type">object</span></dt>
-                <dd>Object with device status</dd>
-             </dl>
-         </li>
+          <li>Output 1
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>temperature capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 2
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>coolingSetpoint capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 3
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>heatingSetpoint capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 4
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>thermostatSetpoint capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 5
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>thermostatFanMode capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 6
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>thermostatMode capability device status</dd>
+              </dl>
+          </li>
+          <li>Output 7
+              <dl class="message-properties">
+                 <dt>topic <span class="property-type">string</span></dt>
+                 <dd>value of <code>device</code></dd>
+                 <dt>payload <span class="property-type">object</span></dt>
+                 <dd>thermostatOperatingState capability device status</dd>
+              </dl>
+          </li>
       </ol>
    <h3>Details</h3>
    <p>
