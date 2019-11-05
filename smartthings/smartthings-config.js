@@ -67,7 +67,7 @@ module.exports = function(RED) {
                 });
             };
 
-            node.executeDeviceCommand = funparamsction(deviceId, commands){
+            node.executeDeviceCommand = function(deviceId, commands){
                 console.log("executeDeviceCommand:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
                     node.st.devices.executeDeviceCommand(deviceId, commands).then(ret => {
