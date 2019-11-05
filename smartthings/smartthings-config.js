@@ -67,7 +67,7 @@ module.exports = function(RED) {
                 });
             };
 
-            node.executeDeviceCommand = function(deviceId, commands){
+            node.executeDeviceCommand = funparamsction(deviceId, commands){
                 console.log("executeDeviceCommand:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
                     node.st.devices.executeDeviceCommand(deviceId, commands).then(ret => {
@@ -94,7 +94,7 @@ module.exports = function(RED) {
 
       let conf = RED.nodes.getNode(req.params.conf);
 
-      if(nodes[conf.token]){
+      if(conf && nodes[conf.token]){
         let node = nodes[conf.token];
 
         console.log("List Devices By Type: " + req.params.type);
@@ -115,7 +115,6 @@ module.exports = function(RED) {
         });
       } else {
         //TODO: 404 goes here
-        console.log("NODE NOT FOUND");
         res.status(404).send();
       }
     });
