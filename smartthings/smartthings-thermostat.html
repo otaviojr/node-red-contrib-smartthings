@@ -19,6 +19,9 @@
 
             var getDevs = function(conf, capability){
 
+                const confObj = RED.nodes.node(conf);
+                console.log("Token: " + confObj.token);
+
                 $('#node-input-device').find('option').remove().end();
                 $('<option/>',{
                   value: "",
