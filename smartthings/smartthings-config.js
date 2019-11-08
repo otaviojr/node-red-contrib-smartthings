@@ -90,10 +90,10 @@ module.exports = function(RED) {
 
     RED.httpAdmin.get('/smartthings/:token/devices/:type', function(req,res){
 
-      console.log("HTTP REQUEST: devices: " + req.params.conf + " : " + req.params.type);
+      console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
 
-      if(token){
-        let node = nodes[token];
+      if(req.params.token){
+        let node = nodes[req.params.token];
 
         console.log("List Devices By Type: " + req.params.type);
 
