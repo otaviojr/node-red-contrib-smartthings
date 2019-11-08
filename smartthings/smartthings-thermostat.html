@@ -20,7 +20,6 @@
             var getDevs = function(conf, capability){
 
                 const confObj = RED.nodes.node(conf);
-                console.log("Token: " + confObj.token);
 
                 $('#node-input-device').find('option').remove().end();
                 $('<option/>',{
@@ -28,7 +27,7 @@
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+conf+'/devices/' + capability, function(data){
+                $.getJSON('smartthings/'+confObj.token+'/devices/' + capability, function(data){
                     console.log("getDevs");
                     console.log(data);
 

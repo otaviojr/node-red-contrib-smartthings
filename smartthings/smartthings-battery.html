@@ -18,13 +18,15 @@
 
             var getDevs = function(conf){
 
+                const confObj = RED.nodes.node(conf);
+
                 $('#node-input-device').find('option').remove().end();
                 $('<option/>',{
                   value: "",
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+conf+'/devices/battery', function(data){
+                $.getJSON('smartthings/'+confObj.token+'/devices/battery', function(data){
                     console.log("getDevs");
                     console.log(data);
 
