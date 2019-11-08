@@ -25,7 +25,8 @@
       "smartthings-humidity": "smartthings/smartthings-humidity.js",
       "smartthings-lock": "smartthings/smartthings-lock.js",
       "smartthings-presence": "smartthings/smartthings-presence.js",
-      "smartthings-thermostat": "smartthings/smartthings-thermostat.js"
+      "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
+      "smartthings-button": "smartthings/smartthings-button.js"
     }
   },
   "repository": {
