@@ -40,6 +40,8 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("Button("+this.name+") Callback called");
                 console.debug(evt);
+                node.error("Button("+this.name+") Callback called");
+                node.error(evt);
                 if(evt["name"] == "button"){
                     //this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
                 }
