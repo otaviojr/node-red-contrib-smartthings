@@ -46,7 +46,7 @@ module.exports = function(RED) {
                 this.error("Button("+this.name+") Callback called");
                 this.error(evt);
                 if(evt["name"] == "button"){
-                    this.updateStatus(evt["value"], DateTime.now());
+                    this.updateStatus(evt["value"], Date.now());
                 }
             }
 
@@ -58,11 +58,13 @@ module.exports = function(RED) {
 
                 current = status["button"]["value"];
                 if(current){
-                    this.updateStatus(current, DateTime.now());
+                    this.updateStatus(current, Date.now());
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state (Button)");
                 console.error(err);
+                this.error("Ops... error getting device state (Button)");
+                this.error(err);
             });
 
             this.on('close', () => {
