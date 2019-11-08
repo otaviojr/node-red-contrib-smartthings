@@ -12,7 +12,8 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.currentStatus = "";
-        this.lastEvent = DeteTime.now();
+        this.eventDate = Dete.now();
+        this.lastEventDate = Dete.now();
 
         this.reportStatus = function(original) {
             let msg = {
@@ -22,7 +23,8 @@ module.exports = function(RED) {
                     deviceType: "button",
                     name: this.name,
                     value: this.currentStatus,
-                    lastEvent: this.lastEvent
+                    eventDate: this.eventDate,
+                    lastEventDate: this.lastEventDate
                 }
             };
 
@@ -33,9 +35,10 @@ module.exports = function(RED) {
             this.send(msg);
         }
 
-        this.updateStatus = function(currentStatus, lastEvent){
+        this.updateStatus = function(currentStatus, eventDate){
             this.currentStatus = currentStatus;
-            this.lastEvent = lastEvent;
+            this.lastEventDate = this.eventDate;
+            this.eventDate = eventDate;
             this.reportStatus();
         }
 
