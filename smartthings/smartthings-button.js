@@ -40,8 +40,8 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("Button("+this.name+") Callback called");
                 console.debug(evt);
-                node.error("Button("+this.name+") Callback called");
-                node.error(evt);
+                this.error("Button("+this.name+") Callback called");
+                this.error(evt);
                 if(evt["name"] == "button"){
                     //this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
                 }
@@ -51,7 +51,7 @@ module.exports = function(RED) {
 
             this.conf.getDeviceStatus(this.device,"main/capabilities/button").then( (status) => {
                 console.debug("Button("+this.name+") Status Refreshed");
-                node.error("Button("+this.name+") Status Refreshed");
+                this.error("Button("+this.name+") Status Refreshed");
 
                 //current = status["switch"]["value"];
                 //if(current){
