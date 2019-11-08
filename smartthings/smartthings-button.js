@@ -12,8 +12,8 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.currentStatus = "";
-        this.eventDate = Dete.now();
-        this.lastEventDate = Dete.now();
+        this.eventDate = Date.now();
+        this.lastEventDate = Date.now();
 
         this.reportStatus = function(original) {
             let msg = {
@@ -64,8 +64,6 @@ module.exports = function(RED) {
                     this.updateStatus(current, Date.now());
                 }
             }).catch( err => {
-                console.error("Ops... error getting device state (Button)");
-                console.error(err);
                 this.error("Ops... error getting device state (Button)");
                 this.error(err);
             });
