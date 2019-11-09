@@ -141,6 +141,7 @@ def subscribeToEvents() {
 }
 
 def doRemotePost(body) {
+	log.debug("Remote Post");
 	def json_params = [
   		uri: settings.url,
   		success: successClosure,
@@ -174,7 +175,7 @@ def doLocalPost(body) {
 }
 
 def eventHandler(evt) {
-    def state_changed = evt.isStateChange()
+    def state_changed = evt.isStateChange();
 	def json_body = [
             id: evt.deviceId,
 			date: evt.isoDate,
@@ -188,11 +189,15 @@ def eventHandler(evt) {
             location_id: evt.locationId,
             hub_id: evt.hubId,
             smartapp_id: evt.installedSmartAppId
-        ]
+        ];
+
+    if(evt.name == "button"){
+        json_body["button"] = evt.jsonData.buttonNumber;
+    }
 
     try {
     	if(settings.local == false){
-			doRemotePost(json_body)
+			doRemotePost(json_body);
         } else {
         	doLocalPost(json_body);
         }

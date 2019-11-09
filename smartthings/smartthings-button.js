@@ -12,8 +12,7 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.currentStatus = "";
-        this.eventDate = Date.now();
-        this.lastEventDate = Date.now();
+        this.button = 0;
 
         this.reportStatus = function(original) {
             let msg = {
@@ -23,8 +22,7 @@ module.exports = function(RED) {
                     deviceType: "button",
                     name: this.name,
                     value: this.currentStatus,
-                    eventDate: this.eventDate,
-                    lastEventDate: this.lastEventDate
+                    button: this.button
                 }
             };
 
@@ -35,10 +33,9 @@ module.exports = function(RED) {
             this.send(msg);
         }
 
-        this.updateStatus = function(currentStatus, eventDate){
+        this.updateStatus = function(currentStatus, button){
             this.currentStatus = currentStatus;
-            this.lastEventDate = this.eventDate;
-            this.eventDate = eventDate;
+            this.button = button;
             this.reportStatus();
         }
 
@@ -49,24 +46,11 @@ module.exports = function(RED) {
                 this.error("Button("+this.name+") Callback called");
                 this.error(evt);
                 if(evt["name"] == "button"){
-                    this.updateStatus(evt["value"], Date.now());
+                    this.updateStatus(evt["value"], evt["button"];
                 }
             }
 
             this.conf.registerCallback(this, this.device, callback);
-
-            this.conf.getDeviceStatus(this.device,"main/capabilities/main").then( (status) => {
-                console.debug("Button("+this.name+") Status Refreshed");
-                this.error("Button("+this.name+") Status Refreshed");
-
-                current = status["button"]["value"];
-                if(current){
-                    this.updateStatus(current, Date.now());
-                }
-            }).catch( err => {
-                this.error("Ops... error getting device state (Button)");
-                this.error(err);
-            });
 
             this.on('close', () => {
                 console.debug("Closed");
