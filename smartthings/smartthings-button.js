@@ -31,13 +31,13 @@ module.exports = function(RED) {
             }
 
             this.send(msg);
-        }
+        };
 
         this.updateStatus = function(currentStatus, button){
             this.currentStatus = currentStatus;
             this.button = button;
             this.reportStatus();
-        }
+        };
 
         if(this.conf && this.device){
             const callback  = (evt) => {
@@ -48,7 +48,7 @@ module.exports = function(RED) {
                 if(evt["name"] == "button"){
                     this.updateStatus(evt["value"], evt["button"];
                 }
-            }
+            };
 
             this.conf.registerCallback(this, this.device, callback);
 
