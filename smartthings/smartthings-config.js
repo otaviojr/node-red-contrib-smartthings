@@ -95,7 +95,13 @@ module.exports = function(RED) {
 
             node.executeScene = function(sceneId){
                 console.log("executeScene:token:"+ node.token);
-                Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {});
+                return new Promise( (resolve, reject) => {
+                    Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}).then( (response) => {
+                        resolve(response.data);
+                    }).catch( (error) => {
+                        reject(error);
+                    });
+                });
             };
 
             nodes[node.token] = node;

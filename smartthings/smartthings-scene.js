@@ -15,7 +15,7 @@ module.exports = function(RED) {
 
             this.on('input', msg => {
                 console.debug("Input Message Received");
-                if(msg && msg.payload && !isNaN(msg.payload.value) && msg.topic === "scene"){
+                if(msg && msg.topic === "scene"){
                     this.conf.executeScene(this.scene).then( (ret) => {
                     }).catch( (ret) => {
                         this.error("Error executing scene");
