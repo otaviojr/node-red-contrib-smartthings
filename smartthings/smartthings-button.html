@@ -94,25 +94,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="smartthings-node-button">
-   <p>This Node represents a switch device.</p>
-   <h3>Input</h3>
-        <dl class="message-properties">
-            <dt class="optional">topic <span class="property-type">string</span></dt>
-            <dd><code>update</code> force the node to output the current state</dd>
-            <dt class="optional">topic <span class="property-type">string</span></dt>
-            <dd>
-                <code>switch</code> can be used to change device state. The message
-                will be something like this:
-                <code>
-                    {
-                        topic: "switch",
-                        payload: {
-                            value: (1|0)
-                        }
-                    }
-                </code>
-            </dd>
-        </dl>
+   <p>This Node represents a button device.</p>
    <h3>Outputs</h3>
       <ol class="node-ports">
          <li>Standard Output
@@ -126,13 +108,9 @@
       </ol>
    <h3>Details</h3>
    <p>
-       This node represents a switch device. It will keep device state. Every time
-       the device state changes at Smartthings, the webhook will send us the current
-       state.
-   </p>
-   <p>
-       Besides, if you need it to output the status, like when responding a http request,
-       you can use the <code>topic</code> with the <code>update</code> value to force
-       it to report.
+       This node represents a button device.
+
+       This device has no internal state. It only send messages when any button
+       is pushed or held.
    </p>
 </script>
