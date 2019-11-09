@@ -84,7 +84,7 @@ module.exports = function(RED) {
             node.getScenes = function() {
                 console.log("getScenes:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    axios.get('https://api.smartthings.com/v1/scenes', {}, {
+                    Axios.get('https://api.smartthings.com/v1/scenes', {}, {
                         'Authorization': 'Bearer '+node.token
                     }).then( (response) => {
                         resolve(deviceList);
@@ -96,7 +96,7 @@ module.exports = function(RED) {
 
             node.executeScene = function(sceneId){
                 console.log("executeScene:token:"+ node.token);
-                axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}, {
+                Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}, {
                     'Authorization': 'Bearer '+node.token
                 });
             };
