@@ -1,6 +1,7 @@
-var Promise = require('promise');
-var SmartThings = require("smartthings-node");
-var HttpSignature = require('http-signature');
+const Promise = require('promise');
+const SmartThings = require("smartthings-node");
+const HttpSignature = require('http-signature');
+const Axios = require('axios');
 
 module.exports = function(RED) {
 
@@ -78,7 +79,27 @@ module.exports = function(RED) {
                         reject(err);
                     });
                 });
-            }
+            };
+
+            node.getScenes = function() {
+                console.log("getScenes:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                    axios.get('https://api.smartthings.com/v1/scenes', {}, {
+                        'Authorization': 'Bearer '+node.token
+                    }).then( (response) => {
+                        resolve(deviceList);
+                    }).catch( err => {
+                        reject(err);
+                    });
+                });
+            };
+
+            node.executeScene = function(sceneId){
+                console.log("executeScene:token:"+ node.token);
+                axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}, {
+                    'Authorization': 'Bearer '+node.token
+                });
+            };
 
             nodes[node.token] = node;
         }
@@ -106,6 +127,35 @@ module.exports = function(RED) {
                 });
             });
             res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
+        }).catch(err => {
+            console.log("NODE ERROR");
+            console.log(err);
+            res.status(500).send("ERROR");
+        });
+      } else {
+        //TODO: 404 goes here
+        res.status(404).send();
+      }
+    });
+
+    RED.httpAdmin.get('/smartthings/:token/scenes', function(req,res){
+
+      console.log("HTTP REQUEST: scenes: " + req.params.token);
+
+      if(req.params.token){
+        let node = nodes[req.params.token];
+
+        console.log("List Scenes: ");
+
+        node.getScenes().then( scenes => {
+            let ret = [];
+            scenes["items"].forEach( (scene, idx) => {
+                ret.push({
+                    sceneId: device["sceneId"],
+                    sceneName: device["sceneName"],
+                });
+            });
+            res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
         }).catch(err => {
             console.log("NODE ERROR");
             console.log(err);

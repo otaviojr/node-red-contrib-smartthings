@@ -26,7 +26,8 @@
       "smartthings-lock": "smartthings/smartthings-lock.js",
       "smartthings-presence": "smartthings/smartthings-presence.js",
       "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
-      "smartthings-button": "smartthings/smartthings-button.js"
+      "smartthings-button": "smartthings/smartthings-button.js",
+      "smartthings-scene": "smartthings/smartthings-scene.js"
     }
   },
   "repository": {
@@ -46,7 +47,8 @@
     "jsbn": "^1.1.0",
     "promise": "^8.0.3",
     "smartthings-node": "https://github.com/otaviojr/smartthings-node.git",
-    "http-signature": "*"
+    "http-signature": "*",
+    "axios": "*",
   },
   "bundleDependencies": [],
   "contributors": [
