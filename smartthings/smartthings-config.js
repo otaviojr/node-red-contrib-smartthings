@@ -147,20 +147,25 @@ module.exports = function(RED) {
 
         console.log("List Scenes: ");
 
-        node.getScenes().then( scenes => {
-            let ret = [];
-            scenes["items"].forEach( (scene, idx) => {
-                ret.push({
-                    sceneId: device["sceneId"],
-                    sceneName: device["sceneName"],
+        if(node){
+            node.getScenes().then( scenes => {
+                let ret = [];
+                scenes["items"].forEach( (scene, idx) => {
+                    ret.push({
+                        sceneId: device["sceneId"],
+                        sceneName: device["sceneName"],
+                    });
                 });
+                res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
+            }).catch(err => {
+                console.log("NODE ERROR");
+                console.log(err);
+                res.status(500).send("ERROR");
             });
-            res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
-        }).catch(err => {
-            console.log("NODE ERROR");
-            console.log(err);
-            res.status(500).send("ERROR");
-        });
+        } else {
+            //TODO: 404 goes here
+            res.status(404).send();
+        }
       } else {
         //TODO: 404 goes here
         res.status(404).send();

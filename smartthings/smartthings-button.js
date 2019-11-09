@@ -46,7 +46,7 @@ module.exports = function(RED) {
                 this.error("Button("+this.name+") Callback called");
                 this.error(evt);
                 if(evt["name"] == "button"){
-                    this.updateStatus(evt["value"], evt["button"];
+                    this.updateStatus(evt["value"], evt["button"]);
                 }
             };
 
