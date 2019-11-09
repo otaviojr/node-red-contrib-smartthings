@@ -16,16 +16,10 @@ module.exports = function(RED) {
             this.on('input', msg => {
                 console.debug("Input Message Received");
                 if(msg && msg.payload && !isNaN(msg.payload.value) && msg.topic === "scene"){
-                    this.conf.executeDeviceCommand(this.device,[{
-                        component: "main",
-                        capability: "switch",
-                        command: (msg.payload.value == 1 ? "on" : "off")
-                    }]).then( (ret) => {
+                    this.conf.executeScene(this.scene).then( (ret) => {
                     }).catch( (ret) => {
-                        this.error("Error updating device");
+                        this.error("Error executing scene");
                     });
-                } else if(msg.topic === "update"){
-                    this.reportStatus(msg);
                 }
             });
 
@@ -35,5 +29,5 @@ module.exports = function(RED) {
         }
     }
 
-    RED.nodes.registerType("smartthings-node-button", SmartthingsButtonNode);
+    RED.nodes.registerType("smartthings-node-scene", SmartthingsSceneNode);
 };
