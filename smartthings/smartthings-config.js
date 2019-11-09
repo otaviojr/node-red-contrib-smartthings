@@ -24,6 +24,7 @@ module.exports = function(RED) {
         if(node.token !== undefined){
 
             node.st = new SmartThings.SmartThings(node.token);
+            Axios.defaults.headers.common['Authorization'] = 'Bearer ' + node.token;
 
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
@@ -84,10 +85,8 @@ module.exports = function(RED) {
             node.getScenes = function() {
                 console.log("getScenes:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    Axios.get('https://api.smartthings.com/v1/scenes', {}, {
-                        'Authorization': 'Bearer '+node.token
-                    }).then( (response) => {
-                        resolve(deviceList);
+                    Axios.get('https://api.smartthings.com/v1/scenes', {}).then( (response) => {
+                        resolve(response.data);
                     }).catch( err => {
                         reject(err);
                     });
@@ -96,9 +95,7 @@ module.exports = function(RED) {
 
             node.executeScene = function(sceneId){
                 console.log("executeScene:token:"+ node.token);
-                Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}, {
-                    'Authorization': 'Bearer '+node.token
-                });
+                Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {});
             };
 
             nodes[node.token] = node;
