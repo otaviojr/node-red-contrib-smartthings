@@ -27,7 +27,8 @@
       "smartthings-presence": "smartthings/smartthings-presence.js",
       "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
       "smartthings-button": "smartthings/smartthings-button.js",
-      "smartthings-scene": "smartthings/smartthings-scene.js"
+      "smartthings-scene": "smartthings/smartthings-scene.js",
+      "smartthings-power-meter": "smartthings/smartthings-power-meter.js"
     }
   },
   "repository": {
