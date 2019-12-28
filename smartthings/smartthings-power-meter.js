@@ -12,16 +12,20 @@ module.exports = function(RED) {
         this.name = config.name;
         this.device = config.device;
 
-        this.currentStatus = 0;
+        this.state = {
+            value: 0,
+            unit: "",
+        };
 
-        this.reportStatus = function(original){
+        this.reportState = function(original) {
             let msg = {
                 topic: "device",
                 payload: {
                     deviceId: this.device,
                     deviceType: "power",
                     name: this.name,
-                    value: this.currentStatus
+                    value: this.state.value,
+                    unit: this.state.unit
                 }
             };
 
@@ -32,17 +36,19 @@ module.exports = function(RED) {
             this.send(msg);
         }
 
-        this.updateStatus = function(currentStatus){
-            this.currentStatus = currentStatus;
-            this.reportStatus();
-        }
+        this.setState = function(value){
+            Object.assign(this.state, value);
+            this.reportState();
+        };
 
         if(this.conf && this.device){
             const callback  = (evt) => {
                 console.debug("PowerMeterDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["name"] == "power"){
-                    this.updateStatus(evt["value"]);
+                    this.setState({
+                        value: evt["value"]
+                    });
                 }
             }
 
@@ -52,10 +58,11 @@ module.exports = function(RED) {
                 console.debug("PowerMeterDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
-                current = status["power"]["value"];
-                if(current){
-                    this.updateStatus(current);
-                }
+                this.setState({
+                    value: status["power"]["value"],
+                    unit: status["power"]["unit"]
+                });
+
             }).catch( err => {
                 console.error("Ops... error getting device state (PowerMeterDevice)");
                 console.error(err);
@@ -68,7 +75,7 @@ module.exports = function(RED) {
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportStatus(msg);
+                            this.reportState(msg);
                             break;
                     }
                 }
@@ -82,5 +89,4 @@ module.exports = function(RED) {
     }
 
     RED.nodes.registerType("smartthings-node-power-meter", SmartthingsPowerMeterNode);
-
 };
