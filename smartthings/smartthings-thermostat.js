@@ -26,10 +26,6 @@ module.exports = function(RED) {
         this.reportState = function(original) {
             let msg = [null,null,null,null,null,null,null];
 
-            if(original !== undefined){
-                Object.assign(msg,original);
-            }
-
             if(this.state.temperature != null){
                 msg[0] = {
                     topic: "device",
@@ -111,6 +107,13 @@ module.exports = function(RED) {
                 };
             }
 
+            if(original !== undefined){
+              msg.forEach( (m) => {
+                if(m){
+                  Object.assign(m,original);                  
+                }
+              });
+            }
             this.send(msg);
         };
 

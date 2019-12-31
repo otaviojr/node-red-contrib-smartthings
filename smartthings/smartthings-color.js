@@ -136,7 +136,9 @@ module.exports = function(RED) {
             }];
 
             if(original !== undefined){
-                Object.assign(msg,original);
+              msg.forEach( (m) => {
+                Object.assign(m,original);
+              });
             }
 
             this.send(msg);
