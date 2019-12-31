@@ -27,7 +27,8 @@ module.exports = function(RED) {
             };
 
             if(original !== undefined){
-                Object.assign(msg,original);
+              original.payload = msg.payload;
+              Object.assign(msg,original);
             }
 
             this.send(msg);

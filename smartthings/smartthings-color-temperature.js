@@ -51,6 +51,7 @@ module.exports = function(RED) {
 
             if(original !== undefined){
                 msg.forEach( (m) => {
+                  original.payload = m.payload;
                   Object.assign(m,original);
                 });
             }

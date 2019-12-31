@@ -110,7 +110,8 @@ module.exports = function(RED) {
             if(original !== undefined){
               msg.forEach( (m) => {
                 if(m){
-                  Object.assign(m,original);                  
+                  original.payload = m.payload;
+                  Object.assign(m,original);
                 }
               });
             }
