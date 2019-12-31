@@ -137,8 +137,8 @@ module.exports = function(RED) {
 
             if(original !== undefined){
               msg.forEach( (m) => {
-                original.payload = msg.payload;
-                Object.assign(msg,original);
+                original.payload = m.payload;
+                Object.assign(m,original);
               });
             }
 
