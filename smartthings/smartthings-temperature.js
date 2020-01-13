@@ -48,7 +48,7 @@ module.exports = function(RED) {
                 console.debug(evt);
                 if(evt["name"] == "temperature"){
                     this.setState({
-                        value: evt["value"]
+                        value: parseFloat(evt["value"]
                     });
                 }
             }
@@ -60,7 +60,7 @@ module.exports = function(RED) {
                 console.debug(status);
 
                 this.setState({
-                    value: status["temperature"]["value"],
+                    value: parseFloat(status["temperature"]["value"]),
                     unit: status["temperature"]["unit"]
                 });
 

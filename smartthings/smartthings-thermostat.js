@@ -195,7 +195,7 @@ module.exports = function(RED) {
 
                 if(status["thermostat"] !== undefined && status["thermostat"]["temperature"] !== undefined){
                     state.temperature = {
-                        value: status["thermostat"]["temperature"]["value"],
+                        value: parseFloat(status["thermostat"]["temperature"]["value"]),
                         unit: status["thermostat"]["temperature"]["unit"]
                     };
                 }

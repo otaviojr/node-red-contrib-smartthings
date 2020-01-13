@@ -46,7 +46,7 @@ module.exports = function(RED) {
                 console.debug("IlluminanceDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["name"] == "illuminance"){
-                    this.updateStatus(evt["value"],evt["unit"]);
+                    this.updateStatus(parseFloat(evt["value"]),evt["unit"]);
                 }
             }
 
@@ -56,7 +56,7 @@ module.exports = function(RED) {
                 console.debug("IlluminanceDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
-                current = status["illuminance"]["value"];
+                current = parseFloat(status["illuminance"]["value"]);
                 unit = status["illuminance"]["unit"];
                 if(current){
                     this.updateStatus(current, unit);

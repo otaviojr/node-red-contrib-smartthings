@@ -48,7 +48,7 @@ module.exports = function(RED) {
                 console.debug(evt);
                 if(evt["name"] == "humidity"){
                     this.setState({
-                        value: evt["value"]
+                        value: parseFloat(evt["value"])
                     });
                 }
             }
@@ -60,7 +60,7 @@ module.exports = function(RED) {
                 console.debug(status);
 
                 this.setState({
-                    value: status["humidity"]["value"],
+                    value: parseFloat(status["humidity"]["value"]),
                     unit: status["humidity"]["unit"]
                 });
 
