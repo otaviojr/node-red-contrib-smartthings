@@ -176,6 +176,10 @@ module.exports = function(RED) {
       }
     });
 
+    RED.httpAdmin.get('/smartthings/webhook', function(req,res){
+      res.status(200).send("SmartThings NodeRed is installed.");
+    });
+
     RED.httpAdmin.post('/smartthings/webhook', function(req,res){
         console.log("Smartthings Webhook");
         console.log(req.body);
