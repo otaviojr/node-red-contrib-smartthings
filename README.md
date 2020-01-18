@@ -37,8 +37,8 @@ As you can see, the only relevant information here is a **token**
 
 # Token
 
-In order to allow the plugin access your devices using Smartthings API you have
-to provide a **token**
+In order to allow the plugin to have access to your devices using Smartthings API
+you must provide a **token**
 
 You can get a Smartthings Token here:
 [https://account.smartthings.com/tokens](https://account.smartthings.com/tokens)
