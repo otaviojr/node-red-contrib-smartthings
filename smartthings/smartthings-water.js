@@ -13,8 +13,7 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.state = {
-            value: 0,
-            unit: "",
+            value: 0
         };
 
         this.reportState = function(original) {
@@ -22,10 +21,9 @@ module.exports = function(RED) {
                 topic: "device",
                 payload: {
                     deviceId: this.device,
-                    deviceType: "battery",
+                    deviceType: "water",
                     name: this.name,
                     value: this.state.value,
-                    unit: this.state.unit
                 }
             };
 
