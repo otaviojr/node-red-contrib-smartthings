@@ -121,24 +121,23 @@ module.exports = function(RED) {
 
         console.log("List Devices By Type: " + req.params.type);
 
-        if(node){
-            node.getDevices(req.params.type).then( deviceList => {
-                let ret = [];
-                deviceList["items"].forEach( (device, idx) => {
-                    ret.push({
-                        deviceId: device["deviceId"],
-                        label: device["label"],
-                    });
+        st = new SmartThings.SmartThings(node.token);
+        node.st.devices.listDevicesByCapability(type).then(deviceList => {
+            console.log("Device List:");
+            console.log(deviceList);
+            let ret = [];
+            deviceList["items"].forEach( (device, idx) => {
+                ret.push({
+                    deviceId: device["deviceId"],
+                    label: device["label"],
                 });
-                res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
-            }).catch(err => {
-                console.log("NODE ERROR");
-                console.log(err);
-                res.status(500).send("ERROR");
             });
-        } else {
-            res.status(404).send();
-        }
+            res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
+        }).catch( err => {
+          console.log("NODE ERROR");
+          console.log(err);
+          res.status(500).send("ERROR");
+        });
       } else {
         res.status(404).send();
       }
