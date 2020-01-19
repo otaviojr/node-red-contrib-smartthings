@@ -121,8 +121,8 @@ module.exports = function(RED) {
 
         console.log("List Devices By Type: " + req.params.type);
 
-        st = new SmartThings.SmartThings(node.token);
-        node.st.devices.listDevicesByCapability(type).then(deviceList => {
+        st = new SmartThings.SmartThings(req.params.token);
+        st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
             console.log("Device List:");
             console.log(deviceList);
             let ret = [];
