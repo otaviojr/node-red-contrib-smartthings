@@ -5,6 +5,8 @@ module.exports = function(RED) {
     function SmartthingsOpenCloseNode(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
+
         console.debug("SmartthingsOpenCloseNode")
         console.debug(config);
 
@@ -15,8 +17,8 @@ module.exports = function(RED) {
         this.currentStatus = 0;
 
         this.reportStatus = function(send, done, original){
-            send = send || function() { this.send.apply(this,arguments) };
-            done = done || function() { this.done.apply(this,arguments) };
+            send = send || function() { node.send.apply(node,arguments) };
+            done = done || function() { node.done.apply(node,arguments) };
             let msg = {
                 topic: "device",
                 payload: {
@@ -66,8 +68,8 @@ module.exports = function(RED) {
             });
 
             this.on('input', (msg, send, done) => {
-                send = send || function() { this.send.apply(this,arguments) };
-                done = done || function() { this.done.apply(this,arguments) };
+                send = send || function() { node.send.apply(node,arguments) };
+                done = done || function() { node.done.apply(node,arguments) };
                 console.debug("Input Message Received");
                 console.log(msg);
 

@@ -5,6 +5,8 @@ module.exports = function(RED) {
     function SmartthingsSceneNode(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
+
         console.debug("SmartthingsSceneNode")
 
         this.conf = RED.nodes.getNode(config.conf);
@@ -14,8 +16,8 @@ module.exports = function(RED) {
         if(this.conf && this.scene){
 
             this.on('input', (msg, send, done) => {
-                send = send || function() { this.send.apply(this,arguments) };
-                done = done || function() { this.done.apply(this,arguments) };
+                send = send || function() { node.send.apply(node,arguments) };
+                done = done || function() { node.done.apply(node,arguments) };
                 console.debug("Input Message Received");
                 if(msg && msg.topic === "scene"){
                     this.conf.executeScene(this.scene).then( (ret) => {

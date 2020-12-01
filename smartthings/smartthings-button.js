@@ -5,6 +5,8 @@ module.exports = function(RED) {
     function SmartthingsButtonNode(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
+
         console.debug("SmartthingsButtonNode")
 
         this.conf = RED.nodes.getNode(config.conf);
@@ -15,8 +17,8 @@ module.exports = function(RED) {
         this.button = 0;
 
         this.reportStatus = function(send, done, original) {
-            send = send || function() { this.send.apply(this,arguments) };
-            done = done || function() { this.done.apply(this,arguments) };
+            send = send || function() { node.send.apply(node,arguments) };
+            done = done || function() { node.done.apply(node,arguments) };
             let msg = {
                 topic: "device",
                 payload: {
