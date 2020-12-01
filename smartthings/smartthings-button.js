@@ -14,7 +14,9 @@ module.exports = function(RED) {
         this.currentStatus = "";
         this.button = 0;
 
-        this.reportStatus = function(original) {
+        this.reportStatus = function(send, done, original) {
+            send = send || function() { this.send.apply(this,arguments) };
+            done = done || function() { this.done.apply(this,arguments) };
             let msg = {
                 topic: "device",
                 payload: {
@@ -31,7 +33,8 @@ module.exports = function(RED) {
               Object.assign(msg,original);
             }
 
-            this.send(msg);
+            send(msg);
+            done();
         };
 
         this.updateStatus = function(currentStatus, button){

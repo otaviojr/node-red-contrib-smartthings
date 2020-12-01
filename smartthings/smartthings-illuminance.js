@@ -15,7 +15,9 @@ module.exports = function(RED) {
         this.currentStatus = 0;
         this.currentUnit = "";
 
-        this.reportStatus = function(original) {
+        this.reportStatus = function(send, done, original) {
+            send = send || function() { this.send.apply(this,arguments) };
+            done = done || function() { this.done.apply(this,arguments) };
             let msg = {
                 topic: "device",
                 payload: {
@@ -32,13 +34,14 @@ module.exports = function(RED) {
               Object.assign(msg,original);
             }
 
-            this.send(msg);
+            send(msg);
+            done();
         }
 
-        this.updateStatus = function(currentStatus, currentUnit){
+        this.updateStatus = function(currentStatus, currentUnit, send, done){
             this.currentStatus = currentStatus;
             this.currentUnit = currentUnit;
-            this.reportStatus();
+            this.reportStatus(send, done);
         }
 
         if(this.conf && this.device){
@@ -66,16 +69,24 @@ module.exports = function(RED) {
                 console.error(err);
             });
 
-            this.on('input', msg => {
+            this.on('input', (msg, send, done) => {
+                send = send || function() { this.send.apply(this,arguments) };
+                done = done || function() { this.done.apply(this,arguments) };
                 console.debug("Input Message Received");
                 console.log(msg);
 
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
                         case "update":
-                            this.reportStatus(msg);
+                            this.reportStatus(send, done, msg);
+                            break;
+
+                        default:
+                            done("Invalid Topic");
                             break;
                     }
+                } else {
+                    done("Invalid Message");
                 }
             });
 

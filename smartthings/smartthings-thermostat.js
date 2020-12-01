@@ -23,7 +23,10 @@ module.exports = function(RED) {
             thermostatOperatingState: null
         };
 
-        this.reportState = function(original) {
+        this.reportState = function(send, done, original) {
+            send = send || function() { this.send.apply(this,arguments) };
+            done = done || function() { this.done.apply(this,arguments) };
+
             let msg = [null,null,null,null,null,null,null];
 
             if(this.state.temperature != null){
@@ -115,13 +118,14 @@ module.exports = function(RED) {
                 }
               });
             }
-            this.send(msg);
+
+            send(msg);
+            done();
         };
 
-        this.setState = function(value){
+        this.setState = function(value, send, done){
             Object.assign(this.state, value);
-
-            this.reportState();
+            this.reportState(send, done);
         };
 
         if(this.conf && this.device){
@@ -238,14 +242,16 @@ module.exports = function(RED) {
                 this.error(err);
             });
 
-            this.on('input', msg => {
+            this.on('input', (msg, send, done) => {
+                send = send || function() { this.send.apply(this,arguments) };
+                done = done || function() { this.done.apply(this,arguments) };
                 console.debug("Input Message Received");
                 console.log(msg);
 
                 if(msg && msg.topic !== undefined){
                   switch(msg.topic){
                     case "update":
-                        this.reportState(msg);
+                        this.reportState(send, done, msg);
                         break;
 
                     case "coolingSetpoint":
@@ -262,10 +268,11 @@ module.exports = function(RED) {
                                     value: msg.payload.value
                                 }
                             };
-                            this.setState(state);
+                            this.setState(state, send, done);
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
+                            done("Erro updating device");
                         });
                         break;
 
@@ -281,10 +288,11 @@ module.exports = function(RED) {
                             const state = {
                                 thermostatFanMode: msg.payload.value
                             };
-                            this.setState(state);
+                            this.setState(state, send, done);
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
+                            done("Erro updating device");
                         });
                         break;
 
@@ -302,10 +310,11 @@ module.exports = function(RED) {
                                     value: msg.payload.value
                                 }
                             };
-                            this.setState(state);
+                            this.setState(state, send, done);
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
+                            done("Erro updating device");
                         });
                         break;
 
@@ -321,13 +330,20 @@ module.exports = function(RED) {
                             const state = {
                                 thermostatMode: msg.payload.value
                             };
-                            this.setState(state);
+                            this.setState(state, send, done);
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
+                            done("Erro updating device");
                         });
                         break;
+
+                    default:
+                        done("Invalid topic");
+                        break;
                   }
+                } else {
+                    done("Invalid message");
                 }
             });
 

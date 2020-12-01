@@ -98,7 +98,9 @@ module.exports = function(RED) {
             unsingColor: true
         };
 
-        this.reportState = function(original) {
+        this.reportState = function(send, done, original) {
+            send = send || function() { this.send.apply(this,arguments) };
+            done = done || function() { this.done.apply(this,arguments) };
             let msg = [{
                 topic: "device",
                 payload: {
@@ -142,15 +144,16 @@ module.exports = function(RED) {
               });
             }
 
-            this.send(msg);
+            send(msg);
+            done();
         };
 
-        this.setState = function(value){
+        this.setState = function(value, send, done){
             Object.assign(this.state, value);
 
             this.state.color = hslToRgb(this.state.hue, this.state.saturation, this.state.level);
 
-            this.reportState();
+            this.reportState(send ,done);
         };
 
         if(this.conf && this.device){
@@ -220,14 +223,16 @@ module.exports = function(RED) {
                 console.error(err);
             });
 
-            this.on('input', msg => {
+            this.on('input', (msg, send, done) => {
+                send = send || function() { this.send.apply(this,arguments) };
+                done = done || function() { this.done.apply(this,arguments) };
                 console.debug("Input Message Received");
                 console.log(msg);
 
                 if(msg && msg.topic !== undefined){
                   switch(msg.topic){
                     case "update":
-                        this.reportState(msg);
+                        this.reportState(send, done, msg);
                         break;
 
                     case "switch":
@@ -239,9 +244,10 @@ module.exports = function(RED) {
                           const state = {
                             value: msg.payload.value
                           }
-                          this.setState(state);
+                          this.setState(state, send, done);
                       }).catch( (ret) => {
                           console.error("Error updating device");
+                          done("Error updating device");
                       });
                       break;
 
@@ -257,9 +263,10 @@ module.exports = function(RED) {
                           const state = {
                             level: msg.payload.value
                           }
-                          this.setState(state);
+                          this.setState(state, send, done);
                       }).catch( (ret) => {
                           console.error("Error updating device");
+                          done("Error updating device");
                       });
                       break;
 
@@ -295,9 +302,10 @@ module.exports = function(RED) {
                                   saturation: hsl[1],
                                   level: hsl[2]
                                 }
-                                this.setState(state);
+                                this.setState(state, send, done);
                             }).catch( (ret) => {
                                 console.error("Error updating device");
+                                done("Error updating device");
                             });
                         }
                         break;
@@ -314,10 +322,14 @@ module.exports = function(RED) {
                             const state = {
                               temperature: msg.payload.value
                             }
-                            this.setState(state);
+                            this.setState(state, send, done);
                         }).catch( (ret) => {
                             console.error("Error updating device");
+                            done("Error updating device");
                         });
+                        break;
+                    default:
+                        done("Invalid Topic");
                         break;
                   }
                 }

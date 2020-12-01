@@ -13,12 +13,16 @@ module.exports = function(RED) {
 
         if(this.conf && this.scene){
 
-            this.on('input', msg => {
+            this.on('input', (msg, send, done) => {
+                send = send || function() { this.send.apply(this,arguments) };
+                done = done || function() { this.done.apply(this,arguments) };
                 console.debug("Input Message Received");
                 if(msg && msg.topic === "scene"){
                     this.conf.executeScene(this.scene).then( (ret) => {
+                        done();
                     }).catch( (ret) => {
                         this.error("Error executing scene");
+                        done("Error executing scene");
                     });
                 }
             });
