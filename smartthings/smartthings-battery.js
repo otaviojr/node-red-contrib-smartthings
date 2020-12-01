@@ -5,6 +5,8 @@ module.exports = function(RED) {
     function SmartthingsBatteryNode(config) {
         RED.nodes.createNode(this, config);
 
+        let node = this;
+
         console.debug("SmartthingsBatteryNode")
         console.debug(config);
 
@@ -18,8 +20,8 @@ module.exports = function(RED) {
         };
 
         this.reportState = function(send, done, original) {
-            send = send || function() { this.send.apply(this,arguments) };
-            done = done || function() { this.done.apply(this,arguments) };
+            send = send || function() { node.send.apply(this,arguments) };
+            done = done || function() { node.done.apply(this,arguments) };
 
             let msg = {
                 topic: "device",
@@ -74,8 +76,8 @@ module.exports = function(RED) {
             });
 
             this.on('input', (msg, send, done) => {
-                send = send || function() { this.send.apply(this,arguments) };
-                done = done || function() { this.done.apply(this,arguments) };
+                send = send || function() { node.send.apply(this,arguments) };
+                done = done || function() { node.done.apply(this,arguments) };
 
                 console.debug("Input Message Received");
                 console.log(msg);
