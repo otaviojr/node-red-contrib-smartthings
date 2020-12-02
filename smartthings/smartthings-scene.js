@@ -17,7 +17,7 @@ module.exports = function(RED) {
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
-                done = done || function() { node.done.apply(node,arguments) };
+                done = done || function() { };
                 console.debug("Input Message Received");
                 if(msg && msg.topic === "scene"){
                     this.conf.executeScene(this.scene).then( (ret) => {

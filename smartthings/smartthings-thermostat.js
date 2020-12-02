@@ -27,7 +27,7 @@ module.exports = function(RED) {
 
         this.reportState = function(send, done, original) {
             send = send || function() { node.send.apply(node,arguments) };
-            done = done || function() { node.done.apply(node,arguments) };
+            done = done || function() { };
 
             let msg = [null,null,null,null,null,null,null];
 
@@ -246,7 +246,7 @@ module.exports = function(RED) {
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
-                done = done || function() { node.done.apply(node,arguments) };
+                done = done || function() { };
                 console.debug("Input Message Received");
                 console.log(msg);
 
