@@ -59,13 +59,23 @@ module.exports = function(RED) {
             node.getDeviceStatus = function(deviceId, type){
                 console.log("getDeviceStatus:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.st.devices.getDeviceComponentStatus(deviceId, type).then(deviceStatus => {
-                        console.log("Device Status ("+deviceId+"):");
-                        console.log(deviceStatus);
-                        resolve(deviceStatus);
-                    }).catch( err => {
-                        reject(err);
-                    });
+                    if (typeof type === 'undefined') {
+                        node.st.devices.getDeviceStatus(deviceId).then(deviceStatus => {
+                            console.log("Device Status ("+deviceId+"):");
+                            console.log(deviceStatus);
+                            resolve(deviceStatus);
+                        }).catch( err => {
+                            reject(err);
+                        });
+                    } else {
+                        node.st.devices.getDeviceComponentStatus(deviceId, type).then(deviceStatus => {
+                            console.log("Device Status ("+deviceId+"):");
+                            console.log(deviceStatus);
+                            resolve(deviceStatus);
+                        }).catch( err => {
+                            reject(err);
+                        });
+                    }
                 });
             };
 
