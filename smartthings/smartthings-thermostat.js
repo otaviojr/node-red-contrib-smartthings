@@ -130,6 +130,58 @@ module.exports = function(RED) {
             this.reportState(send, done);
         };
 
+        this.pullState = function(){
+            this.conf.getDeviceStatus(this.device,"main").then( (status) => {
+                console.debug("ThermostatDevice("+this.name+") Status Refreshed");
+
+                let state = {};
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["temperature"] !== undefined){
+                    state.temperature = {
+                        value: parseFloat(status["thermostat"]["temperature"]["value"]),
+                        unit: status["thermostat"]["temperature"]["unit"]
+                    };
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatFanMode"] !== undefined){
+                    state.thermostatFanMode =  status["thermostat"]["thermostatFanMode"]["value"];
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatMode"] !== undefined){
+                    state.thermostatMode = status["thermostat"]["thermostatMode"]["value"];
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["coolingSetpoint"] !== undefined){
+                    state.coolingSetpoint = {
+                        value: status["thermostat"]["coolingSetpoint"]["value"],
+                        unit: status["thermostat"]["coolingSetpoint"]["unit"]
+                    };
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["heatingSetpoint"] !== undefined){
+                    state.heatingSetpoint = {
+                        value: status["thermostat"]["heatingSetpoint"]["value"],
+                        unit: status["thermostat"]["heatingSetpoint"]["unit"]
+                    }
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatSetpoint"] !== undefined){
+                    state.thermostatSetpoint = {
+                        value: status["thermostat"]["thermostatSetpoint"]["value"]
+                    }
+                }
+
+                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatOperatingState"] !== undefined){
+                    state.thermostatOperatingState = status["thermostat"]["thermostatOperatingState"]["value"];
+                }
+
+                this.setState(state);
+            }).catch( err => {
+                this.error("Ops... error getting device state (ThermostatDevice)");
+                this.error(err);
+            });
+        };
+
         if(this.conf && this.device){
             const callback  = (evt) => {
                 console.debug("ThermostatDevice("+this.name+") Callback called");
@@ -193,56 +245,7 @@ module.exports = function(RED) {
             }
 
             this.conf.registerCallback(this, this.device, callback);
-
-            this.conf.getDeviceStatus(this.device,"main").then( (status) => {
-                console.debug("ThermostatDevice("+this.name+") Status Refreshed");
-
-                let state = {};
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["temperature"] !== undefined){
-                    state.temperature = {
-                        value: parseFloat(status["thermostat"]["temperature"]["value"]),
-                        unit: status["thermostat"]["temperature"]["unit"]
-                    };
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatFanMode"] !== undefined){
-                    state.thermostatFanMode =  status["thermostat"]["thermostatFanMode"]["value"];
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatMode"] !== undefined){
-                    state.thermostatMode = status["thermostat"]["thermostatMode"]["value"];
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["coolingSetpoint"] !== undefined){
-                    state.coolingSetpoint = {
-                        value: status["thermostat"]["coolingSetpoint"]["value"],
-                        unit: status["thermostat"]["coolingSetpoint"]["unit"]
-                    };
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["heatingSetpoint"] !== undefined){
-                    state.heatingSetpoint = {
-                        value: status["thermostat"]["heatingSetpoint"]["value"],
-                        unit: status["thermostat"]["heatingSetpoint"]["unit"]
-                    }
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatSetpoint"] !== undefined){
-                    state.thermostatSetpoint = {
-                        value: status["thermostat"]["thermostatSetpoint"]["value"]
-                    }
-                }
-
-                if(status["thermostat"] !== undefined && status["thermostat"]["thermostatOperatingState"] !== undefined){
-                    state.thermostatOperatingState = status["thermostat"]["thermostatOperatingState"]["value"];
-                }
-
-                this.setState(state);
-            }).catch( err => {
-                this.error("Ops... error getting device state (ThermostatDevice)");
-                this.error(err);
-            });
+            this.pullState();
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
@@ -252,6 +255,10 @@ module.exports = function(RED) {
 
                 if(msg && msg.topic !== undefined){
                   switch(msg.topic){
+                    case "pull":
+                        this.pullState();
+                        break;
+
                     case "update":
                         this.reportState(send, done, msg);
                         break;

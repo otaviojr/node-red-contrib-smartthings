@@ -48,19 +48,7 @@ module.exports = function(RED) {
             this.reportState(send ,done);
         };
 
-        if(this.conf && this.device){
-            const callback  = (evt) => {
-                console.debug("BatteryDevice("+this.name+") Callback called");
-                console.debug(evt);
-                if(evt["name"] == "battery"){
-                    this.setState({
-                        value: parseFloat(evt["value"])
-                    });
-                }
-            }
-
-            this.conf.registerCallback(this, this.device, callback);
-
+        this.pullState = function(){
             this.conf.getDeviceStatus(this.device,"main/capabilities/battery").then( (status) => {
                 console.debug("BatteryDevice("+this.name+") Status Refreshed");
                 console.debug(status);
@@ -74,6 +62,21 @@ module.exports = function(RED) {
                 console.error("Ops... error getting device state (BatteryDevice)");
                 console.error(err);
             });
+        };
+
+        if(this.conf && this.device){
+            const callback  = (evt) => {
+                console.debug("BatteryDevice("+this.name+") Callback called");
+                console.debug(evt);
+                if(evt["name"] == "battery"){
+                    this.setState({
+                        value: parseFloat(evt["value"])
+                    });
+                }
+            }
+
+            this.conf.registerCallback(this, this.device, callback);
+            this.pullState();
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
@@ -84,6 +87,10 @@ module.exports = function(RED) {
 
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
+                        case "pull":
+                            this.pullState();
+                            break;
+
                         case "update":
                             this.reportState(send, done, msg);
                             break;

@@ -43,17 +43,7 @@ module.exports = function(RED) {
             this.reportStatus(send, done);
         }
 
-        if(this.conf && this.device){
-            const callback  = (evt) => {
-                console.debug("LockDevice("+this.name+") Callback called");
-                console.debug(evt);
-                if(evt["name"] == "lock"){
-                    this.updateStatus((evt["value"].toLowerCase() === "locked" ? 1 : 0));
-                }
-            }
-
-            this.conf.registerCallback(this, this.device, callback);
-
+        this.pullStatus = function(send, done, original){
             this.conf.getDeviceStatus(this.device,"main/capabilities/lock").then( (status) => {
                 console.debug("LockDevice("+this.name+") Status Refreshed");
 
@@ -65,6 +55,19 @@ module.exports = function(RED) {
                 console.error("Ops... error getting device state (LockDevice)");
                 console.error(err);
             });
+        }
+
+        if(this.conf && this.device){
+            const callback  = (evt) => {
+                console.debug("LockDevice("+this.name+") Callback called");
+                console.debug(evt);
+                if(evt["name"] == "lock"){
+                    this.updateStatus((evt["value"].toLowerCase() === "locked" ? 1 : 0));
+                }
+            }
+
+            this.conf.registerCallback(this, this.device, callback);
+            this.pullStatus();
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
@@ -81,6 +84,8 @@ module.exports = function(RED) {
                         console.error("Error updating device");
                         done("Error updating device");
                     });
+                } else if(msg.topic === "pull"){
+                    this.pullStatus();
                 } else if(msg.topic === "update"){
                     this.reportStatus(send, done, msg);
                 } else {
