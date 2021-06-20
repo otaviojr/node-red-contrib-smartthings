@@ -61,6 +61,28 @@ module.exports = function(RED) {
             this.reportState(send, done);
         }
 
+        this.pullState = function(value, send, done) {
+            this.conf.getDeviceStatus(this.device,"main").then( (status) => {
+                console.debug("LevelDevice("+this.name+") Status Refreshed");
+
+                let state = {};
+
+                if(status["switch"] !== undefined && status["switch"]["switch"] !== undefined){
+                    state.value = (status["switch"]["switch"]["value"].toLowerCase() === "on" ? 1 : 0);
+                }
+
+                if(status["switchLevel"] !== undefined && status["switchLevel"]["level"] !== undefined){
+                    state.level = status["switchLevel"]["level"]["value"];
+                    state.levelUnit = status["switchLevel"]["level"]["unit"];
+                }
+
+                this.setState(state);
+            }).catch( err => {
+                console.error("Ops... error getting device state (LevelDevice)");
+                console.error(err);
+            });
+        }
+
         if(this.conf && this.device){
             const callback  = (evt) => {
                 console.debug("LevelDevice("+this.name+") Callback called");
@@ -82,26 +104,7 @@ module.exports = function(RED) {
             }
 
             this.conf.registerCallback(this, this.device, callback);
-
-            this.conf.getDeviceStatus(this.device,"main").then( (status) => {
-                console.debug("LevelDevice("+this.name+") Status Refreshed");
-
-                let state = {};
-
-                if(status["switch"] !== undefined && status["switch"]["switch"] !== undefined){
-                    state.value = (status["switch"]["switch"]["value"].toLowerCase() === "on" ? 1 : 0);
-                }
-
-                if(status["switchLevel"] !== undefined && status["switchLevel"]["level"] !== undefined){
-                    state.level = status["switchLevel"]["level"]["value"];
-                    state.levelUnit = status["switchLevel"]["level"]["unit"];
-                }
-
-                this.setState(state);
-            }).catch( err => {
-                console.error("Ops... error getting device state (LevelDevice)");
-                console.error(err);
-            });
+            this.pullState();
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
@@ -111,6 +114,10 @@ module.exports = function(RED) {
 
                 if(msg && msg.topic !== undefined){
                     switch(msg.topic){
+                        case "pull":
+                            this.pullState();
+                            break;
+
                         case "update":
                             this.reportState(send, done, msg);
                             break;

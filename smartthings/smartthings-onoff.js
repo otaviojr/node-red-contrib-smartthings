@@ -43,17 +43,7 @@ module.exports = function(RED) {
             this.reportStatus(send, done);
         }
 
-        if(this.conf && this.device){
-            const callback  = (evt) => {
-                console.debug("OnOffDevice("+this.name+") Callback called");
-                console.debug(evt);
-                if(evt["name"] == "switch"){
-                    this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
-                }
-            }
-
-            this.conf.registerCallback(this, this.device, callback);
-
+        this.pullStatus = function() {
             this.conf.getDeviceStatus(this.device,"main/capabilities/switch").then( (status) => {
                 console.debug("OnOffDevice("+this.name+") Status Refreshed");
 
@@ -65,6 +55,20 @@ module.exports = function(RED) {
                 console.error("Ops... error getting device state (OnOffDevice)");
                 console.error(err);
             });
+        }
+
+        if(this.conf && this.device){
+            const callback  = (evt) => {
+                console.debug("OnOffDevice("+this.name+") Callback called");
+                console.debug(evt);
+                if(evt["name"] == "switch"){
+                    this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
+                }
+            }
+
+            this.conf.registerCallback(this, this.device, callback);
+
+            this.pullStatus();
 
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
@@ -81,6 +85,8 @@ module.exports = function(RED) {
                         console.error("Error updating device");
                         done("Error updating device");
                     });
+                } else if(msg.topic === "pull"){
+                    this.pullStatus();
                 } else if(msg.topic === "update"){
                     this.reportStatus(send, done, msg);
                 } else {

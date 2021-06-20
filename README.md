@@ -114,8 +114,9 @@ Device changes are received through the webhook you set up at SmartThings Develo
 Portal.
 
 All device nodes can receive at its input a message with the ```msg.topic``` of
-**update** to force the output of the current device state. This is useful when
+**update** to force the output of the current saved device state. This is useful when
 handling a request, for example.
+If you want to pull the current status from SmartThings, you can send a message with the ```msg.topic``` of **pull**;
 
 Some devices can have their state changed. You can turn on a light, change
 level and color, or, open your door.
