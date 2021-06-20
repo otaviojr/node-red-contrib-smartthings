@@ -29,7 +29,8 @@
       "smartthings-button": "smartthings/smartthings-button.js",
       "smartthings-power-meter": "smartthings/smartthings-power-meter.js",
       "smartthings-water": "smartthings/smartthings-water.js",
-      "smartthings-scene": "smartthings/smartthings-scene.js"
+      "smartthings-scene": "smartthings/smartthings-scene.js",
+      "smartthings-status": "smartthings/smartthings-status.js"
     }
   },
   "repository": {
