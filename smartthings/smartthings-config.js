@@ -4,8 +4,6 @@ const HttpSignature = require('http-signature');
 const Axios = require('axios');
 
 const SmartApp = require('@smartthings/smartapp');
-const express = require('express');
-const server = express();
 
 module.exports = function(RED) {
 
@@ -13,6 +11,32 @@ module.exports = function(RED) {
 
     var nodes = {};
     var callbacks = [];
+
+    const smartapp = new SmartApp()
+        .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
+        .page('mainPage', (context, page, configData) => {
+            page.section('sensors', section => {
+                section
+                    .deviceSetting('contactSensor')
+                    .capabilities(['contactSensor'])
+            });
+            page.section('lights', section => {
+                section
+                    .deviceSetting('lights')
+                    .capabilities(['switch'])
+                    .permissions('rx')
+                    .multiple(true);
+            });
+        })
+        // Called for both INSTALLED and UPDATED lifecycle events if there is no separate installed() handler
+        .updated(async (context, updateData) => {
+            await context.api.subscriptions.delete() // clear any existing configuration
+            await context.api.subscriptions.subscribeToDevices(context.config.contactSensor, 'contactSensor', 'contact', 'myDeviceEventHandler');
+        })
+        .subscribedEventHandler('myDeviceEventHandler', async (context, event) => {
+            const value = event.value === 'open' ? 'on' : 'off';
+            await context.api.devices.sendCommands(context.config.lights, 'switch', value);
+        });
 
     function SmartthingsConfigNode(config) {
 
@@ -22,7 +46,6 @@ module.exports = function(RED) {
         console.log(config);
 
         this.token = config.token;
-        this.port = config.port;
 
         var node = this;
 
@@ -120,43 +143,6 @@ module.exports = function(RED) {
             };
 
             nodes[node.token] = node;
-
-            const smartapp = new SmartApp()
-                .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
-                .page('mainPage', (context, page, configData) => {
-                    page.section('sensors', section => {
-                        section
-                            .deviceSetting('contactSensor')
-                            .capabilities(['contactSensor'])
-                    });
-                    page.section('lights', section => {
-                        section
-                            .deviceSetting('lights')
-                            .capabilities(['switch'])
-                            .permissions('rx')
-                            .multiple(true);
-                    });
-                })
-                // Called for both INSTALLED and UPDATED lifecycle events if there is no separate installed() handler
-                .updated(async (context, updateData) => {
-                    await context.api.subscriptions.delete() // clear any existing configuration
-                    await context.api.subscriptions.subscribeToDevices(context.config.contactSensor, 'contactSensor', 'contact', 'myDeviceEventHandler');
-                })
-                .subscribedEventHandler('myDeviceEventHandler', async (context, event) => {
-                    const value = event.value === 'open' ? 'on' : 'off';
-                    await context.api.devices.sendCommands(context.config.lights, 'switch', value);
-                });
-
-            server.use(express.json());
-
-            /* Handle POST requests */
-            server.post('/', function (req, res, next) {
-              smartapp.handleHttpCallback(req, res);
-            });
-
-
-            /* Start listening at your defined PORT */
-            server.listen(node.port, () => console.log(`Server is up and running on port ${node.port}`));
         }
 
         console.log("SmartthingsConfigNode called");
@@ -225,6 +211,11 @@ module.exports = function(RED) {
       } else {
         res.status(404).send();
       }
+    });
+
+    RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
+        console.log("Smartthings WebApp");
+        smartapp.handleHttpCallback(req, res);
     });
 
     RED.httpAdmin.get('/smartthings/webhook', function(req,res){
