@@ -494,7 +494,7 @@ module.exports = function(RED) {
         // Called for both INSTALLED and UPDATED lifecycle events if there is no separate installed() handler
         .updated(async (context, updateData) => {
             console.log("Smartthings WebApp Installed/Updated:");
-            console.log(event);
+            console.log(updateData);
             await context.api.subscriptions.delete() // clear any existing configuration
             await context.api.subscriptions.subscribeToDevices(context.config.accelerationSensor, 'accelerationSensor', 'acceleration', 'myDeviceEventHandler');
             await context.api.subscriptions.subscribeToDevices(context.config.airQualitySensor, 'airQualitySensor', 'airQuality', 'myDeviceEventHandler');
