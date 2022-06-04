@@ -213,6 +213,10 @@ module.exports = function(RED) {
       }
     });
 
+    RED.httpAdmin.get('/smartthings/smartapp', function(req,res){
+      res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
+    });
+
     RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
         console.log("Smartthings WebApp");
         smartapp.handleHttpCallback(req, res);
