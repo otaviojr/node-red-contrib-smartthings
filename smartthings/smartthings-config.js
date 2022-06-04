@@ -19,445 +19,445 @@ module.exports = function(RED) {
                 section
                     .deviceSetting('accelerationSensor')
                     .capabilities(['accelerationSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('airQualitySensor', section => {
                 section
                     .deviceSetting('airQualitySensor')
                     .capabilities(['airQualitySensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('alarm', section => {
                 section
                     .deviceSetting('alarm')
                     .capabilities(['alarm'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('audioMute', section => {
                 section
                     .deviceSetting('audioMute')
                     .capabilities(['audioMute'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('audioNotification', section => {
                 section
                     .deviceSetting('audioNotification')
                     .capabilities(['audioNotification'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('audioStream', section => {
                 section
                     .deviceSetting('audioStream')
                     .capabilities(['audioStream'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('audioVolume', section => {
                 section
                     .deviceSetting('audioVolume')
                     .capabilities(['audioVolume'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('battery', section => {
                 section
                     .deviceSetting('battery')
                     .capabilities(['battery'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('button', section => {
                 section
                     .deviceSetting('button')
                     .capabilities(['button'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('bypassable', section => {
                 section
                     .deviceSetting('bypassable')
                     .capabilities(['bypassable'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('carbonDioxideMeasurement', section => {
                 section
                     .deviceSetting('carbonDioxideMeasurement')
                     .capabilities(['carbonDioxideMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('carbonMonoxideDetector', section => {
                 section
                     .deviceSetting('carbonMonoxideDetector')
                     .capabilities(['carbonMonoxideDetector'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('colorControl', section => {
                 section
                     .deviceSetting('colorControl')
                     .capabilities(['colorControl'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('colorTemperature', section => {
                 section
                     .deviceSetting('colorTemperature')
                     .capabilities(['colorTemperature'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('contactSensor', section => {
                 section
                     .deviceSetting('contactSensor')
                     .capabilities(['contactSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('dewPoint', section => {
                 section
                     .deviceSetting('dewPoint')
                     .capabilities(['dewPoint'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('doorControl', section => {
                 section
                     .deviceSetting('doorControl')
                     .capabilities(['doorControl'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('dustSensor', section => {
                 section
                     .deviceSetting('dustSensor')
                     .capabilities(['dustSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('energyMeter', section => {
                 section
                     .deviceSetting('energyMeter')
                     .capabilities(['energyMeter'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('equivalentCarbonDioxideMeasurement', section => {
                 section
                     .deviceSetting('equivalentCarbonDioxideMeasurement')
                     .capabilities(['equivalentCarbonDioxideMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('fanOscillationMode', section => {
                 section
                     .deviceSetting('fanOscillationMode')
                     .capabilities(['fanOscillationMode'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('fanSpeed', section => {
                 section
                     .deviceSetting('fanSpeed')
                     .capabilities(['fanSpeed'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('filterState', section => {
                 section
                     .deviceSetting('filterState')
                     .capabilities(['filterState'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('fineDustSensor', section => {
                 section
                     .deviceSetting('fineDustSensor')
                     .capabilities(['fineDustSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('formaldehydeMeasurement', section => {
                 section
                     .deviceSetting('formaldehydeMeasurement')
                     .capabilities(['formaldehydeMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('healthCheck', section => {
                 section
                     .deviceSetting('healthCheck')
                     .capabilities(['healthCheck'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('illuminanceMeasurement', section => {
                 section
                     .deviceSetting('illuminanceMeasurement')
                     .capabilities(['illuminanceMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('imageCapture', section => {
                 section
                     .deviceSetting('imageCapture')
                     .capabilities(['imageCapture'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('infraredLevel', section => {
                 section
                     .deviceSetting('infraredLevel')
                     .capabilities(['infraredLevel'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('locationMode', section => {
                 section
                     .deviceSetting('locationMode')
                     .capabilities(['locationMode'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('lock', section => {
                 section
                     .deviceSetting('lock')
                     .capabilities(['lock'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('motionSensor', section => {
                 section
                     .deviceSetting('motionSensor')
                     .capabilities(['motionSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('networkMeter', section => {
                 section
                     .deviceSetting('networkMeter')
                     .capabilities(['networkMeter'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('notification', section => {
                 section
                     .deviceSetting('notification')
                     .capabilities(['notification'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('objectDetection', section => {
                 section
                     .deviceSetting('objectDetection')
                     .capabilities(['objectDetection'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('panicAlarm', section => {
                 section
                     .deviceSetting('panicAlarm')
                     .capabilities(['panicAlarm'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('pHMeasurement', section => {
                 section
                     .deviceSetting('pHMeasurement')
                     .capabilities(['pHMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('powerMeter', section => {
                 section
                     .deviceSetting('powerMeter')
                     .capabilities(['powerMeter'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('powerSource', section => {
                 section
                     .deviceSetting('powerSource')
                     .capabilities(['powerSource'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('presenceSensor', section => {
                 section
                     .deviceSetting('presenceSensor')
                     .capabilities(['presenceSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('refrigeration', section => {
                 section
                     .deviceSetting('refrigeration')
                     .capabilities(['refrigeration'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('relativeHumidityMeasurement', section => {
                 section
                     .deviceSetting('relativeHumidityMeasurement')
                     .capabilities(['relativeHumidityMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('remoteControlStatus', section => {
                 section
                     .deviceSetting('remoteControlStatus')
                     .capabilities(['remoteControlStatus'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('samsungTV', section => {
                 section
                     .deviceSetting('samsungTV')
                     .capabilities(['samsungTV'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('securitySystem', section => {
                 section
                     .deviceSetting('securitySystem')
                     .capabilities(['securitySystem'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('signalStrength', section => {
                 section
                     .deviceSetting('signalStrength')
                     .capabilities(['signalStrength'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('sleepSensor', section => {
                 section
                     .deviceSetting('sleepSensor')
                     .capabilities(['sleepSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('smokeDetector', section => {
                 section
                     .deviceSetting('smokeDetector')
                     .capabilities(['smokeDetector'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('soundPressureLevel', section => {
                 section
                     .deviceSetting('soundPressureLevel')
                     .capabilities(['soundPressureLevel'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('soundSensor', section => {
                 section
                     .deviceSetting('soundSensor')
                     .capabilities(['soundSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('switchLevel', section => {
                 section
                     .deviceSetting('switchLevel')
                     .capabilities(['switchLevel'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('switch', section => {
                 section
                     .deviceSetting('switch')
                     .capabilities(['switch'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('tamperAlert', section => {
                 section
                     .deviceSetting('tamperAlert')
                     .capabilities(['tamperAlert'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('temperatureAlarm', section => {
                 section
                     .deviceSetting('temperatureAlarm')
                     .capabilities(['temperatureAlarm'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('temperatureMeasurement', section => {
                 section
                     .deviceSetting('temperatureMeasurement')
                     .capabilities(['temperatureMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('thermostatCoolingSetpoint', section => {
                 section
                     .deviceSetting('thermostatCoolingSetpoint')
                     .capabilities(['thermostatCoolingSetpoint'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('thermostatFanMode', section => {
                 section
                     .deviceSetting('thermostatFanMode')
                     .capabilities(['thermostatFanMode'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('thermostatHeatingSetpoint', section => {
                 section
                     .deviceSetting('thermostatHeatingSetpoint')
                     .capabilities(['thermostatHeatingSetpoint'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('thermostatMode', section => {
                 section
                     .deviceSetting('thermostatMode')
                     .capabilities(['thermostatMode'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('thermostatOperatingState', section => {
                 section
                     .deviceSetting('thermostatOperatingState')
                     .capabilities(['thermostatOperatingState'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('threeAxis', section => {
                 section
                     .deviceSetting('threeAxis')
                     .capabilities(['threeAxis'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('tone', section => {
                 section
                     .deviceSetting('tone')
                     .capabilities(['tone'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('tV', section => {
                 section
                     .deviceSetting('tV')
                     .capabilities(['tV'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('tvocMeasurement', section => {
                 section
                     .deviceSetting('tvocMeasurement')
                     .capabilities(['tvocMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('ultravioletIndex', section => {
                 section
                     .deviceSetting('ultravioletIndex')
                     .capabilities(['ultravioletIndex'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('valve', section => {
                 section
                     .deviceSetting('valve')
                     .capabilities(['valve'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('veryFineDustSensor', section => {
                 section
                     .deviceSetting('veryFineDustSensor')
                     .capabilities(['veryFineDustSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('videoCamera', section => {
                 section
                     .deviceSetting('videoCamera')
                     .capabilities(['videoCamera'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('videoCapture', section => {
                 section
                     .deviceSetting('videoCapture')
                     .capabilities(['videoCapture'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('videoStream', section => {
                 section
                     .deviceSetting('videoStream')
                     .capabilities(['videoStream'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('voltageMeasurement', section => {
                 section
                     .deviceSetting('voltageMeasurement')
                     .capabilities(['voltageMeasurement'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('waterSensor', section => {
                 section
                     .deviceSetting('waterSensor')
                     .capabilities(['waterSensor'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('windowShadePreset', section => {
                 section
                     .deviceSetting('windowShadePreset')
                     .capabilities(['windowShadePreset'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             page.section('windowShade', section => {
                 section
                     .deviceSetting('windowShade')
                     .capabilities(['windowShade'])
-                    .permissions('rwx').multiple(true);
+                    .name("Devices").permissions('rwx').multiple(true);
             });
             /*page.section('accelerationSensor', section => {
                 section
