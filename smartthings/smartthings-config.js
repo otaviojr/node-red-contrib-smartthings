@@ -125,6 +125,7 @@ module.exports = function(RED) {
     var nodes = {};
     var callbacks = [];
 
+    const nodeContextStore = new NodeRedContextStore(RED);
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
         .page('mainPage', (context, page, configData) => {
@@ -704,7 +705,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
         })
-        .contextStore(new NodeRedContextStore(RED));
+        .contextStore(nodeContextStore);
 
     function SmartthingsConfigNode(config) {
 
@@ -907,7 +908,7 @@ module.exports = function(RED) {
 
     RED.httpAdmin.get('/smartthings/smartapp/locations', function(req,res){
       console.log("HTTP REQUEST: locations");
-      smartapp.contextStore.listAll().then(async (apps) => {
+      nodeContextStore.listAll().then(async (apps) => {
         let ret = [];
         for(const installedAppId of apps){
           var params = await node.contextStore.get(installedAppId);
