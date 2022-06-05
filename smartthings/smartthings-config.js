@@ -684,7 +684,16 @@ module.exports = function(RED) {
             });
         }
 
-        RED.httpAdmin.get('/smartthings/locations', function(req,res){
+        RED.httpAdmin.get('/smartthings/smartapp/' + node.name.toLowerCase(), function(req,res){
+          res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
+        });
+
+        RED.httpAdmin.post('/smartthings/smartapp' + node.name.toLowerCase(), function(req,res){
+            console.log("Smartthings WebApp");
+            smartapp.handleHttpCallback(req, res);
+        });
+
+        RED.httpAdmin.get('/smartthings/smartapp/' + node.name.toLowerCase() + '/locations', function(req,res){
           console.log("HTTP REQUEST: locations");
           node.contextStore.listAll().then(async (apps) => {
             let ret = [];
@@ -868,15 +877,6 @@ module.exports = function(RED) {
       } else {
         res.status(404).send();
       }
-    });
-
-    RED.httpAdmin.get('/smartthings/smartapp', function(req,res){
-      res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
-    });
-
-    RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
-        console.log("Smartthings WebApp");
-        smartapp.handleHttpCallback(req, res);
     });
 
     RED.httpAdmin.get('/smartthings/webhook', function(req,res){
