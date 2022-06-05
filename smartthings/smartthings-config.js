@@ -37,7 +37,7 @@ class NodeRedContextStore {
           reject(err);
           return;
         }
-        resolve(data);
+        resolve(JSON.parse(data));
       });
     });
   }
@@ -106,7 +106,8 @@ class NodeRedContextStore {
           if (err) {
               reject(err);
           }
-          ret = [];
+
+          let ret = [];
 
           files.forEach(function (file) {
               ret << file.replaceAll(".context","");
