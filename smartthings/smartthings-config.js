@@ -9,7 +9,8 @@ const SmartApp = require('@smartthings/smartapp');
 class NodeRedContextStore {
   constructor(RED) {
     this.userDir = RED["userDir"];
-    this.storeDir = this.userDir + "/smartthings/context/"
+    this.storeDir = this.userDir + "/smartthings/context/";
+    console.log("Creating directory: " + this.storeDir);
     if (!fs.existsSync(this.storeDir)){
       fs.mkdirSync(this.storeDir, { recursive: true });
     }
@@ -899,6 +900,14 @@ module.exports = function(RED) {
           var params = await node.contextStore.get(installedAppId);
           console.log("Dados para a installedAppId("+installedAppId+"):");
           console.log(params);
+
+          let st = new SmartThings.SmartThings(params.authToken);
+          Axios.defaults.headers.common['Authorization'] = 'Bearer ' + params.authToken;
+
+          var location = await st.locations.getLocationDetails(params.locationId);
+
+          console.log("Dados do local:");
+          console.log(location);
 
           ret.push({
               installedAppId: installedAppId,
