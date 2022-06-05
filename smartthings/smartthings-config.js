@@ -76,7 +76,7 @@ module.exports = function(RED) {
     var nodes = {};
     var callbacks = [];
 
-    console.log(Object.keys(RED._]));
+    console.log(Object.keys(RED._));
 
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
