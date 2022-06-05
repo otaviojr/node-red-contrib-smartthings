@@ -599,8 +599,8 @@ module.exports = function(RED) {
         console.log("SmartthingsConfigNode");
         console.log(config);
 
-        for(var i = 0; i < 93; String(i++)){
-          smartapp.subscribedEventHandler('handler' + i, async (context, event) => {
+        for(var i = 0; i < 93; i++){
+          smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
             console.log("Smartthings WebApp Event Received:");
             console.log(event);
           });
