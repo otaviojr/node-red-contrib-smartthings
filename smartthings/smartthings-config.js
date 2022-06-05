@@ -6,9 +6,8 @@ const Axios = require('axios');
 const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
-  constructor(node) {
-    this.node = node;
-    this.context = node.context();
+  constructor(context) {
+    this.context = context;
   }
 
   get(installedAppId) {
@@ -655,7 +654,8 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.waterSensor, 'waterSensor', 'water', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
-        });
+        })
+        .contextStore(new NodeRedContextStore(RED.runtime.context));
 
     function SmartthingsConfigNode(config) {
 
@@ -665,9 +665,6 @@ module.exports = function(RED) {
         console.log(config);
 
         var node = this;
-
-        node.contextStore = new NodeRedContextStore(node);
-        smartapp.contextStore(node.contextStore);
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
@@ -683,35 +680,6 @@ module.exports = function(RED) {
                 }
             });
         }
-
-        RED.httpAdmin.get('/smartthings/smartapp/' + node.name.toLowerCase(), function(req,res){
-          res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
-        });
-
-        RED.httpAdmin.post('/smartthings/smartapp' + node.name.toLowerCase(), function(req,res){
-            console.log("Smartthings WebApp");
-            smartapp.handleHttpCallback(req, res);
-        });
-
-        RED.httpAdmin.get('/smartthings/smartapp/' + node.name.toLowerCase() + '/locations', function(req,res){
-          console.log("HTTP REQUEST: locations");
-          node.contextStore.listAll().then(async (apps) => {
-            let ret = [];
-            for(const installedAppId of apps){
-              var params = await node.contextStore.get(installedAppId);
-              console.log("Dados para a installedAppId("+installedAppId+"):");
-              console.log(params);
-
-              ret.push({
-                  installedAppId: installedAppId,
-                  location: ""
-              });
-            };
-            res.status(200).send(ret);
-          }).catch(() => {
-            res.status(500);
-          });
-        });
 
         node.token = config.token;
 
@@ -877,6 +845,35 @@ module.exports = function(RED) {
       } else {
         res.status(404).send();
       }
+    });
+
+    RED.httpAdmin.get('/smartthings/smartapp', function(req,res){
+      res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
+    });
+
+    RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
+        console.log("Smartthings WebApp");
+        smartapp.handleHttpCallback(req, res);
+    });
+
+    RED.httpAdmin.get('/smartthings/smartapp/locations', function(req,res){
+      console.log("HTTP REQUEST: locations");
+      smartapp.contextStore.listAll().then(async (apps) => {
+        let ret = [];
+        for(const installedAppId of apps){
+          var params = await node.contextStore.get(installedAppId);
+          console.log("Dados para a installedAppId("+installedAppId+"):");
+          console.log(params);
+
+          ret.push({
+              installedAppId: installedAppId,
+              location: ""
+          });
+        };
+        res.status(200).send(ret);
+      }).catch(() => {
+        res.status(500);
+      });
     });
 
     RED.httpAdmin.get('/smartthings/webhook', function(req,res){
