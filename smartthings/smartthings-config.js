@@ -545,7 +545,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.refrigeration, 'refrigeration', 'rapidFreezing', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.relativeHumidityMeasurement, 'relativeHumidityMeasurement', 'humidity', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.remoteControlStatus, 'remoteControlStatus', 'remoteControlEnabled', 'handler' + String(i++));
-            await context.api.subscriptions.subscribeToDevices(context.config.samsungTV, 'samsungTV', 'messageButton', 'sa'handler' + String(i++));
+            await context.api.subscriptions.subscribeToDevices(context.config.samsungTV, 'samsungTV', 'messageButton', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.samsungTV, 'samsungTV', 'mute', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.samsungTV, 'samsungTV', 'pictureMode', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.samsungTV, 'samsungTV', 'soundMode', 'handler' + String(i++));
