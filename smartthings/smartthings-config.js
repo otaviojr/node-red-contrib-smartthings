@@ -62,11 +62,11 @@ class NodeRedContextStore {
     return new Promise((resolve, reject) => {
       var ret = this.context.keys();
       if(ret !== null){
-        resolve(keys);
+        resolve(ret);
       } else {
         reject([]);
       }
-    })
+    });
   }
 }
 
