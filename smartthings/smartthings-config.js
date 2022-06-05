@@ -1,4 +1,5 @@
 const Promise = require('promise');
+const fs = require('fs');
 const SmartThings = require("smartthings-node");
 const HttpSignature = require('http-signature');
 const Axios = require('axios');
@@ -6,8 +7,38 @@ const Axios = require('axios');
 const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
-  constructor(context) {
-    this.context = context;
+  constructor(RED) {
+    this.userDir = RED.userDir;
+    this.storeDir = this.userDir + "/smartthings/context"
+    if (!fs.existsSync(this.storeDir)){
+      fs.mkdirSync(this.storeDir, { recursive: true });
+    }
+  }
+
+  readFile(installedAppId) {
+    console.log("readFile");
+    return new Promise((resolve, reject) => {
+      fs.readFile(this.storeDir + installedAppId + ".context", 'utf8', (err, data) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve(data);
+      });
+    });
+  }
+
+  writeFile(installedAppId, data) {
+    console.log("writeFile");
+    return new Promise((resolve, reject) => {
+      fs.writeFile(this.storeDir + installedAppId + ".context", data, err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
+      });
+    });
   }
 
   get(installedAppId) {
@@ -76,7 +107,8 @@ module.exports = function(RED) {
     var nodes = {};
     var callbacks = [];
 
-    console.log(Object.keys(RED.userDir));
+    console.log(Object.keys(RED));
+    return;
 
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
