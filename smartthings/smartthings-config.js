@@ -4,6 +4,7 @@ const SmartThings = require("smartthings-node");
 const HttpSignature = require('http-signature');
 const Axios = require('axios');
 
+const {SmartThingsClient} = require('@smartthings/core-sdk');
 const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
@@ -916,15 +917,11 @@ module.exports = function(RED) {
           console.log("Dados para a installedAppId("+installedAppId+"):");
           console.log(params);
 
-          let st = new SmartThings.SmartThings(params.authToken);
-          Axios.defaults.headers.common['Authorization'] = 'Bearer ' + params.authToken;
+          const client = new SmartThingsClient(new BearerTokenAuthenticator(params.authToken));
 
-          st.locations.getLocationDetails(params.locationId).then( (info) => {
-            console.log("Dados do local:");
-            console.log(info);
-          }).catch( (err) => {
-            console.log("Dados do local (Erro):");
-            console.log(err);
+          client.locations.get(params.locationId).then(location => {
+            console.log('Location Data:');
+            console.log(location);
           });
 
           ret.push({
