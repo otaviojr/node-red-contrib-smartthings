@@ -56,7 +56,7 @@ class NodeRedContextStore {
   get(installedAppId) {
     console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
-      readFile(installedAppId).then( (data) => {
+      this.readFile(installedAppId).then( (data) => {
         resolve(data);
       }).catch( (err) => {
         reject({});
@@ -67,7 +67,7 @@ class NodeRedContextStore {
   put(params) {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
-      writeData(params.installedAppId, params).then( () => {
+      this.writeData(params.installedAppId, params).then( () => {
         resolve(params);
       }).catch( () => {
         reject({});
@@ -78,7 +78,7 @@ class NodeRedContextStore {
   delete(installedAppId) {
     console.log("NodeRedContextStore.delete");
     return new Promise((resolve, reject) => {
-      deleteFile(installedAppId).then( () => {
+      this.deleteFile(installedAppId).then( () => {
         resolve({});
       }).catch( err => {
         reject(err);
