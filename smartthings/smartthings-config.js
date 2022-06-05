@@ -82,6 +82,7 @@ class NodeRedContextStore {
       }).catch( err => {
         reject(err);
       });
+    });
   }
 
   listAll(){
