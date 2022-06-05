@@ -56,6 +56,18 @@ class NodeRedContextStore {
       }
     })
   }
+
+  listAll(){
+    console.log("NodeRedContextStore.listAll");
+    return new Promise((resolve, reject) => {
+      var ret = this.context.keys();
+      if(ret !== null){
+        resolve(keys);
+      } else {
+        reject([]);
+      }
+    })
+  }
 }
 
 module.exports = function(RED) {
@@ -652,7 +664,8 @@ module.exports = function(RED) {
         console.log("SmartthingsConfigNode");
         console.log(config);
 
-        smartapp.contextStore(new NodeRedContextStore(this));
+        this.contextStore = new NodeRedContextStore(this);
+        smartapp.contextStore(this.contextStore);
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
@@ -668,6 +681,10 @@ module.exports = function(RED) {
                 }
             });
         }
+
+        RED.httpAdmin.get('/smartthings/locations', function(req,res){
+          console.log("HTTP REQUEST: locations ";
+        });
 
         this.token = config.token;
 
