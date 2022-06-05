@@ -13,7 +13,7 @@ class NodeRedContextStore {
   get(installedAppId) {
     console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
-      var ret = this.context.get(installedAppId);
+      var ret = this.context.get("smartthings_"+installedAppId);
       if(ret !== null){
         resolve(ret);
       } else {
@@ -25,7 +25,7 @@ class NodeRedContextStore {
   put(params) {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
-      this.context.set(params.installedAppId, params);
+      this.context.set("smartthings_"+params.installedAppId, params);
       resolve(params);
     })
   }
@@ -33,9 +33,9 @@ class NodeRedContextStore {
   update(installedAppId, params) {
     console.log("NodeRedContextStore.update");
     return new Promise((resolve, reject) => {
-      var ret = this.context.get(installedAppId);
+      var ret = this.context.get("smartthings_"+installedAppId);
       if(ret !== null){
-        this.context.set(installedAppId, params);
+        this.context.set("smartthings_"+installedAppId, params);
         resolve(params);
       } else {
         reject({});
@@ -46,9 +46,9 @@ class NodeRedContextStore {
   delete(installedAppId) {
     console.log("NodeRedContextStore.delete");
     return new Promise((resolve, reject) => {
-      var ret = this.context.get(installedAppId);
+      var ret = this.context.get("smartthings_"+installedAppId);
       if(ret !== null){
-        this.context.set(installedAppId, null);
+        this.context.set("smartthings_"+installedAppId, null);
         resolve({});
       } else {
         reject({});
