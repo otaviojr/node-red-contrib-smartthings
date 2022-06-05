@@ -2,8 +2,7 @@
     RED.nodes.registerType('smartthings-config',{
         category: 'config',
         defaults: {
-            name: {value: ""},
-            token: {value: "", required:true}
+            name: {value: "", required:true}
         },
         icon: 'config.png',
         label: function() {
@@ -16,9 +15,5 @@
     <div class="form-row">
         <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-config-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
-        <label for="node-config-input-token"><i class="fa fa-globe" aria-hidden="true"></i>Token</label>
-        <input type="text" id="node-config-input-token" style="width: 40%;" placeholder="Smartthings Token">
     </div>
 </script>
