@@ -67,7 +67,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("HumidityDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "humidity"){
+                if(evt["attribute"] == "humidity"){
                     this.setState({
                         value: parseFloat(evt["value"])
                     });

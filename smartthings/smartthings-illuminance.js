@@ -66,7 +66,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("IlluminanceDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "illuminance"){
+                if(evt["attribute"] == "illuminance"){
                     this.updateStatus(parseFloat(evt["value"]),evt["unit"]);
                 }
             }

@@ -62,14 +62,14 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("PresenceDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "presence"){
+                if(evt["attribute"] == "presence"){
                     this.updateStatus((evt["value"].toLowerCase() == "present" ? 1 : 0));
                 }
             }
 
             this.conf.registerCallback(this, this.device, callback);
             this.pullStatus();
-            
+
             this.on('input', (msg, send, done) => {
                 send = send || function() { node.send.apply(node,arguments) };
                 done = done || function() { };
