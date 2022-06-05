@@ -61,7 +61,7 @@ class NodeRedContextStore {
       this.readFile(installedAppId).then( (data) => {
         resolve(data);
       }).catch( (err) => {
-        reject(err);
+        resolve({});
       })
     });
   }
