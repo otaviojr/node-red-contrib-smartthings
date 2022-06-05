@@ -87,12 +87,17 @@ class NodeRedContextStore {
   listAll(){
     console.log("NodeRedContextStore.listAll");
     return new Promise((resolve, reject) => {
-      var ret = this.context.keys();
-      if(ret !== null){
-        resolve(ret);
-      } else {
-        reject([]);
-      }
+      fs.readdir(this.storeDir, function (err, files) {
+          if (err) {
+              reject(err);
+          }
+          ret = [];
+
+          files.forEach(function (file) {
+              ret << file.replaceAll(".context","");
+          });
+          resolve(ret);
+      });
     });
   }
 }
