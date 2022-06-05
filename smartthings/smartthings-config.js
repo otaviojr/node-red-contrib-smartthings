@@ -697,7 +697,7 @@ module.exports = function(RED) {
                   installedAppId: installedAppId,
                   location: ""
               });
-            });
+            };
             res.status(200).send(ret);
           }).catch(() => {
             res.status(500);
