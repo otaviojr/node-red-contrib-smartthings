@@ -110,7 +110,7 @@ class NodeRedContextStore {
           let ret = [];
 
           files.forEach(function (file) {
-              ret << file.replaceAll(".context","");
+              ret << file.replace(".context","");
           });
 
           resolve(ret);
