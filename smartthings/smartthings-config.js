@@ -76,7 +76,7 @@ module.exports = function(RED) {
     var nodes = {};
     var callbacks = [];
 
-    console.log(Object.keys(RED["_"].nodes));
+    console.log(Object.keys(RED["_"]));
 
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
@@ -657,7 +657,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
         })
-        .contextStore(new NodeRedContextStore(RED._.getContext('global')));
+        .contextStore(new NodeRedContextStore(RED._.nodes.getContext('global')));
 
     function SmartthingsConfigNode(config) {
 
