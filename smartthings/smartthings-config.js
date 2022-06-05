@@ -37,7 +37,7 @@ class NodeRedContextStore {
           reject(err);
           return;
         }
-        resolve();
+        resolve(data);
       });
     });
   }
@@ -61,7 +61,7 @@ class NodeRedContextStore {
       this.readFile(installedAppId).then( (data) => {
         resolve(data);
       }).catch( (err) => {
-        reject({});
+        reject(err);
       })
     });
   }
@@ -69,10 +69,10 @@ class NodeRedContextStore {
   put(params) {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
-      this.writeData(params.installedAppId, params).then( () => {
-        resolve(params);
-      }).catch( () => {
-        reject({});
+      this.writeData(params.installedAppId, params).then( (data) => {
+        resolve(data);
+      }).catch( (err) => {
+        reject(err);
       });
     });
   }
@@ -82,8 +82,8 @@ class NodeRedContextStore {
     return new Promise((resolve, reject) => {
       this.writeData(installedAppId, params).then( () => {
         resolve(params);
-      }).catch( () => {
-        reject({});
+      }).catch( (err) => {
+        reject(err);
       });
     });
   }
