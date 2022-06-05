@@ -41,36 +41,29 @@ class NodeRedContextStore {
     });
   }
 
+  deleteFile(installedAppId){
+    console.log("deleteFile");
+  }
+
   get(installedAppId) {
     console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
-      var ret = this.context.get("smartthings_"+installedAppId);
-      if(ret !== null){
-        resolve(ret);
-      } else {
-        reject({})
-      }
+      readFile(installedAppId).then( (data) => {
+        resolve(data);
+      }).catch( (err) => {
+        reject({});
+      })
     });
   }
 
   put(params) {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
-      this.context.set("smartthings_"+params.installedAppId, params);
-      resolve(params);
-    })
-  }
-
-  update(installedAppId, params) {
-    console.log("NodeRedContextStore.update");
-    return new Promise((resolve, reject) => {
-      var ret = this.context.get("smartthings_"+installedAppId);
-      if(ret !== null){
-        this.context.set("smartthings_"+installedAppId, params);
+      writeData(params.installedAppId, params).then( () => {
         resolve(params);
-      } else {
+      }).catch( () => {
         reject({});
-      }
+      });
     })
   }
 
@@ -107,7 +100,7 @@ module.exports = function(RED) {
     var nodes = {};
     var callbacks = [];
 
-    console.log(Object.keys(RED));
+    console.log(JSON.stringify(RED));
     return;
 
     const smartapp = new SmartApp()
