@@ -919,7 +919,11 @@ module.exports = function(RED) {
           let st = new SmartThings.SmartThings(params.authToken);
           Axios.defaults.headers.common['Authorization'] = 'Bearer ' + params.authToken;
 
-          var location = await st.locations.getLocationDetails(params.locationId);
+          st.locations.getLocationDetails(params.locationId).then( (info) => {
+            console.log(info);
+          }).catch( (err) => {
+            console.log(err);
+          });
 
           console.log("Dados do local:");
           console.log(location);
