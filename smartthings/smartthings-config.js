@@ -685,15 +685,18 @@ module.exports = function(RED) {
         }
 
         RED.httpAdmin.get('/smartthings/locations', function(req,res){
-          console.log("HTTP REQUEST: locations ";
+          console.log("HTTP REQUEST: locations";
           let ret = [];
-          let apps = node.contextStore.listAll();
-          apps.forEach( (installedAppId, idx) => {
-              ret.push({
-                  installedAppId: installedAppId
-              });
+          let apps = node.contextStore.listAll().then(() => {
+            apps.forEach( (installedAppId, idx) => {
+                ret.push({
+                    installedAppId: installedAppId
+                });
+            });
+            res.status(200).send(ret);
+          }).catch(() => {
+            res.status(500)
           });
-          res.status(200).send(ret);
         });
 
         node.token = config.token;
