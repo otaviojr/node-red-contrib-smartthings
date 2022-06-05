@@ -20,7 +20,7 @@ class NodeRedContextStore {
       } else {
         reject({})
       }
-    })
+    });
   }
 
   put(params) {
@@ -686,9 +686,9 @@ module.exports = function(RED) {
 
         RED.httpAdmin.get('/smartthings/locations', function(req,res){
           console.log("HTTP REQUEST: locations");
-          node.contextStore.listAll().then(async (apps) => {
+          node.contextStore.listAll().then( async (apps) => {
             let ret = [];
-            for(const app of apps){
+            await apps.forEach( async (app) => {
               var params = await node.contextStore.get(installedAppId);
               console.log("Dados para a installedAppId("+installedAppId+"):");
               console.log(params);
@@ -697,7 +697,7 @@ module.exports = function(RED) {
                   installedAppId: installedAppId,
                   location: ""
               });
-            };
+            });
             res.status(200).send(ret);
           }).catch(() => {
             res.status(500);
