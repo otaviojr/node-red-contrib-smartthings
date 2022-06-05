@@ -15,10 +15,10 @@ class NodeRedContextStore {
     console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
       var ret = this.context.get(installedAppId);
-      if(ret){
+      if(ret !== null){
         resolve(ret);
       } else {
-        reject()
+        reject({})
       }
     })
   }
@@ -39,7 +39,7 @@ class NodeRedContextStore {
         this.context.set(installedAppId, params);
         resolve(params);
       } else {
-        reject();
+        reject({});
       }
     })
   }
@@ -50,9 +50,9 @@ class NodeRedContextStore {
       var ret = this.context.get(installedAppId);
       if(ret !== null){
         this.context.set(installedAppId, null);
-        resolve();
+        resolve({});
       } else {
-        reject();
+        reject({});
       }
     })
   }
