@@ -32,7 +32,7 @@ class NodeRedContextStore {
   writeFile(installedAppId, data) {
     console.log("writeFile");
     return new Promise((resolve, reject) => {
-      fs.writeFile(this.storeDir + installedAppId + ".context", data, err => {
+      fs.writeFile(this.storeDir + installedAppId + ".context", JSON.stringify(data), err => {
         if (err) {
           reject(err);
           return;
