@@ -69,7 +69,7 @@ class NodeRedContextStore {
   put(params) {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
-      this.writeData(params.installedAppId, params).then( (data) => {
+      this.writeFile(params.installedAppId, params).then( (data) => {
         resolve(data);
       }).catch( (err) => {
         reject(err);
@@ -80,7 +80,7 @@ class NodeRedContextStore {
   update(installedAppId, params) {
     console.log("NodeRedContextStore.update");
     return new Promise((resolve, reject) => {
-      this.writeData(installedAppId, params).then( () => {
+      this.writeFile(installedAppId, params).then( () => {
         resolve(params);
       }).catch( (err) => {
         reject(err);
