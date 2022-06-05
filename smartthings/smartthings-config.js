@@ -652,7 +652,7 @@ module.exports = function(RED) {
         console.log("SmartthingsConfigNode");
         console.log(config);
 
-        smartapp.conetxtStore(new NodeRedContextStore(this));
+        smartapp.contextStore(new NodeRedContextStore(this));
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
