@@ -920,13 +920,12 @@ module.exports = function(RED) {
           Axios.defaults.headers.common['Authorization'] = 'Bearer ' + params.authToken;
 
           st.locations.getLocationDetails(params.locationId).then( (info) => {
+            console.log("Dados do local:");
             console.log(info);
           }).catch( (err) => {
+            console.log("Dados do local (Erro):");
             console.log(err);
           });
-
-          console.log("Dados do local:");
-          console.log(location);
 
           ret.push({
               installedAppId: installedAppId,
