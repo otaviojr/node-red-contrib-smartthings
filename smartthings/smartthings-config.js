@@ -689,9 +689,14 @@ module.exports = function(RED) {
           node.contextStore.listAll().then((apps) => {
             let ret = [];
             apps.forEach( (installedAppId, idx) => {
-                ret.push({
-                    installedAppId: installedAppId
-                });
+              var params = await node.contextStore.get(installedAppId);
+              console.log("Dados para a installedAppId("+installedAppId+"):");
+              console.log(params);
+              
+              ret.push({
+                  installedAppId: installedAppId,
+                  location: ""
+              });
             });
             res.status(200).send(ret);
           }).catch(() => {
