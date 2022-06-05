@@ -124,9 +124,6 @@ module.exports = function(RED) {
 
     console.log("SmartthingsConfigNode");
 
-    var nodes = {};
-    var callbacks = [];
-
     const nodeContextStore = new NodeRedContextStore(RED);
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
@@ -717,13 +714,14 @@ module.exports = function(RED) {
         console.log(config);
 
         var node = this;
+        node.callbacks = [];
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
                 console.log("Smartthings WebApp Event Received:");
                 console.log(event);
 
-                const callback = callbacks[event["deviceId"]];
+                const callback = node.callbacks[event["deviceId"]];
 
                 if(callback){
                     callback.forEach( (c) => {
@@ -754,17 +752,17 @@ module.exports = function(RED) {
             };
 
             node.unregisterCallback = function(parent, deviceId, callback) {
-                if(callbacks[deviceId]){
-                    callbacks[deviceId].filter( (c) => c !== callback);
+                if(node.callbacks[deviceId]){
+                    node.callbacks[deviceId].filter( (c) => c !== callback);
                 }
             };
 
             node.registerCallback = function(parent, deviceId, callback) {
-                if(callbacks[deviceId] === undefined){
-                    callbacks[deviceId] = [];
+                if(node.callbacks[deviceId] === undefined){
+                    node.callbacks[deviceId] = [];
                 }
 
-                callbacks[deviceId].push({
+                node.callbacks[deviceId].push({
                     parent: parent,
                     callback: callback
                 });
@@ -828,76 +826,54 @@ module.exports = function(RED) {
                 });
             };
 
-            nodes[node.token] = node;
-        }
+            RED.httpAdmin.get('/smartthings/' + node.token + '/devices/:type', function(req,res){
+              console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
+              console.log("List Devices By Type: " + req.params.type);
 
+              st = new SmartThings.SmartThings(node.token);
+              st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
+                  console.log("Device List:");
+                  console.log(deviceList);
+                  let ret = [];
+                  deviceList["items"].forEach( (device, idx) => {
+                      ret.push({
+                          deviceId: device["deviceId"],
+                          label: device["label"],
+                      });
+                  });
+                  res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
+              }).catch( err => {
+                console.log("NODE ERROR");
+                console.log(err);
+                res.status(500).send("ERROR");
+              });
+            });
+
+            RED.httpAdmin.get('/smartthings/' + node.token+ '/scenes', function(req,res){
+              console.log("HTTP REQUEST: scenes: " + req.params.token);
+              console.log("List Scenes: ");
+
+              node.getScenes().then( scenes => {
+                  let ret = [];
+                  scenes["items"].forEach( (scene, idx) => {
+                      ret.push({
+                          sceneId: scene["sceneId"],
+                          sceneName: scene["sceneName"],
+                      });
+                  });
+                  res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
+              }).catch(err => {
+                  console.log("NODE ERROR");
+                  console.log(err);
+                  res.status(500).send("ERROR");
+              });
+            });
+        }
+        
         console.log("SmartthingsConfigNode called");
     }
 
     RED.nodes.registerType("smartthings-config", SmartthingsConfigNode);
-
-    RED.httpAdmin.get('/smartthings/:token/devices/:type', function(req,res){
-
-      console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
-
-      if(req.params.token){
-        let node = nodes[req.params.token];
-
-        console.log("List Devices By Type: " + req.params.type);
-
-        st = new SmartThings.SmartThings(req.params.token);
-        st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
-            console.log("Device List:");
-            console.log(deviceList);
-            let ret = [];
-            deviceList["items"].forEach( (device, idx) => {
-                ret.push({
-                    deviceId: device["deviceId"],
-                    label: device["label"],
-                });
-            });
-            res.status(200).send(ret.sort( (a,b) => { return (a.label < b.label ? -1 : 1) } ));
-        }).catch( err => {
-          console.log("NODE ERROR");
-          console.log(err);
-          res.status(500).send("ERROR");
-        });
-      } else {
-        res.status(404).send();
-      }
-    });
-
-    RED.httpAdmin.get('/smartthings/:token/scenes', function(req,res){
-
-      console.log("HTTP REQUEST: scenes: " + req.params.token);
-
-      if(req.params.token){
-        let node = nodes[req.params.token];
-
-        console.log("List Scenes: ");
-
-        if(node){
-            node.getScenes().then( scenes => {
-                let ret = [];
-                scenes["items"].forEach( (scene, idx) => {
-                    ret.push({
-                        sceneId: scene["sceneId"],
-                        sceneName: scene["sceneName"],
-                    });
-                });
-                res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
-            }).catch(err => {
-                console.log("NODE ERROR");
-                console.log(err);
-                res.status(500).send("ERROR");
-            });
-        } else {
-            res.status(404).send();
-        }
-      } else {
-        res.status(404).send();
-      }
-    });
 
     RED.httpAdmin.get('/smartthings/smartapp', function(req,res){
       res.status(200).send("SmartThings NodeRed SmartApp is accessible.");
