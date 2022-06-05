@@ -5,6 +5,55 @@ const Axios = require('axios');
 
 const SmartApp = require('@smartthings/smartapp');
 
+class NodeRedContextStore {
+  constructor(node) {
+    this.installedAppId = [];
+    this.context = node.context();
+  }
+
+  get(installedAppId) {
+    return new Promise((resolve, reject) => {
+      ret = this.context.get(installedAppId);
+      if(ret){
+        resolve(ret);
+      } else {
+        reject()
+      }
+    })
+  }
+
+  put(params) {
+    return new Promise((resolve, reject) => {
+      this.context.set(params.installedAppId, params);
+      resolve(params);
+    })
+  }
+
+  update(installedAppId, params) {
+    return new Promise((resolve, reject) => {
+      ret = this.context.get(installedAppId);
+      if(ret !== null){
+        this.context.set(installedAppId, params);
+        resolve(params);
+      } else {
+        reject();
+      }
+    })
+  }
+
+  delete(installedAppId) {
+    return new Promise((resolve, reject) => {
+      ret = this.context.get(installedAppId);
+      if(ret !== null){
+        this.context.set(installedAppId, null);
+        resolve();
+      } else {
+        reject();
+      }
+    })
+  }
+}
+
 module.exports = function(RED) {
 
     console.log("SmartthingsConfigNode");
@@ -599,6 +648,7 @@ module.exports = function(RED) {
         console.log("SmartthingsConfigNode");
         console.log(config);
 
+        smartapp.conetxtStore(new NodeRedContextStore(this));
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
                 console.log("Smartthings WebApp Event Received:");
