@@ -14,7 +14,7 @@ class NodeRedContextStore {
   get(installedAppId) {
     console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
-      ret = this.context.get(installedAppId);
+      var ret = this.context.get(installedAppId);
       if(ret){
         resolve(ret);
       } else {
@@ -34,7 +34,7 @@ class NodeRedContextStore {
   update(installedAppId, params) {
     console.log("NodeRedContextStore.update");
     return new Promise((resolve, reject) => {
-      ret = this.context.get(installedAppId);
+      var ret = this.context.get(installedAppId);
       if(ret !== null){
         this.context.set(installedAppId, params);
         resolve(params);
@@ -47,7 +47,7 @@ class NodeRedContextStore {
   delete(installedAppId) {
     console.log("NodeRedContextStore.delete");
     return new Promise((resolve, reject) => {
-      ret = this.context.get(installedAppId);
+      var ret = this.context.get(installedAppId);
       if(ret !== null){
         this.context.set(installedAppId, null);
         resolve();
