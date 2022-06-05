@@ -24,7 +24,7 @@ class NodeRedContextStore {
           reject(err);
           return;
         }
-        resolve(data);
+        resolve(JSON.parse(data));
       });
     });
   }
@@ -37,7 +37,7 @@ class NodeRedContextStore {
           reject(err);
           return;
         }
-        resolve(JSON.parse(data));
+        resolve(data);
       });
     });
   }
@@ -912,7 +912,7 @@ module.exports = function(RED) {
       nodeContextStore.listAll().then(async (apps) => {
         let ret = [];
         for(const installedAppId of apps){
-          var params = await nodeContextStore.get(installedAppId);
+          let params = await nodeContextStore.get(installedAppId);
           console.log("Dados para a installedAppId("+installedAppId+"):");
           console.log(params);
 
