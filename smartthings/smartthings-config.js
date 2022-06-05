@@ -7,11 +7,12 @@ const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
   constructor(node) {
-    this.installedAppId = [];
+    this.node = node;
     this.context = node.context();
   }
 
   get(installedAppId) {
+    console.log("NodeRedContextStore.get");
     return new Promise((resolve, reject) => {
       ret = this.context.get(installedAppId);
       if(ret){
@@ -23,6 +24,7 @@ class NodeRedContextStore {
   }
 
   put(params) {
+    console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
       this.context.set(params.installedAppId, params);
       resolve(params);
@@ -30,6 +32,7 @@ class NodeRedContextStore {
   }
 
   update(installedAppId, params) {
+    console.log("NodeRedContextStore.update");
     return new Promise((resolve, reject) => {
       ret = this.context.get(installedAppId);
       if(ret !== null){
@@ -42,6 +45,7 @@ class NodeRedContextStore {
   }
 
   delete(installedAppId) {
+    console.log("NodeRedContextStore.delete");
     return new Promise((resolve, reject) => {
       ret = this.context.get(installedAppId);
       if(ret !== null){
@@ -649,6 +653,7 @@ module.exports = function(RED) {
         console.log(config);
 
         smartapp.conetxtStore(new NodeRedContextStore(this));
+
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
                 console.log("Smartthings WebApp Event Received:");
