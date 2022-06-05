@@ -57,7 +57,7 @@ class NodeRedContextStore {
     })
   }
 
-  listAll(){
+  async listAll(){
     console.log("NodeRedContextStore.listAll");
     return new Promise((resolve, reject) => {
       var ret = this.context.keys();
@@ -692,7 +692,7 @@ module.exports = function(RED) {
               var params = await node.contextStore.get(installedAppId);
               console.log("Dados para a installedAppId("+installedAppId+"):");
               console.log(params);
-              
+
               ret.push({
                   installedAppId: installedAppId,
                   location: ""
