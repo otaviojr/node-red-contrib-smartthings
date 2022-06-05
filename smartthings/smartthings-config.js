@@ -57,7 +57,7 @@ class NodeRedContextStore {
     })
   }
 
-  async listAll(){
+  listAll(){
     console.log("NodeRedContextStore.listAll");
     return new Promise((resolve, reject) => {
       var ret = this.context.keys();
@@ -688,7 +688,7 @@ module.exports = function(RED) {
           console.log("HTTP REQUEST: locations");
           node.contextStore.listAll().then((apps) => {
             let ret = [];
-            apps.forEach( (installedAppId, idx) => {
+            apps.forEach( async (installedAppId, idx) => {
               var params = await node.contextStore.get(installedAppId);
               console.log("Dados para a installedAppId("+installedAppId+"):");
               console.log(params);
