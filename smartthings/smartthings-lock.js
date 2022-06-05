@@ -61,7 +61,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("LockDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "lock"){
+                if(evt["attribute"] == "lock"){
                     this.updateStatus((evt["value"].toLowerCase() === "locked" ? 1 : 0));
                 }
             }

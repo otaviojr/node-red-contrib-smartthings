@@ -189,7 +189,7 @@ module.exports = function(RED) {
 
                 let state = {};
 
-                switch(evt["name"].toLowerCase()){
+                switch(evt["attribute"].toLowerCase()){
                     case "temperature":
                         this.setState({
                             temperature: {

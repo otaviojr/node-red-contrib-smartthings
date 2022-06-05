@@ -62,7 +62,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("MotionDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "motion"){
+                if(evt["attribute"] == "motion"){
                     this.updateStatus((evt["value"].toLowerCase() == "active" ? 1 : 0));
                 }
             }

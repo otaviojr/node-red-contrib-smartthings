@@ -600,10 +600,18 @@ module.exports = function(RED) {
         console.log(config);
 
         for(var i = 0; i < 93; i++){
-          smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
-            console.log("Smartthings WebApp Event Received:");
-            console.log(event);
-          });
+            smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
+                console.log("Smartthings WebApp Event Received:");
+                console.log(event);
+
+                const callback = callbacks[event["deviceId"]];
+
+                if(callback){
+                    callback.forEach( (c) => {
+                        c.callback.call(c.parent, event);
+                    });
+                }
+            });
         }
 
         this.token = config.token;

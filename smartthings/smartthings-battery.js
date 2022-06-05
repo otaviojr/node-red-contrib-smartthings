@@ -68,7 +68,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("BatteryDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "battery"){
+                if(evt["attribute"] == "battery"){
                     this.setState({
                         value: parseFloat(evt["value"])
                     });
