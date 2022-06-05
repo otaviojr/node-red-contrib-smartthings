@@ -917,7 +917,7 @@ module.exports = function(RED) {
           console.log("Dados para a installedAppId("+installedAppId+"):");
           console.log(params);
 
-          const client = new SmartThingsClient(new BearerTokenAuthenticator(params.authToken));
+          let client = new SmartThingsClient(new BearerTokenAuthenticator(params.authToken));
           client.locations.get(params.locationId).then(location => {
             console.log('Location Data:');
             console.log(location);
