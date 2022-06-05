@@ -8,7 +8,7 @@ const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
   constructor(RED) {
-    this.userDir = RED.userDir;
+    this.userDir = RED["userDir"];
     this.storeDir = this.userDir + "/smartthings/context/"
     if (!fs.existsSync(this.storeDir)){
       fs.mkdirSync(this.storeDir, { recursive: true });
@@ -97,6 +97,7 @@ class NodeRedContextStore {
           files.forEach(function (file) {
               ret << file.replaceAll(".context","");
           });
+
           resolve(ret);
       });
     });
@@ -689,7 +690,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
         })
-        .contextStore(new NodeRedContextStore(RED["userDir"]));
+        .contextStore(new NodeRedContextStore(RED));
 
     function SmartthingsConfigNode(config) {
 
