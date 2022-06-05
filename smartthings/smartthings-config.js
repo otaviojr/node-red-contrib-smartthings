@@ -684,11 +684,11 @@ module.exports = function(RED) {
             });
         }
 
-        RED.httpAdmin.get('/smartthings/locations', function(req,res){
+        RED.httpAdmin.get('/smartthings/locations', async function(req,res){
           console.log("HTTP REQUEST: locations");
           node.contextStore.listAll().then((apps) => {
             let ret = [];
-            apps.forEach( async (installedAppId, idx) => {
+            for(const app of apps){
               var params = await node.contextStore.get(installedAppId);
               console.log("Dados para a installedAppId("+installedAppId+"):");
               console.log(params);
