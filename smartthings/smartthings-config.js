@@ -4,7 +4,7 @@ const SmartThings = require("smartthings-node");
 const HttpSignature = require('http-signature');
 const Axios = require('axios');
 
-const {SmartThingsClient} = require('@smartthings/core-sdk');
+const {SmartThingsClient,BearerTokenAuthenticator} = require('@smartthings/core-sdk');
 const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
