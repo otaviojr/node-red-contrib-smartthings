@@ -687,7 +687,7 @@ module.exports = function(RED) {
         RED.httpAdmin.get('/smartthings/locations', function(req,res){
           console.log("HTTP REQUEST: locations";
           let ret = [];
-          let apps = node.contextStore.listAll().then(() => {
+          node.contextStore.listAll().then((apps) => {
             apps.forEach( (installedAppId, idx) => {
                 ret.push({
                     installedAppId: installedAppId
