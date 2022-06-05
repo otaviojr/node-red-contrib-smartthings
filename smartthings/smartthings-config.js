@@ -9,7 +9,7 @@ const SmartApp = require('@smartthings/smartapp');
 class NodeRedContextStore {
   constructor(RED) {
     this.userDir = RED.userDir;
-    this.storeDir = this.userDir + "/smartthings/context"
+    this.storeDir = this.userDir + "/smartthings/context/"
     if (!fs.existsSync(this.storeDir)){
       fs.mkdirSync(this.storeDir, { recursive: true });
     }
@@ -43,6 +43,13 @@ class NodeRedContextStore {
 
   deleteFile(installedAppId){
     console.log("deleteFile");
+    fs.unlink(this.storeDir + installedAppId + ".context", err => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve();
+    })
   }
 
   get(installedAppId) {
@@ -64,20 +71,17 @@ class NodeRedContextStore {
       }).catch( () => {
         reject({});
       });
-    })
+    });
   }
 
   delete(installedAppId) {
     console.log("NodeRedContextStore.delete");
     return new Promise((resolve, reject) => {
-      var ret = this.context.get("smartthings_"+installedAppId);
-      if(ret !== null){
-        this.context.set("smartthings_"+installedAppId, null);
+      deleteFile(installedAppId).then( () => {
         resolve({});
-      } else {
-        reject({});
-      }
-    })
+      }).catch( err => {
+        reject(err);
+      });
   }
 
   listAll(){
@@ -99,9 +103,6 @@ module.exports = function(RED) {
 
     var nodes = {};
     var callbacks = [];
-
-    console.log(JSON.stringify(RED));
-    return;
 
     const smartapp = new SmartApp()
         .enableEventLogging(2) // logs all lifecycle event requests and responses as pretty-printed JSON. Omit in production
@@ -682,7 +683,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
         })
-        .contextStore(new NodeRedContextStore(RED._.nodes.getContext('global')));
+        .contextStore(new NodeRedContextStore(RED["userDir"]));
 
     function SmartthingsConfigNode(config) {
 
