@@ -44,13 +44,15 @@ class NodeRedContextStore {
 
   deleteFile(installedAppId){
     console.log("deleteFile");
-    fs.unlink(this.storeDir + installedAppId + ".context", err => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve();
-    })
+    return new Promise((resolve, reject) => {
+      fs.unlink(this.storeDir + installedAppId + ".context", err => {
+        if (err) {
+          reject(err);
+          return;
+        }
+        resolve();
+      });
+    });
   }
 
   get(installedAppId) {
@@ -68,6 +70,17 @@ class NodeRedContextStore {
     console.log("NodeRedContextStore.put");
     return new Promise((resolve, reject) => {
       this.writeData(params.installedAppId, params).then( () => {
+        resolve(params);
+      }).catch( () => {
+        reject({});
+      });
+    });
+  }
+
+  update(installedAppId, params) {
+    console.log("NodeRedContextStore.update");
+    return new Promise((resolve, reject) => {
+      this.writeData(installedAppId, params).then( () => {
         resolve(params);
       }).catch( () => {
         reject({});
