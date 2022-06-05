@@ -918,10 +918,12 @@ module.exports = function(RED) {
           console.log(params);
 
           const client = new SmartThingsClient(new BearerTokenAuthenticator(params.authToken));
-
           client.locations.get(params.locationId).then(location => {
             console.log('Location Data:');
             console.log(location);
+          }).catch( err => {
+            console.log('Location Data (Error):');
+            console.log(err);
           });
 
           ret.push({
