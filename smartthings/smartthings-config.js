@@ -110,7 +110,7 @@ class NodeRedContextStore {
           let ret = [];
 
           files.forEach(function (file) {
-              ret << file.replace(".context","");
+              ret.push(file.replace(".context",""));
           });
 
           resolve(ret);
@@ -912,7 +912,7 @@ module.exports = function(RED) {
       nodeContextStore.listAll().then(async (apps) => {
         let ret = [];
         for(const installedAppId of apps){
-          var params = await node.contextStore.get(installedAppId);
+          var params = await nodeContextStore.get(installedAppId);
           console.log("Dados para a installedAppId("+installedAppId+"):");
           console.log(params);
 
