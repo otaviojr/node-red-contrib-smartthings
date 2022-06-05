@@ -664,8 +664,10 @@ module.exports = function(RED) {
         console.log("SmartthingsConfigNode");
         console.log(config);
 
-        this.contextStore = new NodeRedContextStore(this);
-        smartapp.contextStore(this.contextStore);
+        var node = this;
+
+        node.contextStore = new NodeRedContextStore(node);
+        smartapp.contextStore(node.contextStore);
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
@@ -684,11 +686,17 @@ module.exports = function(RED) {
 
         RED.httpAdmin.get('/smartthings/locations', function(req,res){
           console.log("HTTP REQUEST: locations ";
+          let ret = [];
+          let apps = node.contextStore.listAll();
+          apps.forEach( (installedAppId, idx) => {
+              ret.push({
+                  installedAppId: installedAppId
+              });
+          });
+          res.status(200).send(ret);
         });
 
-        this.token = config.token;
-
-        var node = this;
+        node.token = config.token;
 
         if(node.token !== undefined){
 
