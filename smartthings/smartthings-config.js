@@ -657,6 +657,8 @@ module.exports = function(RED) {
         })
         .contextStore(new NodeRedContextStore(RED.getContext('global')));
 
+        console.log(JSON.stringify(RED));
+
     function SmartthingsConfigNode(config) {
 
         RED.nodes.createNode(this, config);
