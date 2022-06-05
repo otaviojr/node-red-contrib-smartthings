@@ -655,7 +655,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.windowShadePreset, 'windowShadePreset', 'presetPosition', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.windowShade, 'windowShade', 'windowShade', 'handler' + String(i++));
         })
-        .contextStore(new NodeRedContextStore(RED.context.getValue({scope: "global"})));
+        .contextStore(new NodeRedContextStore(RED.nodes.getContext("smartthings")));
 
     function SmartthingsConfigNode(config) {
 
