@@ -8,7 +8,7 @@ const SmartApp = require('@smartthings/smartapp');
 
 class NodeRedContextStore {
   constructor(RED) {
-    this.userDir = RED.userDir;
+    this.userDir = RED.settings.userDir;
     this.storeDir = this.userDir + "/smartthings/context/";
     console.log("Creating directory: " + this.storeDir);
     if (!fs.existsSync(this.storeDir)){
