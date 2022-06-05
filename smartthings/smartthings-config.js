@@ -827,11 +827,10 @@ module.exports = function(RED) {
             };
 
             RED.httpAdmin.get('/smartthings/' + node.token + '/devices/:type', function(req,res){
-              console.log("HTTP REQUEST: devices: " + req.params.token + " : " + req.params.type);
+              console.log("HTTP REQUEST: devices: " + node.token + " : " + req.params.type);
               console.log("List Devices By Type: " + req.params.type);
 
-              st = new SmartThings.SmartThings(node.token);
-              st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
+              node.st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
                   console.log("Device List:");
                   console.log(deviceList);
                   let ret = [];
@@ -850,7 +849,7 @@ module.exports = function(RED) {
             });
 
             RED.httpAdmin.get('/smartthings/' + node.token+ '/scenes', function(req,res){
-              console.log("HTTP REQUEST: scenes: " + req.params.token);
+              console.log("HTTP REQUEST: scenes: " + node.token);
               console.log("List Scenes: ");
 
               node.getScenes().then( scenes => {
@@ -869,7 +868,7 @@ module.exports = function(RED) {
               });
             });
         }
-        
+
         console.log("SmartthingsConfigNode called");
     }
 
