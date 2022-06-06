@@ -773,7 +773,7 @@ module.exports = function(RED) {
                 console.log("getDeviceStatus:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
                     if (typeof type === 'undefined') {
-                        node.stClient.devices.getStatus(deviceId).then(deviceStatus) => {
+                        node.stClient.devices.getStatus(deviceId).then( deviceStatus => {
                             console.log("Device Status ("+deviceId+"):");
                             console.log(deviceStatus);
                             resolve(deviceStatus);
@@ -781,7 +781,7 @@ module.exports = function(RED) {
                             reject(err);
                         });
                     } else {
-                        node.stClient.devices.getComponentStatus(deviceId, type).then(deviceStatus) => {
+                        node.stClient.devices.getComponentStatus(deviceId, type).then( deviceStatus => {
                             console.log("Device Status ("+deviceId+"):");
                             console.log(deviceStatus);
                             resolve(deviceStatus);
