@@ -61,20 +61,25 @@ To install the SmartApp you can follow these steps:
 4. Give your project a name
 5. Click at the "Register App" button
 6. Select the "WebHook Endpoint" option
-7. The target URL will be your nodered domain, with https, port if necessary,
-and the path to our SmartApp. It will be something like that: https://your-nodered-domain:your-nodered-server-port/smartthings/smartapp.
+7. The target URL will be your nodered domain, with https, port, if necessary,
+and the path to your SmartApp. It should be something like that: https://your-nodered-domain:your-nodered-server-port/smartthings/smartapp.
 8. Give your App a Display Name. That will be what you will see at the SmartThings App.
 9. Select all permissions.
 10. Finish the process and go to the Project Overview.
 11. Change SmartApp status from "Develop" to "Deployed to test"
 
-After all those procedures your app should be fine. To see it at your SmartThings app
-you need to make sure it is in developer mode.
+After all those procedures your app should be fine.
 
-To put your App in developer mode you need to press and hold the "About SmartThings" option
+**To see it at your SmartThings app you need to make sure it is in developer mode.**
+
+To put your Smartthings App in developer mode you need to press and hold the "About SmartThings" option
 at the menu for 5 seconds. The option to activate the developer mode show appear after that.
 
 Enable it and you should be good to go.
+
+# Using Dynamic IP's
+
+Some dynamic ip dns providers offers SSL certificates for free. It is the case of [NoIP](https://www.noip.com)
 
 # Configuring the SmartApp
 
