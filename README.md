@@ -53,9 +53,9 @@ You can get a Smartthings Token here:
 
 This module works as a SmartApp to receive events back from smartthings.
 
-**Keep in mind that your nodered must be installed with a public IP address,
-a domain, and a valid SSL certificate. Without those, smartthings will not
-be able to send us any event.**
+**Keep in mind that your nodered instance must be installed with a public IP
+address, a domain, and a valid SSL certificate. Without those, smartthings will
+not be able to send us any event.**
 
 *Check the "Using Dynamic IP's" topic below to use a dynamic IP address.*
 
