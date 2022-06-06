@@ -61,7 +61,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("OnOffDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "switch"){
+                if(evt["attribute"] == "switch"){
                     this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
                 }
             }
@@ -78,7 +78,7 @@ module.exports = function(RED) {
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",
-                        command: (msg.payload.value == 1 ? "on" : "off")
+                        command: (msg.payload.value === 1 ? "on" : "off")
                     }]).then( (ret) => {
                         this.updateStatus(msg.payload.value, send, done);
                     }).catch( (ret) => {

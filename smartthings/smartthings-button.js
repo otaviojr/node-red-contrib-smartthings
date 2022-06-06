@@ -49,7 +49,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("Button("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "button"){
+                if(evt["attribute"] == "button"){
                     this.updateStatus(evt["value"], evt["button"]);
                 }
             };

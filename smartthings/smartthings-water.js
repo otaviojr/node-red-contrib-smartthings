@@ -64,7 +64,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("WaterDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "water"){
+                if(evt["attribute"] == "water"){
                     this.setState({
                         value: evt["value"]
                     });

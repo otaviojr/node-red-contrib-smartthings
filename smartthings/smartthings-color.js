@@ -197,7 +197,7 @@ module.exports = function(RED) {
 
                 let state = {};
 
-                switch(evt["name"].toLowerCase()){
+                switch(evt["attribute"].toLowerCase()){
                     case "switch":
                         state.value = (evt["value"].toLowerCase() === "on" ? 1 : 0);
                         break;

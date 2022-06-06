@@ -47,11 +47,11 @@
   },
   "license": "MIT",
   "dependencies": {
-    "jsbn": "^1.1.0",
-    "promise": "^8.0.3",
-    "smartthings-node": "https://github.com/otaviojr/smartthings-node.git",
+    "@smartthings/smartapp": "^2.6.2",
+    "@smartthings/core-sdk": "*",
     "http-signature": "*",
-    "axios": "*"
+    "jsbn": "^1.1.0",
+    "promise": "^8.0.3"
   },
   "bundleDependencies": [],
   "contributors": [

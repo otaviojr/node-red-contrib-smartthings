@@ -67,7 +67,7 @@ module.exports = function(RED) {
             const callback  = (evt) => {
                 console.debug("PowerMeterDevice("+this.name+") Callback called");
                 console.debug(evt);
-                if(evt["name"] == "power"){
+                if(evt["attribute"] == "power"){
                     this.setState({
                         value: parseFloat(evt["value"])
                     });
