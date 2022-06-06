@@ -795,20 +795,7 @@ module.exports = function(RED) {
             node.executeDeviceCommand = function(deviceId, command){
                 console.log("executeDeviceCommand:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.stClient.devices.executeCommand(deviceId, command).then(ret => {
-                        console.log("Execute Command ("+deviceId+"):");
-                        console.log(ret);
-                        resolve(ret);
-                    }).catch( err => {
-                        reject(err);
-                    });
-                });
-            };
-
-            node.executeDeviceCommands = function(deviceId, commands){
-                console.log("executeDeviceCommand:token:"+ node.token);
-                return new Promise( (resolve, reject) => {
-                    node.stClient.devices.executeCommands(deviceId, commands).then(ret => {
+                    node.stClient.devices.executeCommands(deviceId, command).then(ret => {
                         console.log("Execute Command ("+deviceId+"):");
                         console.log(ret);
                         resolve(ret);
