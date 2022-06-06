@@ -70,6 +70,14 @@ and the path to your SmartApp. It should be something like that: https://your-no
 
 After all those procedures, your app should be OK.
 
+** Check to see if Smartthings have reached your SmartApp endpoint URL **
+
+If it have not, you will see something like this at the Project Overview Page
+
+![Verify Warning](/docs/developer_smartapp_verify.png?raw=true "Verify")
+
+You need to verify your address until SmartThings remove this warning.
+
 **To see it in your SmartThings app, you need to make sure it is in developer mode.**
 
 To put your Smartthings App in developer mode, you need to press and hold the "About SmartThings" option
