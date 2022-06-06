@@ -70,7 +70,7 @@ and the path to your SmartApp. It should be something like that: https://your-no
 
 After all those procedures, your app should be OK.
 
-** Check to see if Smartthings have reached your SmartApp endpoint URL **
+**Check to see if Smartthings have reached your SmartApp endpoint URL**
 
 If it have not, you will see something like this at the Project Overview Page
 
