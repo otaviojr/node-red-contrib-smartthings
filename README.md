@@ -47,9 +47,9 @@ You can get a Smartthings Token here:
 
 This module works as a SmartApp to receive events back from smartthings.
 
-**Keep in mind that your nodered must be installed with a public IP address, a domain
-and a valid SSL certificate. Without those smartthings will not be able to send us
-any event.**
+**Keep in mind that your nodered must be installed with a public IP address,
+a domain, and a valid SSL certificate. Without those smartthings will not
+be able to send us any event.**
 
 The SmartApp can be registered at this address: [Samsung Developer Portal](https://smartthings.developer.samsung.com/)
 
@@ -59,7 +59,7 @@ To install the SmartApp you can follow these steps:
 2. Create a new Project
 3. Select the "Automation for the Smartthings App" option
 4. Give your project a name
-5. Click at the "Register App" button
+5. Click on the "Register App" button
 6. Select the "WebHook Endpoint" option
 7. The target URL will be your nodered domain, with https, port, if necessary,
 and the path to your SmartApp. It should be something like that: https://your-nodered-domain:your-nodered-server-port/smartthings/smartapp.
@@ -68,18 +68,23 @@ and the path to your SmartApp. It should be something like that: https://your-no
 10. Finish the process and go to the Project Overview.
 11. Change SmartApp status from "Develop" to "Deployed to test"
 
-After all those procedures your app should be fine.
+After all those procedures, your app should be OK.
 
-**To see it at your SmartThings app you need to make sure it is in developer mode.**
+**To see it in your SmartThings app, you need to make sure it is in developer mode.**
 
-To put your Smartthings App in developer mode you need to press and hold the "About SmartThings" option
-at the menu for 5 seconds. The option to activate the developer mode show appear after that.
+To put your Smartthings App in developer mode, you need to press and hold the "About SmartThings" option
+on the menu for 5 seconds. The option to activate the developer mode show appears after that.
 
-Enable it and you should be good to go.
+Enable it, and you should be good to go.
 
 # Using Dynamic IP's
 
-Some dynamic ip dns providers offers SSL certificates for free. It is the case of [NoIP](https://www.noip.com)
+Some dynamic ip's dns providers offers SSL certificates for free.
+
+It is the case of [NoIP](https://www.noip.com).
+
+You can use them to have a domain with a valid SSL certificate. That should be enough to
+make your NodeRed instance visible to SmartThings network.
 
 # Configuring the SmartApp
 
