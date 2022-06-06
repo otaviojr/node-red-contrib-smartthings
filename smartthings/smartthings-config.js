@@ -1,9 +1,6 @@
 const Promise = require('promise');
-const fs = require('fs');
-const SmartThings = require("smartthings-node");
 const HttpSignature = require('http-signature');
-const Axios = require('axios');
-
+const fs = require('fs');
 const {SmartThingsClient,BearerTokenAuthenticator} = require('@smartthings/core-sdk');
 const SmartApp = require('@smartthings/smartapp');
 
@@ -736,8 +733,6 @@ module.exports = function(RED) {
         if(node.token !== undefined){
 
             node.stClient = new SmartThingsClient(new BearerTokenAuthenticator(node.token));
-            node.st = new SmartThings.SmartThings(node.token);
-            Axios.defaults.headers.common['Authorization'] = 'Bearer ' + node.token;
 
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
