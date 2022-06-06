@@ -742,7 +742,7 @@ module.exports = function(RED) {
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.st.devices.listDevicesByCapability(type).then(deviceList => {
+                    node.stClient.devices.list({capability:type}).then(deviceList => {
                         console.log("Device List:");
                         console.log(deviceList);
                         resolve(deviceList);
@@ -792,10 +792,23 @@ module.exports = function(RED) {
                 });
             };
 
-            node.executeDeviceCommand = function(deviceId, commands){
+            node.executeDeviceCommand = function(deviceId, command){
                 console.log("executeDeviceCommand:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.st.devices.executeDeviceCommand(deviceId, commands).then(ret => {
+                    node.stClient.devices.executeCommand(deviceId, command).then(ret => {
+                        console.log("Execute Command ("+deviceId+"):");
+                        console.log(ret);
+                        resolve(ret);
+                    }).catch( err => {
+                        reject(err);
+                    });
+                });
+            };
+
+            node.executeDeviceCommands = function(deviceId, commands){
+                console.log("executeDeviceCommand:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                    node.stClient.devices.executeCommands(deviceId, commands).then(ret => {
                         console.log("Execute Command ("+deviceId+"):");
                         console.log(ret);
                         resolve(ret);
