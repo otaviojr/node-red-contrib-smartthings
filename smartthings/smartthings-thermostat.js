@@ -254,7 +254,7 @@ module.exports = function(RED) {
                 console.log(msg);
 
                 if(msg && msg.topic !== undefined){
-                  switch(msg.topic){
+                  switch(msg.topic.toLowerCase()){
                     case "pull":
                         this.pullState();
                         break;
@@ -263,7 +263,7 @@ module.exports = function(RED) {
                         this.reportState(send, done, msg);
                         break;
 
-                    case "coolingSetpoint":
+                    case "coolingsetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
                             capability: "thermostat",
@@ -285,7 +285,7 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "thermostatFanMode":
+                    case "thermostatfanmode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
                             capability: "thermostat",
@@ -305,7 +305,7 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "heatingSetpoint":
+                    case "heatingsetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
                             capability: "thermostat",
@@ -327,7 +327,7 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "thermostatMode":
+                    case "thermostatmode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
                             capability: "thermostat",
