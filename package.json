@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-smartthings",
-  "version": "0.0.20",
+  "version": "0.0.30",
   "description": "Querying/Controlling Smartthings Devices",
   "main": "index.js",
   "keywords": [
@@ -41,10 +41,7 @@
     "url": "https://github.com/otaviojr/node-red-contrib-smartthings/issues"
   },
   "homepage": "https://github.com/otaviojr/node-red-contrib-smartthings",
-  "author": {
-    "name": "Otávio Ribeiro",
-    "email": "otavio.ribeiro@gmail.com"
-  },
+  "author": "Otávio Ribeiro <otavio.ribeiro@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "@smartthings/smartapp": "^2.6.2",
@@ -55,10 +52,14 @@
   },
   "bundleDependencies": [],
   "contributors": [
-    {
-      "name": "Otávio Ribeiro",
-      "email": "otavio.ribeiro@gmail.com"
-    }
+    "Otávio Ribeiro <otavio.ribeiro@gmail.com>"
   ],
-  "deprecated": false
+  "deprecated": false,
+  "directories": {
+    "doc": "docs"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }

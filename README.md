@@ -103,9 +103,11 @@ make your NodeRed instance visible to SmartThings network.
 # Configuring the SmartApp
 
 1. At your SmartThings App you need to create a new automation, at the discovery panel,
-   you will see the NodeRed SmartApp. Click on it, select all devices SmartThings should
-   notify you. Only the selected devices will send events back to
-   NodeRed. Those not selected will not have theirs status updated.
+   you will see the NodeRed SmartApp, with tha name you choose when registering the SmartApp.
+2. Click on it, select all devices SmartThings should notify you.
+
+**Only the selected devices will send events back to NodeRed.
+Those not selected will not have theirs status updated.**
 
 # Debugging the SmartApp
 
