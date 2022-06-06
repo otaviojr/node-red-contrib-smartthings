@@ -111,16 +111,6 @@ make your NodeRed instance visible to SmartThings network.
 **Only the selected devices will send events back to NodeRed.
 Those not selected will not have theirs status updated.**
 
-# Debugging the SmartApp
-
-If you are having any issue with the nodes not updating after the deploy, usually,
-it is a misconfiguration of the SmartApp.
-
-To debug the communication between the SmartApp and the NodeRed WebHook you can follow
-these steps:
-
-https://github.com/otaviojr/node-red-contrib-smartthings/blob/master/DEBUG_SMARTAPP.md
-
 # Device Nodes
 
 Once in NodeRed at SmartThings group you will see many devices nodes. Switch, Level,
