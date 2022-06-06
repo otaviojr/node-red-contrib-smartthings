@@ -808,21 +808,21 @@ module.exports = function(RED) {
             node.getScenes = function() {
                 console.log("getScenes:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    Axios.get('https://api.smartthings.com/v1/scenes', {}).then( (response) => {
-                        resolve(response.data);
-                    }).catch( err => {
-                        reject(err);
-                    });
+                  node.stClient.scenes.list().then(ret => {
+                    resolve(ret);
+                  }).catch( err => {
+                    reject(err);
+                  });
                 });
             };
 
             node.executeScene = function(sceneId){
                 console.log("executeScene:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    Axios.post('https://api.smartthings.com/v1/scenes/' + sceneId + '/execute', {}).then( (response) => {
-                        resolve(response.data);
-                    }).catch( (error) => {
-                        reject(error);
+                    node.stClient.scenes.execute(sceneId).then(ret => {
+                      resolve(ret);
+                    }).catch( err => {
+                      reject(err);
                     });
                 });
             };
