@@ -735,6 +735,7 @@ module.exports = function(RED) {
 
         if(node.token !== undefined){
 
+            node.stClient = new SmartThingsClient(new BearerTokenAuthenticator(node.token));
             node.st = new SmartThings.SmartThings(node.token);
             Axios.defaults.headers.common['Authorization'] = 'Bearer ' + node.token;
 
@@ -772,7 +773,7 @@ module.exports = function(RED) {
                 console.log("getDeviceStatus:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
                     if (typeof type === 'undefined') {
-                        node.st.devices.getDeviceStatus(deviceId).then(deviceStatus => {
+                        node.stClient.devices.getStatus(deviceId).then(deviceStatus) => {
                             console.log("Device Status ("+deviceId+"):");
                             console.log(deviceStatus);
                             resolve(deviceStatus);
@@ -780,7 +781,7 @@ module.exports = function(RED) {
                             reject(err);
                         });
                     } else {
-                        node.st.devices.getDeviceComponentStatus(deviceId, type).then(deviceStatus => {
+                        node.stClient.devices.getComponentStatus(deviceId, type).then(deviceStatus) => {
                             console.log("Device Status ("+deviceId+"):");
                             console.log(deviceStatus);
                             resolve(deviceStatus);
