@@ -198,7 +198,7 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "coolingSetpoint":
+                    case "coolingsetpoint":
                         this.setState({
                             coolingSetpoint: {
                                 value: evt["value"]
@@ -206,13 +206,13 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "thermostatFanMode":
+                    case "thermostatfanmode":
                         this.setState({
                             thermostatFanMode: evt["value"]
                         });
                         break;
 
-                    case "heatingSetpoint":
+                    case "heatingsetpoint":
                         this.setState({
                             heatingSetpoint: {
                                 value: evt["value"]
@@ -220,7 +220,7 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "thermostatSetpoint":
+                    case "thermostatsetpoint":
                         this.setState({
                             thermostatSetpoint: {
                                 value: evt["value"]
@@ -228,13 +228,13 @@ module.exports = function(RED) {
                         });
                         break;
 
-                    case "thermostatMode":
+                    case "thermostatmode":
                         this.setState({
                             thermostatMode: evt["value"]
                         });
                         break;
 
-                    case "thermostatOperatingState":
+                    case "thermostatoperatingstate":
                         this.setState({
                             thermostatOperatingState: evt["value"]
                         });
