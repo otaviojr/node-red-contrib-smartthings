@@ -830,7 +830,7 @@ module.exports = function(RED) {
                   console.log("Device List:");
                   console.log(deviceList);
                   let ret = [];
-                  deviceList["items"].forEach( (device, idx) => {
+                  deviceList.forEach( (device, idx) => {
                       ret.push({
                           deviceId: device["deviceId"],
                           label: device["label"],
