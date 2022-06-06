@@ -89,7 +89,7 @@ You need to verify your address until SmartThings remove this warning.
 **To see it in your SmartThings app, you need to make sure it is in developer mode.**
 
 To put your Smartthings App in developer mode, you need to press and hold the "About SmartThings" option
-on the menu for 5 seconds. The option to activate the developer mode show appears after that.
+on the menu for 5 seconds. The option to activate the developer mode should appears after that.
 
 Enable it, and you should be good to go.
 
