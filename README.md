@@ -120,7 +120,7 @@ Every node will keep its state. Every time a device state changes a message will
 be send to the output node with the ```msg.topic``` of **device** with all relevant
 informations at the ```msg.payload``` property.
 
-Device changes are received through the webhook you set up at SmartThings Developers
+Device changes are received through the SmartApp you set up at SmartThings Developers
 Portal.
 
 All device nodes can receive at its input a message with the ```msg.topic``` of
