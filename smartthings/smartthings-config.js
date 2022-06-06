@@ -831,7 +831,7 @@ module.exports = function(RED) {
               console.log("HTTP REQUEST: devices: " + node.token + " : " + req.params.type);
               console.log("List Devices By Type: " + req.params.type);
 
-              node.st.devices.listDevicesByCapability(req.params.type).then(deviceList => {
+              node.getDevices(req.params.type).then(deviceList => {
                   console.log("Device List:");
                   console.log(deviceList);
                   let ret = [];
