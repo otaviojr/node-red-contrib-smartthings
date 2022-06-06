@@ -57,6 +57,8 @@ This module works as a SmartApp to receive events back from smartthings.
 a domain, and a valid SSL certificate. Without those, smartthings will not
 be able to send us any event.**
 
+*Check the "Using Dynamic IP's" topic below to use a dynamic IP address.*
+
 The SmartApp can be registered at this address: [Samsung Developer Portal](https://smartthings.developer.samsung.com/)
 
 To install the SmartApp you can follow these steps:
@@ -104,7 +106,7 @@ make your NodeRed instance visible to SmartThings network.
 
 1. At your SmartThings App you need to create a new automation, at the discovery panel,
    you will see the NodeRed SmartApp, with tha name you choose when registering the SmartApp.
-2. Click on it, select all devices SmartThings should notify you.
+2. Click on it and select all devices SmartThings should notify you.
 
 **Only the selected devices will send events back to NodeRed.
 Those not selected will not have theirs status updated.**
