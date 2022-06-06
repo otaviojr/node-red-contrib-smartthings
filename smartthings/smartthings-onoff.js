@@ -78,7 +78,7 @@ module.exports = function(RED) {
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
                         capability: "switch",
-                        command: (msg.payload.value == 1 ? "on" : "off")
+                        command: (msg.payload.value === 1 ? "on" : "off")
                     }]).then( (ret) => {
                         this.updateStatus(msg.payload.value, send, done);
                     }).catch( (ret) => {
