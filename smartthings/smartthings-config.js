@@ -854,8 +854,10 @@ module.exports = function(RED) {
               console.log("List Scenes: ");
 
               node.getScenes().then( scenes => {
+                  console.log("scenes:");
+                  console.log(scenes);
                   let ret = [];
-                  scenes["items"].forEach( (scene, idx) => {
+                  scenes.forEach( (scene, idx) => {
                       ret.push({
                           sceneId: scene["sceneId"],
                           sceneName: scene["sceneName"],
