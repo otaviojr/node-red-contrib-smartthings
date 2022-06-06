@@ -16,6 +16,12 @@ or add to your package.json
 "node-red-contrib-smartthings": "*"
 ```
 
+to use the git version, add to your package.json
+
+```
+"node-red-contrib-smartthings": "https://github.com/otaviojr/node-red-contrib-smartthings.git"
+```
+
 this is how it will looks like:
 
 ![Menu](/docs/nodered_menu.png?raw=true "Menu")
