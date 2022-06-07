@@ -880,9 +880,6 @@ module.exports = function(RED) {
     RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
         console.log("Smartthings WebApp");
 
-        console.log(JSON.stringify(req.headers));
-        console.log(JSON.stringify(req.body));
-
         smartapp.handleHttpCallback(req, res);
 
         if(req.body["lifecycle"] === "CONFIRMATION"){
