@@ -108,6 +108,9 @@ It is the case of [NoIP](https://www.noip.com).
 You can use them to have a domain with a valid SSL certificate. That should be enough to
 make your NodeRed instance visible to SmartThings network.
 
+In some countries, providers block the 80 and 443 ports on dynamic IP addresses.
+You must use another port to have external access.
+
 # Configuring the SmartApp
 
 1. At your SmartThings App you need to create a new automation, at the discovery panel,
