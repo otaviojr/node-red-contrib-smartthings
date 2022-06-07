@@ -90,6 +90,8 @@ You can use your browser to check if your SmartApp is acessible:
 
 ![Check SmartApp URL](/docs/check_smartapp_browser.png?raw=true "Verify")
 
+# Smartthings app must be in developer mode
+
 **To see it in your SmartThings app, you need to make sure it is in developer mode.**
 
 To put your Smartthings App in developer mode, you need to press and hold the "About SmartThings" option
