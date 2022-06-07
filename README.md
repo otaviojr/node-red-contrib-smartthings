@@ -86,6 +86,10 @@ If it have not, you will see something like this at the Project Overview Page
 
 You need to verify your address until SmartThings remove this warning.
 
+You can use your browser to check if your SmartApp is acessible:
+
+![Check SmartApp URL](/docs/check_smartapp_browser.png?raw=true "Verify")
+
 **To see it in your SmartThings app, you need to make sure it is in developer mode.**
 
 To put your Smartthings App in developer mode, you need to press and hold the "About SmartThings" option
@@ -101,11 +105,6 @@ It is the case of [NoIP](https://www.noip.com).
 
 You can use them to have a domain with a valid SSL certificate. That should be enough to
 make your NodeRed instance visible to SmartThings network.
-
-After configuring your dynamic dns domain, you can check if your SmartApp is accessible
-using your browser.
-
-![Check SmartApp URL](/docs/check_smartapp_browser.png?raw=true "Verify")
 
 # Configuring the SmartApp
 
