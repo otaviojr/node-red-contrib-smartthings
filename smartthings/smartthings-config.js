@@ -883,5 +883,13 @@ module.exports = function(RED) {
         console.log(JSON.stringify(req.body));
 
         smartapp.handleHttpCallback(req, res);
+
+        if(req.body["lifecycle"] === "CONFIRMATION"){
+            response = fetch(confirmationUrl). then( () => {
+              console.log("Registration done");
+            }).catch( () => {
+              console.log(`Registration error. Please open the confirmation URL manually: ${confirmationUrl}`);
+            });
+        }
     });
 };
