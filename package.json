@@ -12,6 +12,7 @@
   ],
   "node-red": {
     "nodes": {
+      "smartthings-accel": "smartthings/smartthings-accel.js",
       "smartthings-config": "smartthings/smartthings-config.js",
       "smartthings-onoff": "smartthings/smartthings-onoff.js",
       "smartthings-motion": "smartthings/smartthings-motion.js",
