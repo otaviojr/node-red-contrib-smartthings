@@ -48,7 +48,8 @@
     "@smartthings/core-sdk": "*",
     "http-signature": "*",
     "jsbn": "^1.1.0",
-    "promise": "^8.0.3"
+    "promise": "^8.0.3",
+    "node-fetch": "^3.2.5"
   },
   "bundleDependencies": [],
   "contributors": [

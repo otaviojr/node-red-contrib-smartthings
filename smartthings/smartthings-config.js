@@ -1,4 +1,5 @@
 const Promise = require('promise');
+const fetch = require('node-fetch');
 const HttpSignature = require('http-signature');
 const fs = require('fs');
 const {SmartThingsClient,BearerTokenAuthenticator} = require('@smartthings/core-sdk');
