@@ -124,6 +124,11 @@ You must use another port to have external access.
 **Only the selected devices will send events back to NodeRed.
 Those not selected will not have theirs status updated.**
 
+Sometimes, the device could appears in more than one session. You need to select
+it for all sessions. Otherwise, it will receive only the selected event.
+For example, a TV will appears in the switch and volume sessions. If you only select it
+in the volume session, It will not receive the switch notifications.
+
 # Device Nodes
 
 Once in NodeRed at SmartThings group you will see many devices nodes. Switch, Level,
