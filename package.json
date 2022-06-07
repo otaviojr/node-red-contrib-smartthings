@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-smartthings",
-  "version": "0.0.34",
+  "version": "0.0.35",
   "description": "Querying/Controlling Smartthings Devices",
   "main": "index.js",
   "keywords": [
