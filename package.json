@@ -10,7 +10,11 @@
     "smart",
     "home"
   ],
+  "engines": {
+    "node": ">=12.0.0"
+  },
   "node-red": {
+    "version": ">=1.2.0"
     "nodes": {
       "smartthings-accel": "smartthings/smartthings-accel.js",
       "smartthings-config": "smartthings/smartthings-config.js",
