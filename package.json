@@ -11,7 +11,7 @@
     "home"
   ],
   "node-red": {
-    "nodes":
+    "nodes": {
       "smartthings-config": "smartthings/smartthings-config.js",
       "smartthings-onoff": "smartthings/smartthings-onoff.js",
       "smartthings-motion": "smartthings/smartthings-motion.js",
