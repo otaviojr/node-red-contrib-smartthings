@@ -26,7 +26,7 @@
       "smartthings-lock": "smartthings/smartthings-lock.js",
       "smartthings-presence": "smartthings/smartthings-presence.js",
       "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
-      "smartthings-threeaxis": "smartthings/smartthings-threeaxis.js",
+      "smartthings-three-axis": "smartthings/smartthings-threeaxis.js",
       "smartthings-button": "smartthings/smartthings-button.js",
       "smartthings-power-meter": "smartthings/smartthings-power-meter.js",
       "smartthings-water": "smartthings/smartthings-water.js",
