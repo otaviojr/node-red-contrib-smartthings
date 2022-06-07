@@ -26,7 +26,7 @@ this is how it will looks like:
 
 ![Menu](/docs/nodered_menu.png?raw=true "Menu")
 
-***Icon made by [Freepik](https://www.freepik.com/home) from [www.flaticon.com](www.flaticon.com)***
+***Icon made by [Freepik](https://www.freepik.com/home) from [www.flaticon.com](https://www.flaticon.com)***
 
 # Configuring
 
