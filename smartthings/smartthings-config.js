@@ -1,5 +1,5 @@
+const https = require('https');
 const Promise = require('promise');
-const fetch = require('node-fetch');
 const HttpSignature = require('http-signature');
 const fs = require('fs');
 const {SmartThingsClient,BearerTokenAuthenticator} = require('@smartthings/core-sdk');
@@ -886,11 +886,21 @@ module.exports = function(RED) {
         smartapp.handleHttpCallback(req, res);
 
         if(req.body["lifecycle"] === "CONFIRMATION"){
-            response = fetch(confirmationUrl). then( () => {
-              console.log("Registration done");
-            }).catch( () => {
-              console.log(`Registration error. Please open the confirmation URL manually: ${confirmationUrl}`);
+          https.get(confirmationUrl, (resp) => {
+            let data = '';
+
+            // A chunk of data has been received.
+            resp.on('data', (chunk) => {
+              data += chunk;
             });
+
+            // The whole response has been received. Print out the result.
+            resp.on('end', () => {
+              console.log("Registration done");
+            });
+          }).on("error", (err) => {
+            console.log(`Registration error. Please open the confirmation URL manually: ${confirmationUrl}`);
+          });
         }
     });
 };
