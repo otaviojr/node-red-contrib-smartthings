@@ -18,7 +18,7 @@ module.exports = function(RED) {
             value: {
               x: 0,
               y: 0,
-              z: 0
+              z: 0,
             }
         };
 
@@ -58,7 +58,7 @@ module.exports = function(RED) {
                     value: {
                       x: status["threeAxis"]["value"][0],
                       y: status["threeAxis"]["value"][1],
-                      z: status["threeAxis"]["value"][2]
+                      z: status["threeAxis"]["value"][2],
                     }
                 });
 
@@ -77,7 +77,7 @@ module.exports = function(RED) {
                         value: {
                           x: evt["value"][0],
                           y: evt["value"][1],
-                          z: evt["value"][2]
+                          z: evt["value"][2],
                         }
                     });
                 }
