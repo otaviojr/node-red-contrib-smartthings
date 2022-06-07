@@ -103,10 +103,14 @@ Enable it, and you should be good to go.
 
 Some dynamic ip's dns providers offers SSL certificates for free.
 
-It is the case of [NoIP](https://www.noip.com).
+It is the case of:
+
+[NoIP](https://www.noip.com).
 
 You can use them to have a domain with a valid SSL certificate. That should be enough to
 make your NodeRed instance visible to SmartThings network.
+
+Or, you can use let's encrypt to create a certificate for almost any DDNS provider.
 
 In some countries, providers block the 80 and 443 ports on dynamic IP addresses.
 You must use another port to have external access.
