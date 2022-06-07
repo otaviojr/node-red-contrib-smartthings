@@ -46,7 +46,7 @@ module.exports = function(RED) {
         };
 
         this.pullState = function(value, send, done){
-            this.conf.getDeviceStatus(this.device,"main/capabilities/acceleration").then( (status) => {
+            this.conf.getDeviceStatus(this.device,"main/capabilities/accelerationSensor").then( (status) => {
                 console.debug("AccelerationDevice("+this.name+") Status Refreshed");
                 console.debug(status);
 
@@ -56,7 +56,7 @@ module.exports = function(RED) {
                 });
 
             }).catch( err => {
-                console.error("Ops... error getting device state (WaterDevice)");
+                console.error("Ops... error getting device state (AccelerationDevice)");
                 console.error(err);
             });
         };

@@ -26,7 +26,7 @@
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+confObj.token+'/devices/acceleration', function(data){
+                $.getJSON('smartthings/'+confObj.token+'/devices/accelerationSensor', function(data){
                     console.log("getDevs");
                     console.log(data);
 
