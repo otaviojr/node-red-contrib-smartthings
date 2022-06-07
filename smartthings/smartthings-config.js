@@ -878,6 +878,10 @@ module.exports = function(RED) {
 
     RED.httpAdmin.post('/smartthings/smartapp', function(req,res){
         console.log("Smartthings WebApp");
+
+        console.log(JSON.stringfy(req.headers));
+        console.log(JSON.stringfy(req.body));
+        
         smartapp.handleHttpCallback(req, res);
     });
 };
