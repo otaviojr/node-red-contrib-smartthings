@@ -886,7 +886,7 @@ module.exports = function(RED) {
         smartapp.handleHttpCallback(req, res);
 
         if(req.body["lifecycle"] === "CONFIRMATION"){
-          https.get(req.body["confirmationUrl"], (resp) => {
+          https.get(req.body["confirmationData"]["confirmationUrl"], (resp) => {
             let data = '';
             resp.on('data', (chunk) => {
               data += chunk;
@@ -895,7 +895,7 @@ module.exports = function(RED) {
               console.log("Registration done");
             });
           }).on("error", (err) => {
-            console.log(`Registration error. Please open the confirmation URL manually: ${req.body["confirmationUrl"]}`);
+            console.log(`Registration error. Please open the confirmation URL manually: ${req.body["confirmationData"]["confirmationUrl"]}`);
           });
         }
     });
