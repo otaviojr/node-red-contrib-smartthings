@@ -11,7 +11,7 @@
     "home"
   ],
   "node-red": {
-    "nodes": {
+    "nodes":
       "smartthings-config": "smartthings/smartthings-config.js",
       "smartthings-onoff": "smartthings/smartthings-onoff.js",
       "smartthings-motion": "smartthings/smartthings-motion.js",
@@ -26,6 +26,7 @@
       "smartthings-lock": "smartthings/smartthings-lock.js",
       "smartthings-presence": "smartthings/smartthings-presence.js",
       "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
+      "smartthings-threeaxis": "smartthings/smartthings-threeaxis.js",
       "smartthings-button": "smartthings/smartthings-button.js",
       "smartthings-power-meter": "smartthings/smartthings-power-meter.js",
       "smartthings-water": "smartthings/smartthings-water.js",
