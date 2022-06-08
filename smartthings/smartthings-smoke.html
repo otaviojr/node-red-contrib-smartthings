@@ -1,0 +1,127 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smartthings-node-smoke-detector',{
+        category: 'Smartthings',
+        defaults: {
+            conf: {value:"", type:"smartthings-config"},
+            name: {value: ""},
+            device: {value: "", required:true}
+        },
+        paletteLabel: "Smoke",
+        icon: 'smoke.png',
+        outputs: 1,
+        inputs: 1,
+        label: function() {
+            return this.name || "Smoke Detector Device";
+        },
+        oneditprepare: function(){
+            var node = this;
+
+            var getDevs = function(conf){
+
+                const confObj = RED.nodes.node(conf);
+
+                $('#node-input-device').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Loading..."
+                }).appendTo('#node-input-device');
+
+                $.getJSON('smartthings/'+confObj.token+'/devices/smokeDetector', function(data){
+                    console.log("getDevs");
+                    console.log(data);
+
+                    $('#node-input-device').find('option').remove().end();
+
+                    $('<option/>',{
+                      value: "",
+                      text: ""
+                    }).appendTo('#node-input-device');
+
+                    for (d in data) {
+                      $('<option/>',{
+                        value: data[d].deviceId,
+                        text: data[d].label
+                      }).appendTo('#node-input-device');
+                    }
+
+                    if (node.device) {
+                      $('#node-input-device').val(node.device);
+                    }
+
+                });
+            };
+
+            if(node.conf){
+                getDevs(node.conf);
+            }
+
+            $('#node-input-device').change(function(){
+                var device = $('#node-input-device option:selected');
+                if(device.get(0) && device.val() && device.val() !== ""){
+                    $('#node-input-name').val(device.text());
+                }
+            });
+
+            $('#node-input-conf').change(function(){
+                var conf = $('#node-input-conf').val();
+                console.log("conf changed: ", conf);
+                if (conf != '_ADD_') {
+                    getDevs(conf);
+                } else {
+                    $('#node-input-device').find('option').remove().end();
+                    $('#node-input-device').val("");
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="smartthings-node-smoke-detector">
+    <div class="form-row">
+        <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
+        <input type="text" id="node-input-conf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-device"><i class="fa fa-tag"></i> Device</label>
+        <select type="text" id="node-input-device" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="smartthings-node-smoke-detector">
+   <p>This Node represents a smoke detector sensor device.</p>
+   <h3>Input</h3>
+        <dl class="message-properties">
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd><code>update</code> force the node to output the current state</dd>
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd><code>pull</code> force the node to update its current state and output it</dd>
+        </dl>
+   <h3>Outputs</h3>
+      <ol class="node-ports">
+         <li>Standard Output
+             <dl class="message-properties">
+                <dt>topic <span class="property-type">string</span></dt>
+                <dd>value of <code>device</code></dd>
+                <dt>payload <span class="property-type">object</span></dt>
+                <dd>Object with device status</dd>
+             </dl>
+         </li>
+      </ol>
+   <h3>Details</h3>
+   <p>
+       This node represents a smoke detector sensor device. It will keep device state. Every time
+       the device state changes at Smartthings, the webhook will send us the current
+       status.
+   </p>
+   <p>
+       Besides, if you need it to output the status, like when responding a http request,
+       you can use the <code>topic</code> with the <code>update</code> value to force
+       it to report.
+   </p>
+</script>
