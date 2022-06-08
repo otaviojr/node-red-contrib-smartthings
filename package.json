@@ -22,7 +22,7 @@
       "smartthings-config": "smartthings/smartthings-config.js",
       "smartthings-color": "smartthings/smartthings-color.js",
       "smartthings-color-temperature": "smartthings/smartthings-color-temperature.js",
-      "smartthings-energy": "smartthings/smartthings-energy.js",
+      "smartthings-energy": "smartthings/smartthings-energy-meter.js",
       "smartthings-humidity": "smartthings/smartthings-humidity.js",
       "smartthings-illuminance": "smartthings/smartthings-illuminance.js",
       "smartthings-level": "smartthings/smartthings-level.js",
