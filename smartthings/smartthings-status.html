@@ -26,7 +26,7 @@
                   text: "Loading..."
                 }).appendTo('#node-input-device');
 
-                $.getJSON('smartthings/'+confObj.token+'/devices/contactSensor', function(data){
+                $.getJSON('smartthings/'+confObj.token+'/devices/all', function(data){
                     console.log("getDevs");
                     console.log(data);
 
