@@ -739,13 +739,23 @@ module.exports = function(RED) {
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
-                    node.stClient.devices.list({capability:type}).then(deviceList => {
-                        console.log("Device List:");
-                        console.log(deviceList);
-                        resolve(deviceList);
-                    }).catch( err => {
-                        reject(err);
-                    });
+                    if(type === "all"){
+                      node.stClient.devices.list().then(deviceList => {
+                          console.log("Device List:");
+                          console.log(deviceList);
+                          resolve(deviceList);
+                      }).catch( err => {
+                          reject(err);
+                      });
+                    } else {
+                      node.stClient.devices.list({capability:type}).then(deviceList => {
+                          console.log("Device List:");
+                          console.log(deviceList);
+                          resolve(deviceList);
+                      }).catch( err => {
+                          reject(err);
+                      });
+                    }
                 });
             };
 

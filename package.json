@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-smartthings",
-  "version": "0.0.37",
+  "version": "0.0.39",
   "description": "Querying/Controlling Smartthings Devices",
   "main": "index.js",
   "keywords": [
@@ -37,6 +37,7 @@
       "smartthings-three-axis": "smartthings/smartthings-threeaxis.js",
       "smartthings-smoke": "smartthings/smartthings-smoke.js",
       "smartthings-scene": "smartthings/smartthings-scene.js",
+      "smartthings-status": "smartthings/smartthings-status.js",
       "smartthings-water": "smartthings/smartthings-water.js"
     }
   },
