@@ -94,7 +94,7 @@
 </script>
 
 <script type="text/x-red" data-help-name="smartthings-node-status">
-   <p>This Node represents a contact device.</p>
+   <p>This Node represents a generic raw status output for any device.</p>
    <h3>Input</h3>
         <dl class="message-properties">
             <dt class="optional">topic <span class="property-type">string</span></dt>
@@ -115,9 +115,11 @@
       </ol>
    <h3>Details</h3>
    <p>
-       This node represents a contact device. It will keep device state. Every time
+       This node represents a raw status output for any device. It will keep device state. Every time
        the device state changes at Smartthings, the webhook will send us the current
        status.
+
+       The output will be the same json as received through SmartThing API without any treatment.
    </p>
    <p>
        Besides, if you need it to output the status, like when responding a http request,
