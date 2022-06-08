@@ -824,6 +824,17 @@ module.exports = function(RED) {
                 });
             };
 
+            node.getModes = function() {
+                console.log("getModes:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                  node.stClient.modes.list().then(ret => {
+                    resolve(ret);
+                  }).catch( err => {
+                    reject(err);
+                  });
+                });
+            };
+
             RED.httpAdmin.get('/smartthings/' + node.token + '/devices/:type', function(req,res){
               console.log("HTTP REQUEST: devices: " + node.token + " : " + req.params.type);
               console.log("List Devices By Type: " + req.params.type);
@@ -861,6 +872,28 @@ module.exports = function(RED) {
                       });
                   });
                   res.status(200).send(ret.sort( (a,b) => { return (a.sceneName < b.sceneName ? -1 : 1) } ));
+              }).catch(err => {
+                  console.log("NODE ERROR");
+                  console.log(err);
+                  res.status(500).send("ERROR");
+              });
+            });
+
+            RED.httpAdmin.get('/smartthings/' + node.token+ '/modes', function(req,res){
+              console.log("HTTP REQUEST: modes: " + node.token);
+              console.log("List Modes: ");
+
+              node.getModes().then( modes => {
+                  console.log("modes:");
+                  console.log(modes);
+                  let ret = [];
+                  modes.forEach( (mode, idx) => {
+                      ret.push({
+                          modeId: scene["modeId"],
+                          modeName: scene["modeName"],
+                      });
+                  });
+                  res.status(200).send(ret.sort( (a,b) => { return (a.modeName < b.modeName ? -1 : 1) } ));
               }).catch(err => {
                   console.log("NODE ERROR");
                   console.log(err);

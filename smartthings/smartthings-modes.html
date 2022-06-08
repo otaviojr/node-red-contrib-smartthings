@@ -1,0 +1,107 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smartthings-node-mode',{
+        category: 'Smartthings',
+        defaults: {
+            conf: {value:"", type:"smartthings-config"},
+            name: {value: ""},
+            scene: {value: "", required:true}
+        },
+        paletteLabel: "Mode",
+        icon: 'modes.png',
+        outputs: 0,
+        inputs: 1,
+        label: function() {
+            return this.name || "Change Mode";
+        },
+        oneditprepare: function(){
+            var node = this;
+
+            var getModes = function(conf){
+
+                const confObj = RED.nodes.node(conf);
+
+                $('#node-input-mode').find('option').remove().end();
+                $('<option/>',{
+                  value: "",
+                  text: "Loading..."
+                }).appendTo('#node-input-mode');
+
+                $.getJSON('smartthings/'+confObj.token+'/modes', function(data){
+                    console.log("getModes");
+                    console.log(data);
+
+                    $('#node-input-mode').find('option').remove().end();
+
+                    $('<option/>',{
+                      value: "",
+                      text: ""
+                    }).appendTo('#node-input-mode');
+
+                    for (d in data) {
+                      $('<option/>',{
+                        value: data[d].sceneId,
+                        text: data[d].sceneName
+                      }).appendTo('#node-input-mode');
+                    }
+
+                    if (node.scene) {
+                      $('#node-input-mode').val(node.scene);
+                    }
+
+                });
+            };
+
+            if(node.conf){
+                getModes(node.conf);
+            }
+
+            $('#node-input-mode').change(function(){
+                var device = $('#node-input-mode option:selected');
+                if(device.get(0) && device.val() && device.val() !== ""){
+                    $('#node-input-name').val(device.text());
+                }
+            });
+
+            $('#node-input-conf').change(function(){
+                var conf = $('#node-input-conf').val();
+                console.log("conf changed: ", conf);
+                if (conf != '_ADD_') {
+                    getModes(conf);
+                } else {
+                    $('#node-input-mode').find('option').remove().end();
+                    $('#node-input-mode').val("");
+                }
+            });
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="smartthings-node-mode">
+    <div class="form-row">
+        <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
+        <input type="text" id="node-input-conf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-mode"><i class="fa fa-tag"></i> Scene</label>
+        <select type="text" id="node-input-mode" style="display: inline-block; width: 70%;">
+    		  <option value="empty"></option>
+        </select>
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="smartthings-node-mode">
+   <p>This Node represents a mode to be changed.</p>
+   <h3>Input</h3>
+        <dl class="message-properties">
+            <dt class="optional">topic <span class="property-type">string</span></dt>
+            <dd><code>mode</code> change to the selected mode</dd>
+        </dl>
+   <h3>Details</h3>
+   <p>
+       This node represents a mode to be changed.
+   </p>
+</script>
