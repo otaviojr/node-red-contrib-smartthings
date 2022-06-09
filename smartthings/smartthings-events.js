@@ -26,7 +26,7 @@ module.exports = function(RED) {
             done();
         }
 
-        if(this.conf && this.device){
+        if(this.conf){
             const callback  = (evt) => {
                 console.debug("EventNode("+this.name+") Callback called");
                 console.debug(evt);
