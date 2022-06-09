@@ -18,15 +18,23 @@ module.exports = function(RED) {
             send = send || function() { node.send.apply(node,arguments) };
             done = done || function() { };
 
-            let msg = Common.createEvent(evt, this.name);
+            Common.createEvent(evt).then( (msg) => {
+              if(original !== undefined){
+                  original.payload = msg.payload;
+                  Object.assign(msg,original);
+              }
 
-            if(original !== undefined){
-                original.payload = msg.payload;
-                Object.assign(msg,original);
-            }
-
-            send(msg);
-            done();
+              send(msg);
+              done();
+            }).catch( (err) => {
+              let msg = {
+                error: {
+                    message: `Unable to receive event: ${err}`,
+                }
+              };
+              send(msg);
+              done();
+            });
         }
 
         if(this.conf){
