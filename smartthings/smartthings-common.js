@@ -1,5 +1,5 @@
-module.exports = function() {
-  function createEvent(evt){
+module.exports = {
+  createEvent: (evt) => {
     return new Promise( (resolve, reject) => {
       node.stClient.devices.get(evt.deviceId).then( device => {
         console.log("Device Info:");
