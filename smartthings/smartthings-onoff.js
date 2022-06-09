@@ -15,6 +15,7 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.currentStatus = 0;
+        this.currentTimestamp = new Date().toISOString();
 
         this.reportStatus = function(send, done, original) {
             send = send || function() { node.send.apply(node,arguments) };
@@ -26,7 +27,7 @@ module.exports = function(RED) {
                     deviceType: "switch",
                     name: this.name,
                     value: this.currentStatus,
-                    timestamp: new Date().toISOString()
+                    timestamp: this.currentTimestamp
                 }
             };
 
@@ -39,8 +40,9 @@ module.exports = function(RED) {
             done();
         }
 
-        this.updateStatus = function(currentStatus, send, done){
+        this.updateStatus = function(currentStatus, currentTimestamp, send, done){
             this.currentStatus = currentStatus;
+            this.currentTimestamp = currentTimestamp;
             this.reportStatus(send, done);
         }
 
@@ -50,7 +52,7 @@ module.exports = function(RED) {
 
                 current = status["switch"]["value"];
                 if(current){
-                    this.updateStatus((current.toLowerCase() == "on" ? 1 : 0));
+                    this.updateStatus((current.toLowerCase() == "on" ? 1 : 0), status["switch"]["timestamp"]);
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state (OnOffDevice)");
@@ -63,7 +65,7 @@ module.exports = function(RED) {
                 console.debug("OnOffDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["attribute"] == "switch"){
-                    this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0));
+                    this.updateStatus((evt["value"].toLowerCase() === "on" ? 1 : 0), evt["timestamp"]);
                 }
             }
 
