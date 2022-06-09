@@ -1,6 +1,6 @@
 module.exports = function() {
   function createEvent(evt, name){
-    if(evt.attribute === "switch")
+    if(evt.attribute === "switch"){
       return {
           topic: "device",
           payload: {
