@@ -722,7 +722,7 @@ module.exports = function(RED) {
                 console.log(event);
 
                 node.callbackHooks.forEach( (c) => {
-                    c.call(c.parent, event);
+                    c.callback.call(c.parent, event);
                 });
 
                 const callback = node.callbacks[event["deviceId"]];
@@ -782,11 +782,14 @@ module.exports = function(RED) {
             };
 
             node.unregisterCallbackHook = function(parent, callback) {
-                node.callbackHooks.filter((c) => c !== callback);
+                node.callbackHooks.filter((c) => c.callback !== callback);
             };
 
             node.registerCallbackHook = function(parent, callback) {
-                node.callbackHooks.push(callback);
+                node.callbackHooks.push({
+                    parent: parent,
+                    callback: callback
+                });
             };
 
             node.getDeviceStatus = function(deviceId, type){
