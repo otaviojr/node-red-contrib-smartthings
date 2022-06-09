@@ -17,12 +17,17 @@ module.exports = function(RED) {
             send = send || function() { node.send.apply(node,arguments) };
             done = done || function() { };
 
+            let msg = {
+                topic: "event",
+                payload: evt
+            };
+
             if(original !== undefined){
-                original.payload = evt.payload;
-                Object.assign(evt,original);
+                original.payload = msg.payload;
+                Object.assign(msg,original);
             }
 
-            send(evt);
+            send(msg);
             done();
         }
 
