@@ -15,8 +15,7 @@ module.exports = function(RED) {
         this.device = config.device;
 
         this.state = {
-            value: 0,
-            timestamp: new Date().toISOString()
+            value: 0
         };
 
         this.reportState = function(send, done, original) {
@@ -29,7 +28,7 @@ module.exports = function(RED) {
                     deviceType: "acceleration",
                     name: this.name,
                     value: this.state.value,
-                    timestamp: this.state.timestamp
+                    timestamp: new Date().toISOString()
                 }
             };
 
@@ -55,7 +54,6 @@ module.exports = function(RED) {
                 current = status["acceleration"]["value"];
                 this.setState({
                     value: (current.toLowerCase() == "active" ? 1 : 0),
-                    timestamp: status["acceleration"]["timestamp"]
                 });
 
             }).catch( err => {
@@ -70,8 +68,7 @@ module.exports = function(RED) {
                 console.debug(evt);
                 if(evt["attribute"] == "acceleration"){
                     this.setState({
-                        value: (evt["value"].toLowerCase() == "active" ? 1 : 0),
-                        timestamp: evt["timestamp"]
+                        value: (evt["value"].toLowerCase() == "active" ? 1 : 0)
                     });
                 }
             }
