@@ -1,4 +1,5 @@
 var Promise = require('promise');
+var Common = require('./smartthings-common.js');
 
 module.exports = function(RED) {
 
@@ -17,10 +18,7 @@ module.exports = function(RED) {
             send = send || function() { node.send.apply(node,arguments) };
             done = done || function() { };
 
-            let msg = {
-                topic: "event",
-                payload: evt
-            };
+            let msg = Common.createEvent(evt, this.name);
 
             if(original !== undefined){
                 original.payload = msg.payload;
