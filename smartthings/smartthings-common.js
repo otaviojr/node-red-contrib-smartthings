@@ -15,6 +15,8 @@ module.exports = {
                   changed: evt["stateChange"]
               }
           });
+        } else {
+          reject("Unknown Event");
         }
       }).catch( err => {
           reject(err);
