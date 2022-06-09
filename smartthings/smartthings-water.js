@@ -51,7 +51,7 @@ module.exports = function(RED) {
                 console.debug(status);
 
                 this.setState({
-                    value: status["water"]["value"],
+                    value: (status["water"]["value"].toLowerCase() === "wet" ? 1 : 0),
                 });
 
             }).catch( err => {
@@ -66,7 +66,7 @@ module.exports = function(RED) {
                 console.debug(evt);
                 if(evt["attribute"] == "water"){
                     this.setState({
-                        value: evt["value"]
+                        value:(evt["value"].toLowerCase() === "wet" ? 1 : 0)
                     });
                 }
             }

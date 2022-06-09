@@ -51,7 +51,7 @@ module.exports = function(RED) {
                 console.debug(status);
 
                 this.setState({
-                    value: status["smoke"]["value"],
+                    value: (status["smoke"]["value"].toLowerCase() === "detected" ? 1 : 0),
                 });
 
             }).catch( err => {
@@ -66,7 +66,7 @@ module.exports = function(RED) {
                 console.debug(evt);
                 if(evt["attribute"] == "smoke"){
                     this.setState({
-                        value: evt["value"]
+                        value: (evt["value"].toLowerCase() === "detected" ? 1 : 0)
                     });
                 }
             }
