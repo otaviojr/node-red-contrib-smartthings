@@ -74,6 +74,7 @@ module.exports = function(RED) {
                 send = send || function() { node.send.apply(node,arguments) };
                 done = done || function() { };
                 console.debug("Input Message Received");
+                console.debug(msg)
                 if(msg && msg.payload && !isNaN(msg.payload.value) && msg.topic === "switch"){
                     this.conf.executeDeviceCommand(this.device,[{
                         component: "main",
