@@ -26,7 +26,7 @@ module.exports = function(RED) {
                     deviceType: "switch",
                     name: this.name,
                     value: this.currentStatus,
-                    timestamp: new Date().toISOString();
+                    timestamp: new Date().toISOString()
                 }
             };
 
