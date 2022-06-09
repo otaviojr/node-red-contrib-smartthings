@@ -25,6 +25,7 @@ module.exports = {
               break;
 
             case "motion":
+            case "acceleration":
               msg.payload.value = (evt["value"].toLowerCase() === "active" ? 1 : 0);
               break;
 
