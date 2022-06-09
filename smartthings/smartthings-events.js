@@ -18,7 +18,7 @@ module.exports = function(RED) {
             send = send || function() { node.send.apply(node,arguments) };
             done = done || function() { };
 
-            Common.createEvent(evt).then( (msg) => {
+            Common.createEvent(this.conf, evt).then( (msg) => {
               if(original !== undefined){
                   original.payload = msg.payload;
                   Object.assign(msg,original);

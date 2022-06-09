@@ -741,6 +741,19 @@ module.exports = function(RED) {
 
             node.stClient = new SmartThingsClient(new BearerTokenAuthenticator(node.token));
 
+            node.getDevice = function(deviceId) {
+                console.log("getDevice:token:"+ node.token);
+                return new Promise( (resolve, reject) => {
+                    node.stClient.devices.get(deviceId).then(device => {
+                        console.log("Device Info:");
+                        console.log(device);
+                        resolve(device);
+                    }).catch( err => {
+                        reject(err);
+                    });
+                });
+            };
+
             node.getDevices = function(type) {
                 console.log("getDevices:token:"+ node.token);
                 return new Promise( (resolve, reject) => {
