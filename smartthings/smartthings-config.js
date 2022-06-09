@@ -714,11 +714,16 @@ module.exports = function(RED) {
 
         var node = this;
         node.callbacks = [];
+        node.callbackHooks = [];
 
         for(var i = 0; i < 93; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
                 console.log("Smartthings WebApp Event Received:");
                 console.log(event);
+
+                node.callbackHooks.forEach( (c) => {
+                    c.call(c.parent, event);
+                });
 
                 const callback = node.callbacks[event["deviceId"]];
 
@@ -774,6 +779,14 @@ module.exports = function(RED) {
                     parent: parent,
                     callback: callback
                 });
+            };
+
+            node.unregisterCallbackHook = function(parent, callback) {
+                node.callbackHooks.filter((c) => c !== callback);
+            };
+
+            node.registerCallbackHook = function(parent, callback) {
+                node.callbackHooks.push(callback);
             };
 
             node.getDeviceStatus = function(deviceId, type){

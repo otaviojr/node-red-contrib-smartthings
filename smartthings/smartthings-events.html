@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('smartthings-node-events',{
+        category: 'Smartthings',
+        defaults: {
+            conf: {value:"", type:"smartthings-config"},
+            name: {value: ""},
+        },
+        paletteLabel: "Events",
+        icon: 'events.png',
+        outputs: 1,
+        inputs: 0,
+        label: function() {
+            return this.name || "Global Event Node";
+        },
+        oneditprepare: function(){
+            var node = this;
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="smartthings-node-events">
+    <div class="form-row">
+        <label for="node-input-conf"><i class="fa fa-tag"></i> Account</label>
+        <input type="text" id="node-input-conf">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="smartthings-node-events">
+   <p>This Node receive and output every event received on an account.</p>
+   <h3>Details</h3>
+   <p>
+       This node will collect and output every event received from SmartThing.
+
+       The output will be the raw event JSON sent by SmartThings without any
+       further treatment.
+   </p>
+</script>
