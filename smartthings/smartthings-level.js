@@ -32,7 +32,8 @@ module.exports = function(RED) {
                     deviceId: this.device,
                     deviceType: "switch",
                     name: this.name,
-                    value: this.state.value
+                    value: this.state.value,
+                    timestamp: new Date().toISOString()
                 }
             },{
                 topic: "device",
@@ -41,7 +42,8 @@ module.exports = function(RED) {
                     deviceType: "level",
                     name: this.name,
                     value: this.state.level,
-                    unit: this.state.levelUnit
+                    unit: this.state.levelUnit,
+                    timestamp: new Date().toISOString()
                 }
             }];
 

@@ -28,6 +28,7 @@ module.exports = function(RED) {
                     deviceType: "acceleration",
                     name: this.name,
                     value: this.state.value,
+                    timestamp: new Date().toISOString()
                 }
             };
 

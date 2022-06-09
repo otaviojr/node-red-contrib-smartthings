@@ -32,6 +32,7 @@ module.exports = function(RED) {
                     deviceType: "threeAxis",
                     name: this.name,
                     value: this.state.value,
+                    timestamp: new Date().toISOString()
                 }
             };
 

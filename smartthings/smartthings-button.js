@@ -26,7 +26,8 @@ module.exports = function(RED) {
                     deviceType: "button",
                     name: this.name,
                     value: this.currentStatus,
-                    button: this.button
+                    button: this.button,
+                    timestamp: new Date().toISOString()
                 }
             };
 

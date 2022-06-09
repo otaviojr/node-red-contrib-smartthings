@@ -24,7 +24,8 @@ module.exports = function(RED) {
                 payload: {
                     deviceId: this.device,
                     name: this.name,
-                    status: this.currentStatus
+                    status: this.currentStatus,
+                    timestamp: new Date().toISOString()
                 }
             };
 

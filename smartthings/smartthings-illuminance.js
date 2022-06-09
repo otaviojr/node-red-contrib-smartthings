@@ -27,7 +27,8 @@ module.exports = function(RED) {
                     deviceType: "illuminance",
                     name: this.name,
                     value: this.currentStatus,
-                    unit: this.currentUnit
+                    unit: this.currentUnit,
+                    timestamp: new Date().toISOString()
                 }
             };
 

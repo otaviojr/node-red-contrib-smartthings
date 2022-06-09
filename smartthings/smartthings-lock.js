@@ -25,7 +25,8 @@ module.exports = function(RED) {
                     deviceId: this.device,
                     deviceType: "lock",
                     name: this.name,
-                    value: this.currentStatus
+                    value: this.currentStatus,
+                    timestamp: new Date().toISOString()
                 }
             };
 

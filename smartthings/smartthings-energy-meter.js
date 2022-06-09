@@ -29,7 +29,8 @@ module.exports = function(RED) {
                     deviceType: "energy",
                     name: this.name,
                     value: this.state.value,
-                    unit: this.state.unit
+                    unit: this.state.unit,
+                    timestamp: new Date().toISOString()
                 }
             };
 

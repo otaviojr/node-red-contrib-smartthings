@@ -39,7 +39,8 @@ module.exports = function(RED) {
                         deviceType: "temperature",
                         name: this.name,
                         value: this.state.temperature.value,
-                        unit: this.state.temperature.unit
+                        unit: this.state.temperature.unit,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -51,7 +52,8 @@ module.exports = function(RED) {
                         deviceType: "coolingSetpoint",
                         name: this.name,
                         value: this.state.coolingSetpoint.value,
-                        unit: this.state.coolingSetpoint.unit
+                        unit: this.state.coolingSetpoint.unit,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -63,7 +65,8 @@ module.exports = function(RED) {
                         deviceType: "heatingSetpoint",
                         name: this.name,
                         value: this.state.heatingSetpoint.value,
-                        unit: this.state.heatingSetpoint.unit
+                        unit: this.state.heatingSetpoint.unit,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -74,7 +77,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "thermostatSetpoint",
                         name: this.name,
-                        value: this.state.thermostatSetpoint.value
+                        value: this.state.thermostatSetpoint.value,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -85,7 +89,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "thermostatFanMode",
                         name: this.name,
-                        value: this.state.thermostatFanMode
+                        value: this.state.thermostatFanMode,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -96,7 +101,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "thermostatMode",
                         name: this.name,
-                        value: this.state.thermostatMode
+                        value: this.state.thermostatMode,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }
@@ -107,7 +113,8 @@ module.exports = function(RED) {
                         deviceId: this.device,
                         deviceType: "thermostatOperatingState",
                         name: this.name,
-                        value: this.state.thermostatOperatingState
+                        value: this.state.thermostatOperatingState,
+                        timestamp: new Date().toISOString()
                     }
                 };
             }

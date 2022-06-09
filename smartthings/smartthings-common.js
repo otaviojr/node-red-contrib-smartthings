@@ -10,7 +10,8 @@ module.exports = {
           payload: {
               deviceId: evt.deviceId,
               deviceType: evt["attribute"].toLowerCase(),
-              name: device.name
+              name: device.name,
+              timestamp: new Date().toISOString()
           }
         };
 

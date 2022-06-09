@@ -29,7 +29,8 @@ module.exports = function(RED) {
                     deviceType: "humidity",
                     name: this.name,
                     value: this.state.value,
-                    unit: this.state.unit
+                    unit: this.state.unit,
+                    timestamp: new Date().toISOString()
                 }
             };
 

@@ -28,6 +28,7 @@ module.exports = function(RED) {
                     deviceType: "water",
                     name: this.name,
                     value: this.state.value,
+                    timestamp: new Date().toISOString()
                 }
             };
 
