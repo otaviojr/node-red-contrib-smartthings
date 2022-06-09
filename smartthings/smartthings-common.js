@@ -10,8 +10,7 @@ module.exports = {
           payload: {
               deviceId: evt.deviceId,
               deviceType: evt["attribute"].toLowerCase(),
-              name: device.name,
-              changed: evt["stateChange"]
+              name: device.name
           }
         };
 

@@ -721,16 +721,18 @@ module.exports = function(RED) {
                 console.log("Smartthings WebApp Event Received:");
                 console.log(event);
 
-                node.callbackHooks.forEach( (c) => {
-                    c.callback.call(c.parent, event);
-                });
+                if(event["stateChange"] === true){
+                  node.callbackHooks.forEach( (c) => {
+                      c.callback.call(c.parent, event);
+                  });
 
-                const callback = node.callbacks[event["deviceId"]];
+                  const callback = node.callbacks[event["deviceId"]];
 
-                if(callback){
-                    callback.forEach( (c) => {
-                        c.callback.call(c.parent, event);
-                    });
+                  if(callback){
+                      callback.forEach( (c) => {
+                          c.callback.call(c.parent, event);
+                      });
+                  }                  
                 }
             });
         }
