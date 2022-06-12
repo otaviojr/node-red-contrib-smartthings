@@ -21,7 +21,11 @@ module.exports = {
               break;
 
             case "contact":
-              msg.payload.value = (evt["value"].toLowerCase() === "open" ? 1 : 0);
+              if(conf.closeAsActive){
+                msg.payload.value = (evt["value"].toLowerCase() === "closed" ? 1 : 0);                
+              } else {
+                msg.payload.value = (evt["value"].toLowerCase() === "open" ? 1 : 0);
+              }
               break;
 
             case "motion":

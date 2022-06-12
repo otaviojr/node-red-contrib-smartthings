@@ -13,6 +13,7 @@ module.exports = function(RED) {
 
         this.conf = RED.nodes.getNode(config.conf);
         this.name = config.name;
+        this.closeAsActive = config.closeAsActive;
 
         this.reportEvent = function(evt, send, done, original){
             send = send || function() { node.send.apply(node,arguments) };
