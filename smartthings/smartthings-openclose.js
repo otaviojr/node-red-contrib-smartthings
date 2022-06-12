@@ -52,7 +52,7 @@ module.exports = function(RED) {
 
                 current = status["contact"]["value"];
                 if(current){
-                    if(active){
+                    if(this.closeAsActive){
                       this.updateStatus((current.toLowerCase() == "closed" ? 1 : 0));
                     } else {
                       this.updateStatus((current.toLowerCase() == "open" ? 1 : 0));
@@ -69,7 +69,7 @@ module.exports = function(RED) {
                 console.debug("OpenCloseDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["attribute"] == "contact"){
-                  if(active){
+                  if(this.closeAsActive){
                     this.updateStatus((evt["value"].toLowerCase() == "closed" ? 1 : 0));
                   } else {
                     this.updateStatus((evt["value"].toLowerCase() == "open" ? 1 : 0));
