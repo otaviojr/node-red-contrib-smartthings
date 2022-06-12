@@ -13,6 +13,7 @@ module.exports = function(RED) {
         this.conf = RED.nodes.getNode(config.conf);
         this.name = config.name;
         this.device = config.device;
+        this.closeAsActive = config.closeAsActive;
 
         this.currentStatus = 0;
 
@@ -51,7 +52,11 @@ module.exports = function(RED) {
 
                 current = status["contact"]["value"];
                 if(current){
-                    this.updateStatus((current.toLowerCase() == "open" ? 1 : 0));
+                    if(active){
+                      this.updateStatus((current.toLowerCase() == "closed" ? 1 : 0));
+                    } else {
+                      this.updateStatus((current.toLowerCase() == "open" ? 1 : 0));
+                    }
                 }
             }).catch( err => {
                 console.error("Ops... error getting device state (OpenCloseDevice)");
@@ -64,7 +69,11 @@ module.exports = function(RED) {
                 console.debug("OpenCloseDevice("+this.name+") Callback called");
                 console.debug(evt);
                 if(evt["attribute"] == "contact"){
+                  if(active){
+                    this.updateStatus((evt["value"].toLowerCase() == "closed" ? 1 : 0));
+                  } else {
                     this.updateStatus((evt["value"].toLowerCase() == "open" ? 1 : 0));
+                  }
                 }
             }
 
