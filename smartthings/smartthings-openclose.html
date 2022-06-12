@@ -4,7 +4,8 @@
         defaults: {
             conf: {value:"", type:"smartthings-config"},
             name: {value: ""},
-            device: {value: "", required:true}
+            device: {value: "", required:true},
+            active: {value: false}
         },
         paletteLabel: "OpenClose",
         icon: 'openclose.png',
@@ -90,6 +91,10 @@
         <select type="text" id="node-input-device" style="display: inline-block; width: 70%;">
     		  <option value="empty"></option>
         </select>
+    </div>
+    <div class="form-row">
+        <input type="text" id="node-input-active" placeholder="Active State">
+        <label for="node-input-active"><i class="fa fa-tag"></i> Use "closed" as active state</label>
     </div>
 </script>
 
