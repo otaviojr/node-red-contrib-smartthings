@@ -301,6 +301,12 @@ module.exports = function(RED) {
                     .capabilities(['infraredLevel'])
                     .name("Devices").permissions('rwx').multiple(true);
             });
+            page.section('mediaInputSource', section => {
+                section
+                    .deviceSetting('mediaInputSource')
+                    .capabilities(['mediaInputSource'])
+                    .name("Devices").permissions('rwx').multiple(true);
+            });
             page.section('locationMode', section => {
                 section
                     .deviceSetting('locationMode')
@@ -640,6 +646,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.illuminanceMeasurement, 'illuminanceMeasurement', 'illuminance', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.imageCapture, 'imageCapture', 'image', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.infraredLevel, 'infraredLevel', 'infraredLevel', 'handler' + String(i++));
+            await context.api.subscriptions.subscribeToDevices(context.config.mediaInputSource, 'mediaInputSource', 'mediaInputSource', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.locationMode, 'locationMode', 'mode', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.lock, 'lock', 'lock', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.moldHealthConcern, 'moldHealthConcern', 'moldHealthConcern', 'handler' + String(i++));
@@ -716,7 +723,7 @@ module.exports = function(RED) {
         node.callbacks = [];
         node.callbackHooks = [];
 
-        for(var i = 0; i < 93; i++){
+        for(var i = 0; i < 94; i++){
             smartapp.subscribedEventHandler('handler' + String(i), async (context, event) => {
                 console.log("Smartthings WebApp Event Received:");
                 console.log(event);
