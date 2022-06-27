@@ -646,7 +646,7 @@ module.exports = function(RED) {
             await context.api.subscriptions.subscribeToDevices(context.config.illuminanceMeasurement, 'illuminanceMeasurement', 'illuminance', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.imageCapture, 'imageCapture', 'image', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.infraredLevel, 'infraredLevel', 'infraredLevel', 'handler' + String(i++));
-            await context.api.subscriptions.subscribeToDevices(context.config.mediaInputSource, 'mediaInputSource', 'mediaInputSource', 'handler' + String(i++));
+            await context.api.subscriptions.subscribeToDevices(context.config.mediaInputSource, 'mediaInputSource', 'inputSource', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.locationMode, 'locationMode', 'mode', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.lock, 'lock', 'lock', 'handler' + String(i++));
             await context.api.subscriptions.subscribeToDevices(context.config.moldHealthConcern, 'moldHealthConcern', 'moldHealthConcern', 'handler' + String(i++));
