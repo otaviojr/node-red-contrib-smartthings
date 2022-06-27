@@ -337,6 +337,25 @@ module.exports = function(RED) {
                     case "thermostatmode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
+                            capability: "thermostatMode",
+                            command: "setThermostatMode",
+                            arguments: [
+                                msg.payload.value
+                            ]
+                        }]).then( (ret) => {
+                            const state = {
+                                thermostatMode: msg.payload.value
+                            };
+                            this.setState(state, send, done);
+                        }).catch( (ret) => {
+                            this.error("Error updating device");
+                            this.error(ret);
+                            done("Erro updating device");
+                        });
+                        break;
+                    case "thermostat":
+                        this.conf.executeDeviceCommand(this.device,[{
+                            component: "main",
                             capability: "thermostat",
                             command: "setThermostatMode",
                             arguments: [
