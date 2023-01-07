@@ -273,7 +273,7 @@ module.exports = function(RED) {
                     case "coolingsetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostat",
+                            capability: "thermostatCoolingSetpoint",
                             command: "setCoolingSetpoint",
                             arguments: [
                                 msg.payload.value
@@ -288,14 +288,14 @@ module.exports = function(RED) {
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
-                            done("Erro updating device");
+                            done("Error updating device");
                         });
                         break;
 
                     case "thermostatfanmode":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostat",
+                            capability: "thermostatFanMode",
                             command: "setThermostatFanMode",
                             arguments: [
                                 msg.payload.value
@@ -308,14 +308,14 @@ module.exports = function(RED) {
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
-                            done("Erro updating device");
+                            done("Error updating device");
                         });
                         break;
 
                     case "heatingsetpoint":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostat",
+                            capability: "thermostatHeatingSetpoint",
                             command: "setHeatingSetpoint",
                             arguments: [
                                 msg.payload.value
@@ -330,7 +330,7 @@ module.exports = function(RED) {
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
-                            done("Erro updating device");
+                            done("Error updating device");
                         });
                         break;
 
@@ -350,13 +350,13 @@ module.exports = function(RED) {
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
-                            done("Erro updating device");
+                            done("Error updating device");
                         });
                         break;
                     case "thermostat":
                         this.conf.executeDeviceCommand(this.device,[{
                             component: "main",
-                            capability: "thermostat",
+                            capability: "thermostatMode",
                             command: "setThermostatMode",
                             arguments: [
                                 msg.payload.value
@@ -369,7 +369,7 @@ module.exports = function(RED) {
                         }).catch( (ret) => {
                             this.error("Error updating device");
                             this.error(ret);
-                            done("Erro updating device");
+                            done("Error updating device");
                         });
                         break;
 
