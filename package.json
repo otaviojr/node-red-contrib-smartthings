@@ -36,6 +36,7 @@
       "smartthings-power-meter": "smartthings/smartthings-power-meter.js",
       "smartthings-thermostat": "smartthings/smartthings-thermostat.js",
       "smartthings-three-axis": "smartthings/smartthings-threeaxis.js",
+      "smartthings-shade-level": "smartthings/smartthings-shade-level.js",
       "smartthings-smoke": "smartthings/smartthings-smoke.js",
       "smartthings-scene": "smartthings/smartthings-scene.js",
       "smartthings-status": "smartthings/smartthings-status.js",
